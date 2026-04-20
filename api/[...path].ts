@@ -7,5 +7,5 @@ export default async function handler(req: any, res: any) {
     await ensureAdminUser().catch(console.error);
     initialized = true;
   }
-  app(req, res);
+  (app as any)(req, res);
 }
