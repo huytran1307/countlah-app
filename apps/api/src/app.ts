@@ -1,4 +1,4 @@
-import express, { type Express } from "express";
+import express from "express";
 import cors from "cors";
 import pinoHttp from "pino-http";
 import session from "express-session";
@@ -49,7 +49,7 @@ async function ensureAdminUser(): Promise<void> {
   }
 }
 
-const app: Express = express();
+const app = express();
 app.set("trust proxy", 1);
 
 if (!process.env.SESSION_SECRET) {
