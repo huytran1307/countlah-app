@@ -1,0 +1,450 @@
+openapi: 3.1.0
+info:
+  # Do not change the title, if the title changes, the import paths will be broken
+  title: Api
+  version: 0.1.0
+  description: COUNTLAH Invoice Processing API
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: auth
+    description: Admin authentication
+  - name: invoices
+    description: Invoice management
+  - name: logs
+    description: Invoice processing logs
+
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+
+  /auth/login:
+    post:
+      operationId: login
+      tags: [auth]
+      summary: Admin login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginBody"
+      responses:
+        "200":
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LoginResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /auth/logout:
+    post:
+      operationId: logout
+      tags: [auth]
+      summary: Admin logout
+      responses:
+        "200":
+          description: Logged out
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MessageResponse"
+
+  /auth/me:
+    get:
+      operationId: getMe
+      tags: [auth]
+      summary: Get current session info
+      responses:
+        "200":
+          description: Current user
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MeResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /invoices:
+    get:
+      operationId: listInvoices
+      tags: [invoices]
+      summary: List all invoices
+      parameters:
+        - name: status
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [uploaded, extracted, pushed, failed]
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 1
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 20
+      responses:
+        "200":
+          description: Invoice list
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvoiceListResponse"
+
+  /invoices/stats:
+    get:
+      operationId: getInvoiceStats
+      tags: [invoices]
+      summary: Get invoice dashboard stats
+      responses:
+        "200":
+          description: Stats summary
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvoiceStats"
+
+  /invoices/{id}:
+    get:
+      operationId: getInvoice
+      tags: [invoices]
+      summary: Get single invoice
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Invoice
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Invoice"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    put:
+      operationId: updateInvoice
+      tags: [invoices]
+      summary: Update extracted invoice data
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateInvoiceBody"
+      responses:
+        "200":
+          description: Updated invoice
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Invoice"
+    delete:
+      operationId: deleteInvoice
+      tags: [invoices]
+      summary: Delete an invoice
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Deleted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MessageResponse"
+
+  /invoices/{id}/extract:
+    post:
+      operationId: extractInvoice
+      tags: [invoices]
+      summary: Run AI extraction on an uploaded invoice
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Extracted data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ExtractedData"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /invoices/{id}/push-xero:
+    post:
+      operationId: pushToXero
+      tags: [invoices]
+      summary: Push invoice to Xero
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Push result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/XeroPushResponse"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /invoices/{id}/logs:
+    get:
+      operationId: getInvoiceLogs
+      tags: [logs]
+      summary: Get processing logs for an invoice
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Logs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/InvoiceLog"
+
+components:
+  schemas:
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required: [status]
+
+    LoginBody:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      required: [email, password]
+
+    LoginResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+      required: [success, message]
+
+    MeResponse:
+      type: object
+      properties:
+        authenticated:
+          type: boolean
+        email:
+          type: string
+        isAdmin:
+          type: boolean
+      required: [authenticated]
+
+    MessageResponse:
+      type: object
+      properties:
+        message:
+          type: string
+      required: [message]
+
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+      required: [error]
+
+    LineItem:
+      type: object
+      properties:
+        description:
+          type: string
+        quantity:
+          type: number
+        unit_price:
+          type: number
+        amount:
+          type: number
+      required: [description, quantity, unit_price, amount]
+
+    ExtractedData:
+      type: object
+      properties:
+        supplier_name:
+          type: string
+        invoice_number:
+          type: string
+        invoice_date:
+          type: string
+        due_date:
+          type: string
+        currency:
+          type: string
+        subtotal:
+          type: number
+        tax:
+          type: number
+        total:
+          type: number
+        line_items:
+          type: array
+          items:
+            $ref: "#/components/schemas/LineItem"
+
+    Invoice:
+      type: object
+      properties:
+        id:
+          type: integer
+        filename:
+          type: string
+        originalName:
+          type: string
+        rawText:
+          type: string
+        extractedData:
+          $ref: "#/components/schemas/ExtractedData"
+        status:
+          type: string
+          enum: [uploaded, extracted, pushed, failed]
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+      required: [id, filename, status, createdAt]
+
+    InvoiceListResponse:
+      type: object
+      properties:
+        invoices:
+          type: array
+          items:
+            $ref: "#/components/schemas/Invoice"
+        total:
+          type: integer
+        page:
+          type: integer
+        limit:
+          type: integer
+      required: [invoices, total, page, limit]
+
+    InvoiceStats:
+      type: object
+      properties:
+        total:
+          type: integer
+        uploaded:
+          type: integer
+        extracted:
+          type: integer
+        pushed:
+          type: integer
+        failed:
+          type: integer
+        totalValue:
+          type: number
+      required: [total, uploaded, extracted, pushed, failed, totalValue]
+
+    UpdateInvoiceBody:
+      type: object
+      properties:
+        extractedData:
+          $ref: "#/components/schemas/ExtractedData"
+        status:
+          type: string
+          enum: [uploaded, extracted, pushed, failed]
+
+    XeroPushResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        xeroInvoiceId:
+          type: string
+        message:
+          type: string
+      required: [success, message]
+
+    InvoiceLog:
+      type: object
+      properties:
+        id:
+          type: integer
+        invoiceId:
+          type: integer
+        action:
+          type: string
+        status:
+          type: string
+        message:
+          type: string
+        createdAt:
+          type: string
+      required: [id, invoiceId, action, status, createdAt]
