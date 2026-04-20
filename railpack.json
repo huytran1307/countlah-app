@@ -1,0 +1,12 @@
+{
+  "build": {
+    "cmds": [
+      "npm install -g pnpm",
+      "pnpm install --frozen-lockfile",
+      "pnpm --filter @countlah/api run build"
+    ]
+  },
+  "start": {
+    "cmd": "node --enable-source-maps apps/api/dist/index.mjs"
+  }
+}
