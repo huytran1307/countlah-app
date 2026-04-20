@@ -2,12 +2,13 @@ import express, { type Express } from "express";
 import cors from "cors";
 import pinoHttp from "pino-http";
 import session from "express-session";
+import connectPgSimple from "connect-pg-simple";
 import path from "path";
 import bcrypt from "bcryptjs";
 import { eq } from "drizzle-orm";
 import router from "./routes";
 import { logger } from "./lib/logger";
-import { db, usersTable } from "@workspace/db";
+import { db, pool, usersTable } from "@workspace/db";
 
 // ─── Admin bootstrap ──────────────────────────────────────────────────────────
 // Ensures at least one admin account exists on startup.
@@ -79,14 +80,19 @@ app.use(cors({ origin: true, credentials: true }));
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true }));
 
+const PgStore = connectPgSimple(session);
+
 app.use(
   session({
+    store: process.env.DATABASE_URL
+      ? new PgStore({ pool, createTableIfMissing: true, tableName: "user_sessions" })
+      : undefined,
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     cookie: {
       httpOnly: true,
-      secure: false,
+      secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
       // maxAge is set per-request in the login route based on rememberMe
     },
