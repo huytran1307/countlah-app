@@ -12,7 +12,6 @@ import {
   deleteSetting,
   getUserSetting,
   setUserSetting,
-  deleteUserSetting,
   deleteAllUserSettings,
 } from "../lib/xero";
 
@@ -34,11 +33,11 @@ const logoUpload = multer({
 const GLOBAL = {
   BRANDING_LOGO_URL: "branding_logo_url",
   BRANDING_COMPANY_NAME: "branding_company_name",
+  XERO_CLIENT_ID: "xero_client_id",
+  XERO_CLIENT_SECRET: "xero_client_secret",
 };
 
 const USER = {
-  XERO_CLIENT_ID: "xero_client_id",
-  XERO_CLIENT_SECRET: "xero_client_secret",
   XERO_ACCESS_TOKEN: "xero_access_token",
   XERO_REFRESH_TOKEN: "xero_refresh_token",
   XERO_TOKEN_EXPIRY: "xero_token_expiry",
@@ -129,8 +128,8 @@ router.get("/settings/all", requireAuth, async (req, res): Promise<void> => {
     brandingLogoUrl,
     brandingCompanyName,
   ] = await Promise.all([
-    getUserSetting(userId, USER.XERO_CLIENT_ID),
-    getUserSetting(userId, USER.XERO_CLIENT_SECRET),
+    getSetting(GLOBAL.XERO_CLIENT_ID),
+    getSetting(GLOBAL.XERO_CLIENT_SECRET),
     getUserSetting(userId, USER.XERO_ACCESS_TOKEN),
     getUserSetting(userId, USER.XERO_TENANT_ID),
     getUserSetting(userId, USER.XERO_TENANT_NAME),
@@ -183,14 +182,13 @@ router.get("/settings/all", requireAuth, async (req, res): Promise<void> => {
   });
 });
 
-// ─── Xero Credentials (save client ID + secret) — per-user ────────────────────
+// ─── Xero Credentials (save client ID + secret) — admin-only global ──────────
 
-router.post("/settings/xero", requireAuth, async (req, res): Promise<void> => {
-  const userId = req.session.userId!;
+router.post("/settings/xero", requireAdmin, async (req, res): Promise<void> => {
   const { clientId, clientSecret } = req.body;
-  if (typeof clientId === "string") await setUserSetting(userId, USER.XERO_CLIENT_ID, clientId.trim());
+  if (typeof clientId === "string") await setSetting(GLOBAL.XERO_CLIENT_ID, clientId.trim());
   if (typeof clientSecret === "string" && clientSecret.trim() !== "") {
-    await setUserSetting(userId, USER.XERO_CLIENT_SECRET, clientSecret.trim());
+    await setSetting(GLOBAL.XERO_CLIENT_SECRET, clientSecret.trim());
   }
   res.json({ success: true });
 });
@@ -198,10 +196,9 @@ router.post("/settings/xero", requireAuth, async (req, res): Promise<void> => {
 // ─── Xero OAuth: get authorization URL — per-user ─────────────────────────────
 
 router.get("/settings/xero/auth-url", requireAuth, async (req, res): Promise<void> => {
-  const userId = req.session.userId!;
   const [clientId, clientSecret] = await Promise.all([
-    getUserSetting(userId, USER.XERO_CLIENT_ID),
-    getUserSetting(userId, USER.XERO_CLIENT_SECRET),
+    getSetting(GLOBAL.XERO_CLIENT_ID),
+    getSetting(GLOBAL.XERO_CLIENT_SECRET),
   ]);
 
   if (!clientId || !clientSecret) {
@@ -269,8 +266,8 @@ router.get("/auth/xero/callback", async (req, res): Promise<void> => {
 
   try {
     const [clientId, clientSecret] = await Promise.all([
-      getUserSetting(userId, USER.XERO_CLIENT_ID),
-      getUserSetting(userId, USER.XERO_CLIENT_SECRET),
+      getSetting(GLOBAL.XERO_CLIENT_ID),
+      getSetting(GLOBAL.XERO_CLIENT_SECRET),
     ]);
 
     if (!clientId || !clientSecret) {
@@ -320,8 +317,8 @@ router.get("/xero/status", requireAuth, async (req, res): Promise<void> => {
     getUserSetting(userId, USER.XERO_ACCESS_TOKEN),
     getUserSetting(userId, USER.XERO_TENANT_ID),
     getUserSetting(userId, USER.XERO_TENANT_NAME),
-    getUserSetting(userId, USER.XERO_CLIENT_ID),
-    getUserSetting(userId, USER.XERO_CLIENT_SECRET),
+    getSetting(GLOBAL.XERO_CLIENT_ID),
+    getSetting(GLOBAL.XERO_CLIENT_SECRET),
   ]);
   const connected = !!(accessToken && tenantId);
   const hasCredentials = !!(clientId && clientSecret);

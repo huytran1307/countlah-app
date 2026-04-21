@@ -186,8 +186,8 @@ export async function getValidToken(userId: number): Promise<{ accessToken: stri
     getUserSetting(userId, "xero_token_expiry"),
     getUserSetting(userId, "xero_tenant_id"),
     getUserSetting(userId, "xero_tenant_name"),
-    getUserSetting(userId, "xero_client_id"),
-    getUserSetting(userId, "xero_client_secret"),
+    getSetting("xero_client_id"),
+    getSetting("xero_client_secret"),
   ]);
 
   console.log("[xero:getValidToken] DB state (userId=%d):", userId, {
