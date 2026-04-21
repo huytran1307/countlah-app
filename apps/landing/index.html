@@ -212,6 +212,54 @@ footer{position:relative;z-index:1;padding:80px 48px 40px}
 .btn-modal{width:100%;padding:12px;border-radius:9999px;font-size:14px;font-weight:600;color:#fff;background:var(--gradient-primary);box-shadow:0 0 24px rgba(249,90,24,.3),0 6px 20px rgba(0,0,0,.4);transition:transform .15s var(--ease-out),opacity .2s}
 .btn-modal:hover{transform:scale(1.01)}
 .btn-modal:active{transform:scale(.98)}
+
+/* —— Demo modal ————————————————————————————————————————————————— */
+.demo-card{width:100%;max-width:640px;border-radius:24px;padding:40px;position:relative;transform:translateY(16px) scale(.97);transition:transform .3s var(--ease-out)}
+.modal-overlay.open .demo-card{transform:translateY(0) scale(1)}
+.demo-steps{display:flex;justify-content:center;gap:8px;margin-bottom:28px}
+.demo-step-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.15);transition:all .4s var(--ease-out)}
+.demo-step-dot.active{width:24px;border-radius:9999px;background:var(--orange-500)}
+.demo-screen{min-height:280px;display:none;flex-direction:column;animation:fadeUp .4s var(--ease-out) both}
+.demo-screen.active{display:flex}
+.demo-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.14em;color:var(--orange-300);margin-bottom:8px}
+.demo-heading{font-size:22px;font-weight:700;letter-spacing:-.02em;margin-bottom:6px}
+.demo-sub{font-size:13px;color:rgba(255,255,255,.45);margin-bottom:24px;line-height:1.6}
+/* Step 1 – Upload */
+.upload-zone{border:2px dashed rgba(249,90,24,.4);border-radius:16px;padding:32px;text-align:center;background:rgba(249,90,24,.04);position:relative;overflow:hidden}
+.upload-zone.animating{border-color:rgba(249,90,24,.8);animation:pulse-border 1s ease-in-out infinite}
+@keyframes pulse-border{0%,100%{border-color:rgba(249,90,24,.4)}50%{border-color:rgba(249,90,24,.9)}}
+.file-icon{width:56px;height:72px;margin:0 auto 12px;background:linear-gradient(135deg,rgba(255,255,255,.1),rgba(255,255,255,.04));border:1px solid rgba(255,255,255,.12);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:#FFA070;letter-spacing:.05em;animation:fileFloat 3s ease-in-out infinite}
+@keyframes fileFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.upload-label{font-size:13px;color:rgba(255,255,255,.5)}
+.upload-label strong{color:#fff}
+.upload-bar-wrap{margin-top:20px;height:4px;border-radius:9999px;background:rgba(255,255,255,.06);overflow:hidden}
+.upload-bar{height:100%;width:0;background:linear-gradient(90deg,#FFA070,#F95A18);border-radius:9999px;transition:width 2s ease-in-out}
+/* Step 2 – Extract */
+.extract-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.extract-cell{border-radius:12px;padding:12px 14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);opacity:0;transform:translateY(8px);transition:all .4s var(--ease-out)}
+.extract-cell.show{opacity:1;transform:translateY(0)}
+.extract-cell .lbl{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.35);margin-bottom:4px}
+.extract-cell .val{font-size:14px;font-weight:600}
+.extract-cell .val.mono{font-family:var(--font-mono);font-size:13px}
+.ai-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:9999px;background:rgba(249,90,24,.1);border:1px solid rgba(249,90,24,.25);color:#FFA070;font-size:11px;font-weight:500;margin-bottom:16px}
+/* Step 3 – Xero */
+.xero-card{border-radius:16px;padding:24px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07)}
+.xero-header{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.xero-logo{width:36px;height:36px;border-radius:10px;background:rgba(30,184,130,.15);border:1px solid rgba(30,184,130,.3);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#1EB882}
+.xero-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:13px}
+.xero-row:last-child{border-bottom:none}
+.xero-row .key{color:rgba(255,255,255,.45)}
+.xero-status{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:9999px;font-size:11.5px;font-weight:600;background:rgba(30,184,130,.12);border:1px solid rgba(30,184,130,.3);color:#1EB882;opacity:0;transition:opacity .6s .4s}
+.xero-status.show{opacity:1}
+.xero-check{width:18px;height:18px;border-radius:50%;background:#1EB882;display:flex;align-items:center;justify-content:center;transform:scale(0);transition:transform .4s .6s cubic-bezier(0.34,1.56,0.64,1)}
+.xero-check.show{transform:scale(1)}
+/* Nav controls */
+.demo-nav{display:flex;align-items:center;justify-content:space-between;margin-top:28px}
+.demo-nav-btn{display:flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;font-size:13px;font-weight:500;color:rgba(255,255,255,.6);background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);cursor:pointer;transition:all .2s;font-family:inherit}
+.demo-nav-btn:hover{color:#fff;background:rgba(255,255,255,.08)}
+.demo-nav-btn:disabled{opacity:.3;cursor:not-allowed}
+.demo-nav-btn.primary{background:var(--gradient-primary);color:#fff;border:none;box-shadow:0 0 20px rgba(249,90,24,.25)}
+.demo-nav-btn.primary:hover{transform:scale(1.02)}
 </style>
 </head>
 <body>
@@ -249,7 +297,7 @@ footer{position:relative;z-index:1;padding:80px 48px 40px}
     </nav>
     <div class="nav-right">
       <button class="btn-login" onclick="openBrandModal()">Login</button>
-      <a href="https://app.countlah.sg/signup" class="btn-cta">Get started</a>
+      <a href="https://countlahapp.vercel.app/signup" class="btn-cta">Get started</a>
     </div>
   </div>
 </header>
@@ -270,11 +318,11 @@ footer{position:relative;z-index:1;padding:80px 48px 40px}
     </p>
 
     <div class="hero-buttons">
-      <a href="https://app.countlah.sg/signup" class="btn-hero">
+      <a href="https://countlahapp.vercel.app/signup" class="btn-hero">
         Start free trial
         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
       </a>
-      <button class="btn-ghost">Watch demo</button>
+      <button class="btn-ghost" onclick="openDemoModal()">Watch demo</button>
     </div>
 
     <p class="hero-note">No credit card required · 14-day trial · Connects to Xero</p>
@@ -424,11 +472,11 @@ footer{position:relative;z-index:1;padding:80px 48px 40px}
       <h2>Stop retyping invoices.<br/>Start reading the numbers.</h2>
       <p class="sub">Connect Xero, upload your first invoice, and see what a finance teammate feels like.</p>
       <div class="final-buttons">
-        <a href="https://app.countlah.sg/signup" class="btn-final">
+        <a href="https://countlahapp.vercel.app/signup" class="btn-final">
           Start free trial
           <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
         </a>
-        <button class="btn-ghost-lg">Book a demo</button>
+        <button class="btn-ghost-lg" onclick="openDemoModal()">Watch demo</button>
       </div>
     </div>
   </div>
@@ -456,20 +504,96 @@ footer{position:relative;z-index:1;padding:80px 48px 40px}
     <div class="footer-cols">
       <div class="footer-col">
         <h4>Product</h4>
-        <ul><li><a href="#features">Features</a></li><li><a href="#pricing">Pricing</a></li><li><a href="#">Integrations</a></li><li><a href="#">Changelog</a></li></ul>
+        <ul><li><a href="#features">Features</a></li><li><a href="#pricing">Pricing</a></li><li><a href="javascript:void(0)">Integrations</a></li><li><a href="javascript:void(0)">Changelog</a></li></ul>
       </div>
       <div class="footer-col">
         <h4>Company</h4>
-        <ul><li><a href="#">About</a></li><li><a href="#">Careers</a></li><li><a href="#contact">Contact</a></li><li><a href="#" onclick="openBrandModal();return false;">Brand guidelines</a></li></ul>
+        <ul><li><a href="javascript:void(0)">About</a></li><li><a href="javascript:void(0)">Careers</a></li><li><a href="#contact">Contact</a></li><li><a href="javascript:void(0)" onclick="openBrandModal()">Brand guidelines</a></li></ul>
       </div>
       <div class="footer-col">
         <h4>Legal</h4>
-        <ul><li><a href="#">Privacy</a></li><li><a href="#">Terms</a></li><li><a href="#">Cookies</a></li></ul>
+        <ul><li><a href="javascript:void(0)">Privacy</a></li><li><a href="javascript:void(0)">Terms</a></li><li><a href="javascript:void(0)">Cookies</a></li></ul>
       </div>
     </div>
   </div>
   <p class="footer-copy">© 2026 Countlah. Built in Singapore.</p>
 </footer>
+
+<!-- Demo modal -->
+<div class="modal-overlay" id="demoModal" onclick="handleDemoOverlayClick(event)">
+  <div class="demo-card gm-strong">
+    <button class="modal-close" onclick="closeDemoModal()" aria-label="Close">✕</button>
+    <div class="demo-steps">
+      <div class="demo-step-dot active" id="dot0"></div>
+      <div class="demo-step-dot" id="dot1"></div>
+      <div class="demo-step-dot" id="dot2"></div>
+    </div>
+
+    <!-- Step 1: Upload -->
+    <div class="demo-screen active" id="demo-screen-0">
+      <p class="demo-title">Step 1 of 3</p>
+      <h3 class="demo-heading">Drop your invoice</h3>
+      <p class="demo-sub">Upload any PDF, JPG or PNG — Countlah handles the rest.</p>
+      <div class="upload-zone" id="uploadZone">
+        <div class="file-icon">PDF</div>
+        <p class="upload-label"><strong>invoice_acme_apr26.pdf</strong></p>
+        <p class="upload-label" style="font-size:11px;margin-top:4px;color:rgba(255,255,255,.3)">Uploading…</p>
+        <div class="upload-bar-wrap"><div class="upload-bar" id="uploadBar"></div></div>
+      </div>
+    </div>
+
+    <!-- Step 2: Extract -->
+    <div class="demo-screen" id="demo-screen-1">
+      <div class="ai-badge">
+        <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09Z"/></svg>
+        AI extracted in 1.2s
+      </div>
+      <h3 class="demo-heading">Data extracted</h3>
+      <p class="demo-sub">Every field pulled automatically — no typing required.</p>
+      <div class="extract-grid">
+        <div class="extract-cell" id="ec0"><div class="lbl">Supplier</div><div class="val">Acme Pte Ltd</div></div>
+        <div class="extract-cell" id="ec1"><div class="lbl">Invoice No.</div><div class="val mono">INV-00237</div></div>
+        <div class="extract-cell" id="ec2"><div class="lbl">Date</div><div class="val">15 Apr 2026</div></div>
+        <div class="extract-cell" id="ec3"><div class="lbl">Subtotal</div><div class="val">S$ 1,160.75</div></div>
+        <div class="extract-cell" id="ec4"><div class="lbl">GST (9%)</div><div class="val">S$ 87.75</div></div>
+        <div class="extract-cell" id="ec5"><div class="lbl">Total</div><div class="val" style="color:#FFA070;font-size:16px">S$ 1,248.50</div></div>
+      </div>
+    </div>
+
+    <!-- Step 3: Xero -->
+    <div class="demo-screen" id="demo-screen-2">
+      <p class="demo-title">Step 3 of 3</p>
+      <h3 class="demo-heading">Pushed to Xero</h3>
+      <p class="demo-sub">Bill created as a draft — ready for your review.</p>
+      <div class="xero-card">
+        <div class="xero-header">
+          <div class="xero-logo">X</div>
+          <div>
+            <div style="font-size:13px;font-weight:600">Xero · Draft Bill</div>
+            <div style="font-size:11px;color:rgba(255,255,255,.4)">Acme Pte Ltd · INV-00237</div>
+          </div>
+          <div style="margin-left:auto">
+            <span class="xero-status" id="xeroStatus">
+              <div class="xero-check" id="xeroCheck">
+                <svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+              </div>
+              Synced
+            </span>
+          </div>
+        </div>
+        <div class="xero-row"><span class="key">Date</span><span>15 Apr 2026</span></div>
+        <div class="xero-row"><span class="key">Due date</span><span>15 May 2026</span></div>
+        <div class="xero-row"><span class="key">Account</span><span>Purchases</span></div>
+        <div class="xero-row"><span class="key">Total</span><span style="font-weight:600;color:#FFA070">S$ 1,248.50</span></div>
+      </div>
+    </div>
+
+    <div class="demo-nav">
+      <button class="demo-nav-btn" id="demoPrev" onclick="demoNav(-1)" disabled>← Back</button>
+      <button class="demo-nav-btn primary" id="demoNext" onclick="demoNav(1)">Next →</button>
+    </div>
+  </div>
+</div>
 
 <!-- Brand login modal -->
 <div class="modal-overlay" id="brandModal" onclick="handleOverlayClick(event)">
@@ -573,8 +697,88 @@ footer{position:relative;z-index:1;padding:80px 48px 40px}
   }
 
   document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') closeBrandModal();
+    if (e.key === 'Escape') { closeBrandModal(); closeDemoModal(); }
   });
+
+  // ── Demo modal ──────────────────────────────────────────────────────────────
+  let demoStep = 0;
+  let demoTimers = [];
+
+  function openDemoModal() {
+    demoStep = 0;
+    renderDemoStep(0);
+    document.getElementById('demoModal').classList.add('open');
+  }
+
+  function closeDemoModal() {
+    document.getElementById('demoModal').classList.remove('open');
+    demoTimers.forEach(clearTimeout);
+    demoTimers = [];
+  }
+
+  function handleDemoOverlayClick(e) {
+    if (e.target === document.getElementById('demoModal')) closeDemoModal();
+  }
+
+  function demoNav(dir) {
+    const next = demoStep + dir;
+    if (next < 0 || next > 2) return;
+    demoStep = next;
+    renderDemoStep(demoStep);
+  }
+
+  function renderDemoStep(step) {
+    demoTimers.forEach(clearTimeout);
+    demoTimers = [];
+
+    // screens
+    [0,1,2].forEach(i => {
+      document.getElementById('demo-screen-' + i).classList.toggle('active', i === step);
+      document.getElementById('dot' + i).classList.toggle('active', i === step);
+    });
+
+    // buttons
+    document.getElementById('demoPrev').disabled = step === 0;
+    const nextBtn = document.getElementById('demoNext');
+    if (step === 2) {
+      nextBtn.textContent = 'Try it free →';
+      nextBtn.onclick = function() { window.location.href = 'https://countlahapp.vercel.app/signup'; };
+    } else {
+      nextBtn.textContent = 'Next →';
+      nextBtn.onclick = function() { demoNav(1); };
+    }
+
+    if (step === 0) animateUpload();
+    if (step === 1) animateExtract();
+    if (step === 2) animateXero();
+  }
+
+  function animateUpload() {
+    const bar = document.getElementById('uploadBar');
+    bar.style.width = '0';
+    const t1 = setTimeout(() => { bar.style.width = '100%'; }, 100);
+    const t2 = setTimeout(() => demoNav(1), 2400);
+    demoTimers.push(t1, t2);
+  }
+
+  function animateExtract() {
+    [0,1,2,3,4,5].forEach(i => {
+      document.getElementById('ec'+i).classList.remove('show');
+    });
+    [0,1,2,3,4,5].forEach(i => {
+      const t = setTimeout(() => document.getElementById('ec'+i).classList.add('show'), 200 + i * 150);
+      demoTimers.push(t);
+    });
+  }
+
+  function animateXero() {
+    const status = document.getElementById('xeroStatus');
+    const check = document.getElementById('xeroCheck');
+    status.classList.remove('show');
+    check.classList.remove('show');
+    const t1 = setTimeout(() => { status.classList.add('show'); check.classList.add('show'); }, 300);
+    demoTimers.push(t1);
+  }
 </script>
 </body>
 </html>
