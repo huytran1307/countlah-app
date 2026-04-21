@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Brand Guidelines — Countlah</title>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="robots" content="noindex,nofollow"/>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 145 121'%3E%3Cpath fill='%23F95A18' d='M23.79,115.66L2.46,94.33c-1.57-1.57-2.46-3.71-2.46-5.93v-43.69c0-7.55,9.13-11.33,14.47-5.99l67.68,67.68c5.34,5.34,1.56,14.47-5.99,14.47h-39.82c-4.71,0-9.22-1.87-12.55-5.2'/%3E%3Cpath fill='%23F95A18' d='M7.23,14.47l28.71,28.68c3.33,3.33,7.84,5.19,12.55,5.19l76.15-.03c4.63,0,8.38-3.76,8.38-8.39V8.39c0-4.63-3.75-8.39-8.39-8.39H13.22C5.67,0,1.89,9.13,7.23,14.47'/%3E%3Cpath fill='%23F95A18' d='M120.99,120.85h15.7c4.63,0,8.38-3.75,8.39-8.37l.02-12.17-.03-31.56c0-4.63-3.76-8.38-8.39-8.38l-62.8.05c-7.63,0-11.44,9.23-6.05,14.62l40.62,40.62c3.33,3.33,7.84,5.2,12.55,5.2'/%3E%3C/svg%3E"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,600,700,800,900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --orange:#F95A18;--orange-light:#FFA070;--orange-dark:#B8420F;
+  --dark:#0A0F19;--dark-card:#0E1422;--dark-500:#26304D;
+  --blue:#4178EB;--blue-light:#94B7FF;
+  --font-sans:"Satoshi",system-ui,-apple-system,sans-serif;
+  --font-mono:"JetBrains Mono",monospace;
+  --ease-out:cubic-bezier(0.16,1,0.3,1);
+}
+html,body{font-family:var(--font-sans);font-size:14px;line-height:1.5;color:#fff;background:var(--dark);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;border:none;cursor:pointer;outline:none;background:none}
+
+/* Nav */
+.nav{position:sticky;top:0;z-index:50;padding:14px 48px;background:rgba(10,15,25,.85);border-bottom:1px solid rgba(255,255,255,.06);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:space-between}
+.nav-left{display:flex;align-items:center;gap:20px}
+.back-btn{display:flex;align-items:center;gap:6px;font-size:12.5px;color:rgba(255,255,255,.5);transition:color .2s;padding:5px 10px;border-radius:8px;border:1px solid rgba(255,255,255,.08)}
+.back-btn:hover{color:#fff;border-color:rgba(255,255,255,.16)}
+.back-btn svg{width:14px;height:14px}
+.nav-divider{width:1px;height:20px;background:rgba(255,255,255,.1)}
+.nav-title{font-size:12.5px;font-weight:500;color:rgba(255,255,255,.4);letter-spacing:.04em}
+.nav-badge{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;padding:3px 8px;border-radius:9999px;background:rgba(249,90,24,.12);border:1px solid rgba(249,90,24,.25);color:#FFA070}
+
+/* Hero */
+.hero{padding:80px 48px 64px;max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:80px}
+.hero-eyebrow{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.18em;color:rgba(255,255,255,.35);margin-bottom:20px}
+.hero h1{font-size:clamp(40px,5vw,64px);font-weight:800;line-height:1.0;letter-spacing:-.035em}
+.hero h1 span{color:var(--orange)}
+.hero-sub{margin-top:20px;font-size:15px;line-height:1.7;color:rgba(255,255,255,.45);max-width:420px}
+.hero-meta{margin-top:32px;display:flex;gap:24px}
+.hero-meta-item{display:flex;flex-direction:column;gap:3px}
+.hero-meta-item .label{font-size:10px;text-transform:uppercase;letter-spacing:.14em;color:rgba(255,255,255,.3)}
+.hero-meta-item .val{font-size:13px;font-weight:600}
+.hero-visual{display:flex;align-items:center;justify-content:center;aspect-ratio:4/3;border-radius:20px;background:linear-gradient(135deg,#F95A18 0%,#B8420F 100%);position:relative;overflow:hidden}
+.hero-visual-logo{width:55%;height:auto}
+.hero-visual-dots{position:absolute;top:18px;left:18px;width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.4)}
+.hero-visual-dots2{position:absolute;bottom:18px;right:18px;width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.3)}
+.hero-visual-line{position:absolute;top:18px;left:36px;right:60%;height:1px;background:rgba(255,255,255,.25)}
+.hero-visual-line2{position:absolute;bottom:18px;right:36px;left:60%;height:1px;background:rgba(255,255,255,.2)}
+
+/* Sections */
+.section{padding:80px 48px;border-top:1px solid rgba(255,255,255,.05)}
+.section-inner{max-width:1200px;margin:0 auto}
+.section-header{margin-bottom:48px}
+.section-eyebrow{font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.18em;color:var(--orange-light);margin-bottom:10px}
+.section-title{font-size:36px;font-weight:700;letter-spacing:-.025em;line-height:1.1}
+.section-sub{margin-top:10px;font-size:14px;color:rgba(255,255,255,.4);max-width:520px;line-height:1.65}
+
+/* Glass cards */
+.card{background:linear-gradient(135deg,rgba(255,255,255,.055) 0%,rgba(255,255,255,.02) 100%);border:1px solid rgba(255,255,255,.08);border-radius:16px;backdrop-filter:blur(12px)}
+
+/* Tone of Voice */
+.tov-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:40px}
+.tov-card{padding:28px 32px;border-radius:16px;position:relative;overflow:hidden}
+.tov-card::before{content:'';position:absolute;top:-60px;right:-60px;width:180px;height:180px;border-radius:50%;opacity:.15;filter:blur(40px)}
+.tov-orange::before{background:#F95A18}
+.tov-blue::before{background:#4178EB}
+.tov-soft::before{background:#808FB6}
+.tov-dark::before{background:#26304D}
+.tov-keyword{font-size:28px;font-weight:800;letter-spacing:-.02em;color:var(--orange);margin-bottom:6px}
+.tov-desc{font-size:13px;color:rgba(255,255,255,.5);line-height:1.55}
+.tov-right{display:flex;flex-direction:column;gap:0}
+.how-write-card{padding:32px;border-radius:16px}
+.how-write-card h3{font-size:15px;font-weight:700;margin-bottom:20px}
+.how-write-card ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.how-write-card li{font-size:13.5px;color:rgba(255,255,255,.55);padding-left:16px;position:relative}
+.how-write-card li::before{content:'—';position:absolute;left:0;color:var(--orange);font-size:12px}
+.principle-card{padding:32px;border-radius:16px;margin-top:16px;border-left:3px solid var(--orange)}
+.principle-card p{font-size:15px;font-weight:600;line-height:1.55;color:rgba(255,255,255,.85)}
+.principle-card p em{color:var(--orange);font-style:normal}
+
+/* Logo section */
+.logo-desc{max-width:480px;margin-bottom:48px}
+.logo-desc p{font-size:14px;line-height:1.7;color:rgba(255,255,255,.5);margin-bottom:12px}
+.logo-showcase{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.logo-card{border-radius:14px;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
+.logo-card svg{max-height:40%;width:auto}
+.logo-bg-dark{background:#1E1E1E}
+.logo-bg-light{background:#E8E8E8}
+.logo-bg-orange{background:linear-gradient(135deg,#F95A18,#B8420F)}
+.logo-bg-photo{background:linear-gradient(135deg,#0A0F19 0%,#1a2540 100%)}
+.logo-label{position:absolute;bottom:10px;left:14px;font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;opacity:.5}
+.logo-type-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+.logo-type-card{border-radius:14px;padding:24px;display:flex;flex-direction:column;gap:12px}
+.logo-type-label{font-size:9.5px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.35)}
+.logo-type-card .preview{display:flex;align-items:center;justify-content:center;flex:1;min-height:60px}
+.logo-type-card .preview svg{max-width:100%;height:auto}
+
+/* Clearspace */
+.clearspace-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:32px}
+.clearspace-visual{border-radius:14px;padding:40px;display:flex;align-items:center;justify-content:center;position:relative}
+.cs-inner{position:relative;display:inline-flex}
+.cs-logo{display:flex;align-items:center;justify-content:center}
+.cs-fence{position:absolute;inset:-20px;border:1px dashed rgba(249,90,24,.4);border-radius:4px}
+.cs-label{position:absolute;font-size:9px;font-family:var(--font-mono);color:rgba(249,90,24,.7);white-space:nowrap}
+.cs-label.top{top:-34px;left:50%;transform:translateX(-50%)}
+.cs-label.left{left:-34px;top:50%;transform:translateY(-50%)}
+.clearspace-rules{display:flex;flex-direction:column;gap:16px;padding:32px}
+.rule-item{padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.05)}
+.rule-item:last-child{border-bottom:none;padding-bottom:0}
+.rule-title{font-size:13px;font-weight:600;margin-bottom:4px}
+.rule-desc{font-size:12.5px;color:rgba(255,255,255,.4);line-height:1.6}
+.rule-val{font-family:var(--font-mono);font-size:12px;color:var(--orange-light);margin-top:6px}
+
+/* Color system */
+.color-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:40px}
+.color-family{}
+.color-family-name{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.4);margin-bottom:10px;padding:0 2px}
+.color-swatch{border-radius:10px;padding:14px 12px;margin-bottom:6px;position:relative}
+.swatch-label{font-size:9px;font-weight:500;color:rgba(255,255,255,.6);margin-bottom:3px;font-family:var(--font-mono)}
+.swatch-hex{font-size:10px;font-weight:600;font-family:var(--font-mono);color:rgba(255,255,255,.85)}
+.swatch-primary-tag{position:absolute;top:8px;right:8px;font-size:7.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;padding:2px 5px;border-radius:4px;background:rgba(0,0,0,.35);color:rgba(255,255,255,.7)}
+
+/* Download */
+.download-card{border-radius:20px;padding:56px;display:flex;align-items:center;justify-content:space-between;gap:40px;position:relative;overflow:hidden}
+.download-glow{position:absolute;top:-40px;left:-40px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(249,90,24,.25),transparent 65%);pointer-events:none}
+.download-body{position:relative;z-index:1}
+.download-body h2{font-size:32px;font-weight:700;letter-spacing:-.025em;line-height:1.1;margin-bottom:10px}
+.download-body p{font-size:14px;color:rgba(255,255,255,.45)}
+.download-actions{display:flex;gap:12px;margin-top:24px}
+.btn-dl{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:9999px;font-size:13.5px;font-weight:600;color:#fff;background:linear-gradient(135deg,#FFA070,#F95A18 55%,#B8420F);box-shadow:0 0 24px rgba(249,90,24,.3),0 8px 24px rgba(0,0,0,.4);transition:transform .15s var(--ease-out)}
+.btn-dl:active{transform:scale(.98)}
+.btn-dl svg{width:16px;height:16px}
+.download-visual{position:relative;z-index:1;flex-shrink:0}
+.doc-card{width:200px;border-radius:14px;overflow:hidden;background:linear-gradient(135deg,#F95A18 0%,#B8420F 100%);padding:28px;display:flex;flex-direction:column;align-items:center;gap:16px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.doc-icon{width:48px;height:48px;border-radius:12px;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center}
+.doc-icon svg{width:24px;height:24px;color:#fff}
+.doc-info{text-align:center}
+.doc-info .name{font-size:13px;font-weight:700}
+.doc-info .size{font-size:10.5px;opacity:.65;margin-top:2px}
+
+/* Footer */
+footer{padding:40px 48px;border-top:1px solid rgba(255,255,255,.05);display:flex;align-items:center;justify-content:space-between}
+.footer-note{font-size:11.5px;color:rgba(255,255,255,.3)}
+.footer-back{font-size:12px;color:rgba(255,255,255,.45);transition:color .2s}
+.footer-back:hover{color:#fff}
+
+/* Responsive */
+@media(max-width:900px){
+  .nav{padding:12px 20px}
+  .hero{grid-template-columns:1fr;gap:40px;padding:48px 20px}
+  .hero-visual{display:none}
+  .section{padding:56px 20px}
+  .tov-grid{grid-template-columns:1fr}
+  .logo-showcase{grid-template-columns:1fr}
+  .logo-type-row{grid-template-columns:1fr}
+  .clearspace-grid{grid-template-columns:1fr}
+  .color-grid{grid-template-columns:repeat(2,1fr)}
+  .download-card{flex-direction:column;padding:32px 24px}
+  .download-visual{display:none}
+  footer{flex-direction:column;gap:8px;text-align:center;padding:24px 20px}
+}
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="nav">
+  <div class="nav-left">
+    <a href="/" class="back-btn">
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5"/></svg>
+      Back
+    </a>
+    <div class="nav-divider"></div>
+    <span class="nav-title">Brand Guidelines</span>
+  </div>
+  <span class="nav-badge">Confidential</span>
+</nav>
+
+<!-- Hero -->
+<div style="background:linear-gradient(180deg,rgba(249,90,24,.04) 0%,transparent 100%);border-bottom:1px solid rgba(255,255,255,.05)">
+<section class="hero">
+  <div>
+    <p class="hero-eyebrow">Countlah · 2026</p>
+    <h1>The Shape<br/>of <span>Finance.</span></h1>
+    <p class="hero-sub">The definitive reference for how Countlah looks, sounds, and feels — designed to ensure consistency across every touchpoint.</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <span class="label">Version</span>
+        <span class="val">v1.0</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="label">Year</span>
+        <span class="val">2026</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="label">Status</span>
+        <span class="val" style="color:var(--orange)">Active</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-visual-dots"></div>
+    <div class="hero-visual-dots2"></div>
+    <div class="hero-visual-line"></div>
+    <div class="hero-visual-line2"></div>
+    <svg class="hero-visual-logo" viewBox="0 0 145 121" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill="rgba(255,255,255,0.9)" d="M23.79,115.66L2.46,94.33c-1.57-1.57-2.46-3.71-2.46-5.93v-43.69c0-7.55,9.13-11.33,14.47-5.99l67.68,67.68c5.34,5.34,1.56,14.47-5.99,14.47h-39.82c-4.71,0-9.22-1.87-12.55-5.2"/>
+      <path fill="rgba(255,255,255,0.9)" d="M7.23,14.47l28.71,28.68c3.33,3.33,7.84,5.19,12.55,5.19l76.15-.03c4.63,0,8.38-3.76,8.38-8.39V8.39c0-4.63-3.75-8.39-8.39-8.39H13.22C5.67,0,1.89,9.13,7.23,14.47"/>
+      <path fill="rgba(255,255,255,0.9)" d="M120.99,120.85h15.7c4.63,0,8.38-3.75,8.39-8.37l.02-12.17-.03-31.56c0-4.63-3.76-8.38-8.39-8.38l-62.8.05c-7.63,0-11.44,9.23-6.05,14.62l40.62,40.62c3.33,3.33,7.84,5.2,12.55,5.2"/>
+    </svg>
+  </div>
+</section>
+</div>
+
+<!-- Tone of Voice -->
+<section class="section">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Communication</p>
+      <h2 class="section-title">Tone of Voice</h2>
+      <p class="section-sub">We communicate with precision, clarity, and intent. No fluff. No noise. Just what matters.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start">
+      <div>
+        <div class="tov-grid" style="margin-top:0">
+          <div class="tov-card card tov-orange">
+            <div class="tov-keyword">CLEAR</div>
+            <div class="tov-desc">Direct and easy to understand. No ambiguity, no filler words.</div>
+          </div>
+          <div class="tov-card card tov-blue">
+            <div class="tov-keyword">CALM</div>
+            <div class="tov-desc">Stable, not salesy. We don't hype — we inform.</div>
+          </div>
+          <div class="tov-card card tov-soft" style="--c:#808FB6">
+            <div class="tov-keyword">INTELLIGENT</div>
+            <div class="tov-desc">We simplify complexity. Finance is hard — we make it feel less so.</div>
+          </div>
+          <div class="tov-card card tov-dark">
+            <div class="tov-keyword">HUMAN</div>
+            <div class="tov-desc">Not robotic, not playful. We're a teammate, not a chatbot.</div>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div class="how-write-card card">
+          <h3>How We Write</h3>
+          <ul>
+            <li>Short sentences. One idea at a time.</li>
+            <li>Structured information — use lists where it helps.</li>
+            <li>Functional wording — say what you mean.</li>
+            <li>No passive voice. No jargon without explanation.</li>
+          </ul>
+        </div>
+        <div class="principle-card" style="background:linear-gradient(135deg,rgba(249,90,24,.07),rgba(249,90,24,.02));border:1px solid rgba(249,90,24,.15);border-left:3px solid var(--orange);border-radius:16px;padding:28px">
+          <p>Core Principle:<br/><em>"No fluff. No noise.<br/>Just what matters."</em></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Logo -->
+<section class="section">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Identity</p>
+      <h2 class="section-title">Logo</h2>
+      <p class="section-sub">Core identifier of Countlah. Four geometric blocks connected through a smooth diagonal path, forming an abstract "C".</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start">
+      <div>
+        <div class="logo-desc">
+          <p>The symbol is built on counting logic: precise, modular, and continuously flowing. It reflects how data moves through a system — ordered, connected, and always processing.</p>
+          <p>Bold, rounded forms ensure clarity and stability, while the internal flow introduces a sense of movement and intelligence.</p>
+        </div>
+
+        <!-- Symbol variants -->
+        <p style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.14em;color:rgba(255,255,255,.35);margin-bottom:12px">Symbol · Standalone mark</p>
+        <div class="logo-showcase">
+          <div class="logo-card logo-bg-dark">
+            <svg height="40" viewBox="0 0 145 121" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill="#F95A18" d="M23.79,115.66L2.46,94.33c-1.57-1.57-2.46-3.71-2.46-5.93v-43.69c0-7.55,9.13-11.33,14.47-5.99l67.68,67.68c5.34,5.34,1.56,14.47-5.99,14.47h-39.82c-4.71,0-9.22-1.87-12.55-5.2"/><path fill="#F95A18" d="M7.23,14.47l28.71,28.68c3.33,3.33,7.84,5.19,12.55,5.19l76.15-.03c4.63,0,8.38-3.76,8.38-8.39V8.39c0-4.63-3.75-8.39-8.39-8.39H13.22C5.67,0,1.89,9.13,7.23,14.47"/><path fill="#F95A18" d="M120.99,120.85h15.7c4.63,0,8.38-3.75,8.39-8.37l.02-12.17-.03-31.56c0-4.63-3.76-8.38-8.39-8.38l-62.8.05c-7.63,0-11.44,9.23-6.05,14.62l40.62,40.62c3.33,3.33,7.84,5.2,12.55,5.2"/></svg>
+            <span class="logo-label" style="color:rgba(255,255,255,.4)">On Dark</span>
+          </div>
+          <div class="logo-card logo-bg-light">
+            <svg height="40" viewBox="0 0 145 121" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill="#F95A18" d="M23.79,115.66L2.46,94.33c-1.57-1.57-2.46-3.71-2.46-5.93v-43.69c0-7.55,9.13-11.33,14.47-5.99l67.68,67.68c5.34,5.34,1.56,14.47-5.99,14.47h-39.82c-4.71,0-9.22-1.87-12.55-5.2"/><path fill="#F95A18" d="M7.23,14.47l28.71,28.68c3.33,3.33,7.84,5.19,12.55,5.19l76.15-.03c4.63,0,8.38-3.76,8.38-8.39V8.39c0-4.63-3.75-8.39-8.39-8.39H13.22C5.67,0,1.89,9.13,7.23,14.47"/><path fill="#F95A18" d="M120.99,120.85h15.7c4.63,0,8.38-3.75,8.39-8.37l.02-12.17-.03-31.56c0-4.63-3.76-8.38-8.39-8.38l-62.8.05c-7.63,0-11.44,9.23-6.05,14.62l40.62,40.62c3.33,3.33,7.84,5.2,12.55,5.2"/></svg>
+            <span class="logo-label" style="color:rgba(0,0,0,.4)">On Light</span>
+          </div>
+          <div class="logo-card logo-bg-orange">
+            <svg height="40" viewBox="0 0 145 121" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill="rgba(255,255,255,.9)" d="M23.79,115.66L2.46,94.33c-1.57-1.57-2.46-3.71-2.46-5.93v-43.69c0-7.55,9.13-11.33,14.47-5.99l67.68,67.68c5.34,5.34,1.56,14.47-5.99,14.47h-39.82c-4.71,0-9.22-1.87-12.55-5.2"/><path fill="rgba(255,255,255,.9)" d="M7.23,14.47l28.71,28.68c3.33,3.33,7.84,5.19,12.55,5.19l76.15-.03c4.63,0,8.38-3.76,8.38-8.39V8.39c0-4.63-3.75-8.39-8.39-8.39H13.22C5.67,0,1.89,9.13,7.23,14.47"/><path fill="rgba(255,255,255,.9)" d="M120.99,120.85h15.7c4.63,0,8.38-3.75,8.39-8.37l.02-12.17-.03-31.56c0-4.63-3.76-8.38-8.39-8.38l-62.8.05c-7.63,0-11.44,9.23-6.05,14.62l40.62,40.62c3.33,3.33,7.84,5.2,12.55,5.2"/></svg>
+            <span class="logo-label">On Orange</span>
+          </div>
+          <div class="logo-card logo-bg-photo">
+            <svg height="40" viewBox="0 0 145 121" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill="#F95A18" d="M23.79,115.66L2.46,94.33c-1.57-1.57-2.46-3.71-2.46-5.93v-43.69c0-7.55,9.13-11.33,14.47-5.99l67.68,67.68c5.34,5.34,1.56,14.47-5.99,14.47h-39.82c-4.71,0-9.22-1.87-12.55-5.2"/><path fill="#F95A18" d="M7.23,14.47l28.71,28.68c3.33,3.33,7.84,5.19,12.55,5.19l76.15-.03c4.63,0,8.38-3.76,8.38-8.39V8.39c0-4.63-3.75-8.39-8.39-8.39H13.22C5.67,0,1.89,9.13,7.23,14.47"/><path fill="#F95A18" d="M120.99,120.85h15.7c4.63,0,8.38-3.75,8.39-8.37l.02-12.17-.03-31.56c0-4.63-3.76-8.38-8.39-8.38l-62.8.05c-7.63,0-11.44,9.23-6.05,14.62l40.62,40.62c3.33,3.33,7.84,5.2,12.55,5.2"/></svg>
+            <span class="logo-label">On Photo</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <!-- Lockup variants -->
+        <p style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.14em;color:rgba(255,255,255,.35);margin-bottom:12px">Lockup · Primary logo</p>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:32px">
+          <div class="logo-card logo-bg-dark" style="aspect-ratio:auto;padding:28px">
+            <svg height="28" viewBox="0 0 440.41 73.33" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill="#F95A18" d="M14.43,70.18L1.49,57.23c-.95-.95-1.49-2.25-1.49-3.6v-26.51c0-4.58,5.54-6.88,8.78-3.64l41.06,41.06c3.24,3.24.95,8.78-3.64,8.78h-24.16c-2.86,0-5.59-1.13-7.61-3.15"/><path fill="#F95A18" d="M4.39,8.78l17.42,17.4c2.02,2.02,4.76,3.15,7.61,3.15l46.2-.02c2.81,0,5.09-2.28,5.09-5.09V5.09c0-2.81-2.28-5.09-5.09-5.09H8.02C3.44,0,1.15,5.54,4.39,8.78"/><path fill="#F95A18" d="M73.41,73.32h9.52c2.81,0,5.08-2.27,5.09-5.08v-7.38s0-19.15,0-19.15c0-2.81-2.28-5.09-5.09-5.08l-38.1.03c-4.63,0-6.94,5.6-3.67,8.87l24.65,24.65c2.02,2.02,4.76,3.15,7.61,3.15"/><path fill="#FFFFFF" d="M180.57,20.96c-19.8-9.64-39.26,9.82-29.62,29.62,1.78,3.65,4.75,6.63,8.41,8.41,19.8,9.64,39.26-9.82,29.62-29.62-1.78-3.65-4.75-6.63-8.41-8.41M169.96,48.32c-4.61,0-8.35-3.74-8.35-8.35s3.74-8.35,8.35-8.35,8.35,3.74,8.35,8.35-3.74,8.35-8.35,8.35"/><path fill="#FFFFFF" d="M222.17,19.53v28.46c0,.9-.73,1.63-1.63,1.63h-7.09c-.9,0-1.63-.73-1.63-1.63v-28.46h-16.03v25.97c0,8.99,7.29,16.28,16.28,16.28h9.84c8.99,0,16.28-7.29,16.28-16.28v-25.97h-16.03Z"/><polygon fill="#FFFFFF" points="319.92 18.67 312.66 18.67 312.66 13.38 298.76 13.38 298.76 18.67 291.88 18.67 291.88 31.61 298.76 31.61 298.76 62.23 312.66 62.23 312.66 31.61 319.92 31.61 319.92 18.67"/><rect fill="#FFFFFF" x="327.2" y="3.09" width="16.03" height="58.44"/><path fill="#FFFFFF" d="M414.03,61.4v-30.09h10.35v30.09h16.03v-29.22c0-7.19-5.83-13.03-13.03-13.03h-13.35V3.22h-16.03v58.19h16.03Z"/><path fill="#FFFFFF" d="M137.39,45.1c-1.63,2.58-4.62,4.21-7.96,3.86-3.84-.4-6.97-3.51-7.39-7.35-.56-5.04,3.37-9.3,8.3-9.3,3.24,0,6.04,1.85,7.43,4.55h0l9.52-9.52c-4.37-5.56-11.41-8.91-19.19-8.13-9.98,1.01-18.06,8.99-19.17,18.97-1.45,13.02,8.7,24.04,21.42,24.04,6.66,0,12.6-3.02,16.56-7.76l-9.38-9.38s-.09-.03-.12.01"/><path fill="#FFFFFF" d="M259.55,61.7v-28.46c0-.9.73-1.63,1.63-1.63h7.09c.9,0,1.63.73,1.63,1.63v28.46h16.03v-25.97c0-8.99-7.29-16.28-16.28-16.28h-26.13v42.25h16.03Z"/><path fill="#FFFFFF" d="M369.04,19.1h.02c-16.09,0-28.08,17.61-17.69,34.61,1.14,1.86,2.7,3.44,4.55,4.58,7.45,4.58,15.02,4.85,21.18,2.36v.02s0,1.56,0,1.56h16.11v-19.37c0-13.12-10.63-23.75-23.75-23.75h-.42ZM369.04,49.01c-4.61,0-8.35-3.74-8.35-8.35s3.74-8.35,8.35-8.35,8.35,3.74,8.35,8.35-3.74,8.35-8.35,8.35"/></svg>
+            <span class="logo-label" style="color:rgba(255,255,255,.35)">On Dark</span>
+          </div>
+          <div class="logo-card logo-bg-orange" style="aspect-ratio:auto;padding:28px">
+            <svg height="28" viewBox="0 0 440.41 73.33" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill="rgba(255,255,255,.9)" d="M14.43,70.18L1.49,57.23c-.95-.95-1.49-2.25-1.49-3.6v-26.51c0-4.58,5.54-6.88,8.78-3.64l41.06,41.06c3.24,3.24.95,8.78-3.64,8.78h-24.16c-2.86,0-5.59-1.13-7.61-3.15"/><path fill="rgba(255,255,255,.9)" d="M4.39,8.78l17.42,17.4c2.02,2.02,4.76,3.15,7.61,3.15l46.2-.02c2.81,0,5.09-2.28,5.09-5.09V5.09c0-2.81-2.28-5.09-5.09-5.09H8.02C3.44,0,1.15,5.54,4.39,8.78"/><path fill="rgba(255,255,255,.9)" d="M73.41,73.32h9.52c2.81,0,5.08-2.27,5.09-5.08v-7.38s0-19.15,0-19.15c0-2.81-2.28-5.09-5.09-5.08l-38.1.03c-4.63,0-6.94,5.6-3.67,8.87l24.65,24.65c2.02,2.02,4.76,3.15,7.61,3.15"/><path fill="#FFFFFF" d="M180.57,20.96c-19.8-9.64-39.26,9.82-29.62,29.62,1.78,3.65,4.75,6.63,8.41,8.41,19.8,9.64,39.26-9.82,29.62-29.62-1.78-3.65-4.75-6.63-8.41-8.41M169.96,48.32c-4.61,0-8.35-3.74-8.35-8.35s3.74-8.35,8.35-8.35,8.35,3.74,8.35,8.35-3.74,8.35-8.35,8.35"/><path fill="#FFFFFF" d="M222.17,19.53v28.46c0,.9-.73,1.63-1.63,1.63h-7.09c-.9,0-1.63-.73-1.63-1.63v-28.46h-16.03v25.97c0,8.99,7.29,16.28,16.28,16.28h9.84c8.99,0,16.28-7.29,16.28-16.28v-25.97h-16.03Z"/><polygon fill="#FFFFFF" points="319.92 18.67 312.66 18.67 312.66 13.38 298.76 13.38 298.76 18.67 291.88 18.67 291.88 31.61 298.76 31.61 298.76 62.23 312.66 62.23 312.66 31.61 319.92 31.61 319.92 18.67"/><rect fill="#FFFFFF" x="327.2" y="3.09" width="16.03" height="58.44"/><path fill="#FFFFFF" d="M414.03,61.4v-30.09h10.35v30.09h16.03v-29.22c0-7.19-5.83-13.03-13.03-13.03h-13.35V3.22h-16.03v58.19h16.03Z"/><path fill="#FFFFFF" d="M137.39,45.1c-1.63,2.58-4.62,4.21-7.96,3.86-3.84-.4-6.97-3.51-7.39-7.35-.56-5.04,3.37-9.3,8.3-9.3,3.24,0,6.04,1.85,7.43,4.55h0l9.52-9.52c-4.37-5.56-11.41-8.91-19.19-8.13-9.98,1.01-18.06,8.99-19.17,18.97-1.45,13.02,8.7,24.04,21.42,24.04,6.66,0,12.6-3.02,16.56-7.76l-9.38-9.38s-.09-.03-.12.01"/><path fill="#FFFFFF" d="M259.55,61.7v-28.46c0-.9.73-1.63,1.63-1.63h7.09c.9,0,1.63.73,1.63,1.63v28.46h16.03v-25.97c0-8.99-7.29-16.28-16.28-16.28h-26.13v42.25h16.03Z"/><path fill="#FFFFFF" d="M369.04,19.1h.02c-16.09,0-28.08,17.61-17.69,34.61,1.14,1.86,2.7,3.44,4.55,4.58,7.45,4.58,15.02,4.85,21.18,2.36v.02s0,1.56,0,1.56h16.11v-19.37c0-13.12-10.63-23.75-23.75-23.75h-.42ZM369.04,49.01c-4.61,0-8.35-3.74-8.35-8.35s3.74-8.35,8.35-8.35,8.35,3.74,8.35,8.35-3.74,8.35-8.35,8.35"/></svg>
+            <span class="logo-label">On Orange</span>
+          </div>
+        </div>
+
+        <!-- Clearspace note -->
+        <div class="card" style="padding:20px 24px;display:flex;gap:20px;align-items:flex-start">
+          <div style="width:36px;height:36px;border-radius:10px;background:rgba(249,90,24,.1);border:1px solid rgba(249,90,24,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px">
+            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#F95A18" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 3.75H6A2.25 2.25 0 0 0 3.75 6v1.5M16.5 3.75H18A2.25 2.25 0 0 1 20.25 6v1.5m0 9V18A2.25 2.25 0 0 1 18 20.25h-1.5m-9 0H6A2.25 2.25 0 0 1 3.75 18v-1.5"/></svg>
+          </div>
+          <div>
+            <div style="font-size:12.5px;font-weight:600;margin-bottom:4px">Clearspace</div>
+            <div style="font-size:12px;color:rgba(255,255,255,.4);line-height:1.6">Always maintain clearspace of 1× (height of smallest symbol unit) on all sides. Digital minimum: <span style="font-family:var(--font-mono);color:var(--orange-light)">24px</span>. Print minimum: <span style="font-family:var(--font-mono);color:var(--orange-light)">8mm</span>.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Color System -->
+<section class="section">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">Visual Language</p>
+      <h2 class="section-title">Color System</h2>
+      <p class="section-sub">5 core color families, each with 4 levels. Designed for a clean, scalable brand across digital and print.</p>
+    </div>
+    <div class="color-grid">
+
+      <!-- Orange -->
+      <div class="color-family">
+        <div class="color-family-name">Countlah Orange</div>
+        <div class="color-swatch" style="background:#FFA070">
+          <div class="swatch-label">Orange 300</div>
+          <div class="swatch-hex">#FFA070</div>
+        </div>
+        <div class="color-swatch" style="background:#F95A18;position:relative">
+          <div class="swatch-label">Orange 500</div>
+          <div class="swatch-hex">#F95A18</div>
+          <div class="swatch-primary-tag">PRIMARY</div>
+        </div>
+        <div class="color-swatch" style="background:#B8420F">
+          <div class="swatch-label">Orange 700</div>
+          <div class="swatch-hex">#B8420F</div>
+        </div>
+        <div class="color-swatch" style="background:#662408">
+          <div class="swatch-label">Orange 900</div>
+          <div class="swatch-hex">#662408</div>
+        </div>
+      </div>
+
+      <!-- Dark -->
+      <div class="color-family">
+        <div class="color-family-name">System Dark</div>
+        <div class="color-swatch" style="background:#7F8FB2">
+          <div class="swatch-label">Dark 300</div>
+          <div class="swatch-hex">#7F8FB2</div>
+        </div>
+        <div class="color-swatch" style="background:#26304D">
+          <div class="swatch-label">Dark 500</div>
+          <div class="swatch-hex">#26304D</div>
+        </div>
+        <div class="color-swatch" style="background:#181F33">
+          <div class="swatch-label">Dark 700</div>
+          <div class="swatch-hex">#181F33</div>
+        </div>
+        <div class="color-swatch" style="background:#0A0F19;border:1px solid rgba(255,255,255,.08)">
+          <div class="swatch-label">Dark 900</div>
+          <div class="swatch-hex">#0A0F19</div>
+        </div>
+      </div>
+
+      <!-- Blue -->
+      <div class="color-family">
+        <div class="color-family-name">Signal Blue</div>
+        <div class="color-swatch" style="background:#94B7FF">
+          <div class="swatch-label" style="color:rgba(0,0,20,.5)">Blue 300</div>
+          <div class="swatch-hex" style="color:rgba(0,0,20,.75)">#94B7FF</div>
+        </div>
+        <div class="color-swatch" style="background:#4178EB">
+          <div class="swatch-label">Blue 500</div>
+          <div class="swatch-hex">#4178EB</div>
+        </div>
+        <div class="color-swatch" style="background:#294C99">
+          <div class="swatch-label">Blue 700</div>
+          <div class="swatch-hex">#294C99</div>
+        </div>
+        <div class="color-swatch" style="background:#122147">
+          <div class="swatch-label">Blue 900</div>
+          <div class="swatch-hex">#122147</div>
+        </div>
+      </div>
+
+      <!-- Soft -->
+      <div class="color-family">
+        <div class="color-family-name">System Soft</div>
+        <div class="color-swatch" style="background:#A5B2D9">
+          <div class="swatch-label" style="color:rgba(0,0,0,.4)">Soft 300</div>
+          <div class="swatch-hex" style="color:rgba(0,0,0,.6)">#A5B2D9</div>
+        </div>
+        <div class="color-swatch" style="background:#808FB6">
+          <div class="swatch-label">Soft 500</div>
+          <div class="swatch-hex">#808FB6</div>
+        </div>
+        <div class="color-swatch" style="background:#545F7D">
+          <div class="swatch-label">Soft 700</div>
+          <div class="swatch-hex">#545F7D</div>
+        </div>
+        <div class="color-swatch" style="background:#282E44">
+          <div class="swatch-label">Soft 900</div>
+          <div class="swatch-hex">#282E44</div>
+        </div>
+      </div>
+
+      <!-- Light -->
+      <div class="color-family">
+        <div class="color-family-name">Pure Light</div>
+        <div class="color-swatch" style="background:#FCFCFC;border:1px solid rgba(0,0,0,.08)">
+          <div class="swatch-label" style="color:rgba(0,0,0,.4)">Light 200</div>
+          <div class="swatch-hex" style="color:rgba(0,0,0,.6)">#FCFCFC</div>
+        </div>
+        <div class="color-swatch" style="background:#F5F5F5;border:1px solid rgba(0,0,0,.07)">
+          <div class="swatch-label" style="color:rgba(0,0,0,.4)">Light 300</div>
+          <div class="swatch-hex" style="color:rgba(0,0,0,.6)">#F5F5F5</div>
+        </div>
+        <div class="color-swatch" style="background:#DADADA">
+          <div class="swatch-label" style="color:rgba(0,0,0,.4)">Light 500</div>
+          <div class="swatch-hex" style="color:rgba(0,0,0,.6)">#DADADA</div>
+        </div>
+        <div class="color-swatch" style="background:#A3A3A3">
+          <div class="swatch-label" style="color:rgba(0,0,0,.4)">Light 700</div>
+          <div class="swatch-hex" style="color:rgba(0,0,0,.6)">#A3A3A3</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Download -->
+<section class="section">
+  <div class="section-inner">
+    <div class="download-card card">
+      <div class="download-glow"></div>
+      <div class="download-body">
+        <h2>Download the<br/>full brand deck.</h2>
+        <p>The complete PDF including all guidelines, mockups, and usage examples.</p>
+        <div class="download-actions">
+          <a href="../Countah Brand Deck_v1 copy.pdf" download class="btn-dl">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"/></svg>
+            Brand Deck PDF
+          </a>
+        </div>
+      </div>
+      <div class="download-visual">
+        <div class="doc-card">
+          <div class="doc-icon">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg>
+          </div>
+          <div class="doc-info">
+            <div class="name">Brand Deck v1</div>
+            <div class="size">PDF · 2026</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <span class="footer-note">© 2026 Countlah Pte Ltd · Confidential</span>
+  <a href="/" class="footer-back">← Back to countlah.sg</a>
+</footer>
+
+</body>
+</html>

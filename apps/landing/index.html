@@ -212,8 +212,6 @@ footer{position:relative;z-index:1;padding:80px 48px 40px}
 .btn-modal{width:100%;padding:12px;border-radius:9999px;font-size:14px;font-weight:600;color:#fff;background:var(--gradient-primary);box-shadow:0 0 24px rgba(249,90,24,.3),0 6px 20px rgba(0,0,0,.4);transition:transform .15s var(--ease-out),opacity .2s}
 .btn-modal:hover{transform:scale(1.01)}
 .btn-modal:active{transform:scale(.98)}
-.btn-brand{padding:6px 16px;font-size:13px;font-weight:500;border-radius:9999px;color:rgba(255,255,255,.6);background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);transition:all .2s}
-.btn-brand:hover{color:#fff;background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.18)}
 </style>
 </head>
 <body>
@@ -250,8 +248,7 @@ footer{position:relative;z-index:1;padding:80px 48px 40px}
       <a href="#contact">Contact</a>
     </nav>
     <div class="nav-right">
-      <button class="btn-brand" onclick="openBrandModal()">Brand</button>
-      <a href="https://app.countlah.sg/login" class="btn-login">Login</a>
+      <button class="btn-login" onclick="openBrandModal()">Login</button>
       <a href="https://app.countlah.sg/signup" class="btn-cta">Get started</a>
     </div>
   </div>
@@ -493,8 +490,8 @@ footer{position:relative;z-index:1;padding:80px 48px 40px}
         <path fill="#FFFFFF" d="M369.04,19.1h.02c-16.09,0-28.08,17.61-17.69,34.61,1.14,1.86,2.7,3.44,4.55,4.58,7.45,4.58,15.02,4.85,21.18,2.36v.02s0,1.56,0,1.56h16.11v-19.37c0-13.12-10.63-23.75-23.75-23.75h-.42ZM369.04,49.01c-4.61,0-8.35-3.74-8.35-8.35s3.74-8.35,8.35-8.35,8.35,3.74,8.35,8.35-3.74,8.35-8.35,8.35"/>
       </svg>
     </div>
-    <h2 class="modal-title">Brand Access</h2>
-    <p class="modal-sub">Sign in to view the Countlah brand guidelines.</p>
+    <h2 class="modal-title">Sign in</h2>
+    <p class="modal-sub">Access the app or brand guidelines.</p>
     <form onsubmit="handleBrandLogin(event)">
       <div class="modal-field">
         <label for="brandUser">Username</label>
@@ -505,13 +502,13 @@ footer{position:relative;z-index:1;padding:80px 48px 40px}
         <input type="password" id="brandPass" placeholder="Enter password" autocomplete="current-password"/>
       </div>
       <p class="modal-error" id="brandError"></p>
-      <button type="submit" class="btn-modal">Access Brand Guidelines</button>
+      <button type="submit" class="btn-modal">Sign in</button>
     </form>
   </div>
 </div>
 
 <script>
-  const BRAND_URL = 'http://localhost:3000'; // update to brand.countlah.sg when ready
+  const BRAND_URL = '/brand/';
 
   function openBrandModal() {
     document.getElementById('brandModal').classList.add('open');
@@ -535,9 +532,10 @@ footer{position:relative;z-index:1;padding:80px 48px 40px}
     const pass = document.getElementById('brandPass').value;
     if (user === 'branding' && pass === 'branding') {
       window.location.href = BRAND_URL;
+    } else if (user && pass) {
+      window.location.href = 'https://app.countlah.sg/login';
     } else {
-      document.getElementById('brandError').textContent = 'Incorrect username or password.';
-      document.getElementById('brandPass').value = '';
+      document.getElementById('brandError').textContent = 'Please enter your username and password.';
     }
   }
 
