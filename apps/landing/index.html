@@ -494,21 +494,22 @@ footer{position:relative;z-index:1;padding:80px 48px 40px}
     <p class="modal-sub">Access the app or brand guidelines.</p>
     <form onsubmit="handleBrandLogin(event)">
       <div class="modal-field">
-        <label for="brandUser">Username</label>
-        <input type="text" id="brandUser" placeholder="Enter username" autocomplete="username"/>
+        <label for="brandUser">Email</label>
+        <input type="text" id="brandUser" placeholder="Enter email" autocomplete="email"/>
       </div>
       <div class="modal-field">
         <label for="brandPass">Password</label>
         <input type="password" id="brandPass" placeholder="Enter password" autocomplete="current-password"/>
       </div>
       <p class="modal-error" id="brandError"></p>
-      <button type="submit" class="btn-modal">Sign in</button>
+      <button type="submit" id="brandSubmit" class="btn-modal">Sign in</button>
     </form>
   </div>
 </div>
 
 <script>
   const BRAND_URL = '/brand/';
+  const APP_URL = 'https://countlahapp.vercel.app';
 
   function openBrandModal() {
     document.getElementById('brandModal').classList.add('open');
@@ -516,6 +517,8 @@ footer{position:relative;z-index:1;padding:80px 48px 40px}
     document.getElementById('brandError').textContent = '';
     document.getElementById('brandUser').value = '';
     document.getElementById('brandPass').value = '';
+    document.getElementById('brandSubmit').disabled = false;
+    document.getElementById('brandSubmit').textContent = 'Sign in';
   }
 
   function closeBrandModal() {
@@ -526,16 +529,46 @@ footer{position:relative;z-index:1;padding:80px 48px 40px}
     if (e.target === document.getElementById('brandModal')) closeBrandModal();
   }
 
-  function handleBrandLogin(e) {
+  async function handleBrandLogin(e) {
     e.preventDefault();
     const user = document.getElementById('brandUser').value.trim();
     const pass = document.getElementById('brandPass').value;
+    const errEl = document.getElementById('brandError');
+    const btn = document.getElementById('brandSubmit');
+
+    if (!user || !pass) {
+      errEl.textContent = 'Please enter your username and password.';
+      return;
+    }
+
     if (user === 'branding' && pass === 'branding') {
       window.location.href = BRAND_URL;
-    } else if (user && pass) {
-      window.location.href = 'https://app.countlah.sg/login';
-    } else {
-      document.getElementById('brandError').textContent = 'Please enter your username and password.';
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Signing in…';
+    errEl.textContent = '';
+
+    try {
+      const res = await fetch(APP_URL + '/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ email: user, password: pass, rememberMe: true }),
+      });
+      if (res.ok) {
+        window.location.href = APP_URL + '/';
+      } else {
+        const data = await res.json().catch(() => ({}));
+        errEl.textContent = data.error || 'Invalid email or password.';
+        btn.disabled = false;
+        btn.textContent = 'Sign in';
+      }
+    } catch {
+      errEl.textContent = 'Connection error. Please try again.';
+      btn.disabled = false;
+      btn.textContent = 'Sign in';
     }
   }
 
