@@ -78,6 +78,9 @@ if (!process.env.SESSION_SECRET) {
 // pino-http uses worker threads which break on Vercel's read-only filesystem
 if (process.env.VERCEL) {
   app.use((req, res, next) => {
+    // pino-http uses worker threads which break on Vercel — provide a console-backed shim so
+    // route handlers can call req.log.info/warn/error without crashing.
+    (req as any).log = { info: console.log, warn: console.warn, error: console.error, debug: console.debug };
     res.on("finish", () => console.log(`${req.method} ${req.url?.split("?")[0]} ${res.statusCode}`));
     next();
   });
