@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Layout from "../components/layout";
 import { refreshBranding } from "../hooks/use-branding";
 
@@ -117,13 +117,9 @@ export default function SettingsPage() {
   const [contactMsg, setContactMsg] = useState<{ text: string; ok: boolean } | null>(null);
   const [contactSaving, setContactSaving] = useState(false);
 
-  const [logoPreview, setLogoPreview] = useState<string | null>(null);
-  const [logoUploading, setLogoUploading] = useState(false);
   const [logoMsg, setLogoMsg] = useState<{ text: string; ok: boolean } | null>(null);
-  const [logoDragging, setLogoDragging] = useState(false);
   const [companyName, setCompanyName] = useState("");
   const [brandingSaving, setBrandingSaving] = useState(false);
-  const logoInputRef = useRef<HTMLInputElement>(null);
 
   const load = useCallback(async () => {
     try {
@@ -137,7 +133,6 @@ export default function SettingsPage() {
       setFieldMapping(data.fieldMapping);
       setContactAutoCreate(data.contacts.autoCreate);
       setContactNameMatching(data.contacts.nameMatching);
-      setLogoPreview(data.branding?.logoUrl ?? null);
       setCompanyName(data.branding?.companyName ?? "");
     } finally {
       setLoading(false);
@@ -166,55 +161,6 @@ export default function SettingsPage() {
       window.history.replaceState({}, "", "/settings");
     }
   }, [load]);
-
-  async function handleLogoFile(file: File) {
-    const ok = ["image/png", "image/jpeg", "image/jpg", "image/webp", "image/svg+xml"].includes(file.type);
-    if (!ok) {
-      setLogoMsg({ text: "Please upload a PNG, JPG, WEBP, or SVG image", ok: false });
-      return;
-    }
-    if (file.size > 5 * 1024 * 1024) {
-      setLogoMsg({ text: "Logo must be under 5 MB", ok: false });
-      return;
-    }
-
-    setLogoUploading(true);
-    setLogoMsg(null);
-    const local = URL.createObjectURL(file);
-    setLogoPreview(local);
-
-    try {
-      const form = new FormData();
-      form.append("logo", file);
-      const data = await api("/api/settings/branding/logo", { method: "POST", body: form });
-      setLogoPreview(data.logoUrl);
-      setLogoMsg({ text: "Logo uploaded", ok: true });
-      await refreshBranding();
-      setTimeout(() => setLogoMsg(null), 3000);
-    } catch (err: any) {
-      setLogoMsg({ text: err.message ?? "Upload failed", ok: false });
-      setLogoPreview(settings?.branding?.logoUrl ?? null);
-    } finally {
-      setLogoUploading(false);
-    }
-  }
-
-  async function handleLogoRemove() {
-    if (!confirm("Remove the current logo?")) return;
-    setLogoUploading(true);
-    setLogoMsg(null);
-    try {
-      await api("/api/settings/branding/logo", { method: "DELETE" });
-      setLogoPreview(null);
-      setLogoMsg({ text: "Logo removed", ok: true });
-      await refreshBranding();
-      setTimeout(() => setLogoMsg(null), 3000);
-    } catch (err: any) {
-      setLogoMsg({ text: err.message ?? "Failed to remove", ok: false });
-    } finally {
-      setLogoUploading(false);
-    }
-  }
 
   async function handleBrandingSave(e: React.FormEvent) {
     e.preventDefault();
@@ -409,75 +355,8 @@ export default function SettingsPage() {
         </div>
 
         {/* ── 0. Branding ───────────────────────────────────────────── */}
-        <SectionCard title="Branding" description="Upload a logo and set the company name shown across the app">
-          <form onSubmit={handleBrandingSave} className="space-y-6">
-            {/* Logo upload */}
-            <div>
-              <Label>Company Logo</Label>
-              <div className="flex items-start gap-5">
-                {/* Preview box */}
-                <div className="w-24 h-24 rounded-2xl border border-white/[0.10] bg-white/[0.03] flex items-center justify-center flex-shrink-0 overflow-hidden">
-                  {logoPreview ? (
-                    <img src={logoPreview} alt="Logo" className="w-full h-full object-contain p-2" />
-                  ) : (
-                    <span className="text-white/15 text-xs text-center leading-relaxed px-2">No<br/>logo</span>
-                  )}
-                </div>
-
-                {/* Drop zone */}
-                <div className="flex-1">
-                  <div
-                    onClick={() => logoInputRef.current?.click()}
-                    onDragOver={e => { e.preventDefault(); setLogoDragging(true); }}
-                    onDragLeave={() => setLogoDragging(false)}
-                    onDrop={e => {
-                      e.preventDefault();
-                      setLogoDragging(false);
-                      const file = e.dataTransfer.files[0];
-                      if (file) handleLogoFile(file);
-                    }}
-                    className={`relative flex flex-col items-center justify-center gap-2 border-2 border-dashed rounded-2xl px-6 py-6 cursor-pointer transition-all duration-200 select-none ${
-                      logoDragging
-                        ? "border-orange-500/50 bg-orange-500/[0.06]"
-                        : "border-white/[0.10] bg-white/[0.02] hover:border-white/25 hover:bg-white/[0.04]"
-                    }`}
-                  >
-                    {logoUploading ? (
-                      <div className="w-5 h-5 rounded-full border-2 border-transparent border-t-orange-500 border-r-red-500 animate-spin" />
-                    ) : (
-                      <>
-                        <svg className="w-6 h-6 text-white/25" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
-                        </svg>
-                        <p className="text-white/40 text-xs text-center">
-                          {logoPreview ? "Drag & drop or click to replace" : "Drag & drop or click to upload"}
-                        </p>
-                        <p className="text-white/20 text-xs">PNG, JPG, WEBP, SVG · Max 5 MB</p>
-                      </>
-                    )}
-                  </div>
-                  <input
-                    ref={logoInputRef}
-                    type="file"
-                    accept="image/png,image/jpeg,image/jpg,image/webp,image/svg+xml"
-                    className="hidden"
-                    onChange={e => { const f = e.target.files?.[0]; if (f) handleLogoFile(f); e.target.value = ""; }}
-                  />
-                  {logoPreview && (
-                    <button
-                      type="button"
-                      onClick={handleLogoRemove}
-                      disabled={logoUploading}
-                      className="mt-2 text-xs text-red-400/60 hover:text-red-400 transition-colors duration-200 disabled:opacity-40"
-                    >
-                      Remove logo
-                    </button>
-                  )}
-                </div>
-              </div>
-            </div>
-
-            {/* Company name */}
+        <SectionCard title="Branding" description="Set the company name shown across the app">
+          <form onSubmit={handleBrandingSave} className="space-y-4">
             <div>
               <Label>Company / App Name</Label>
               <input
@@ -488,7 +367,7 @@ export default function SettingsPage() {
                 placeholder="e.g. COUNTLAH"
                 maxLength={60}
               />
-              <p className="text-white/20 text-xs mt-1.5">Shown in the navigation when no logo is uploaded.</p>
+              <p className="text-white/20 text-xs mt-1.5">Shown in the navigation bar.</p>
             </div>
 
             <SaveMsg msg={logoMsg} />
