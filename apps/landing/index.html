@@ -616,14 +616,14 @@ footer{position:relative;z-index:1;padding:80px 48px 40px}
     </div>
     <h2 class="modal-title">Sign in</h2>
     <p class="modal-sub">Access the app or brand guidelines.</p>
-    <form onsubmit="handleBrandLogin(event)">
+    <form id="brandForm" method="POST" action="https://countlahapp.vercel.app/api/auth/login-form" onsubmit="handleBrandLogin(event)">
       <div class="modal-field">
         <label for="brandUser">Email</label>
-        <input type="text" id="brandUser" placeholder="Enter email" autocomplete="email"/>
+        <input type="text" id="brandUser" name="email" placeholder="Enter email" autocomplete="email"/>
       </div>
       <div class="modal-field">
         <label for="brandPass">Password</label>
-        <input type="password" id="brandPass" placeholder="Enter password" autocomplete="current-password"/>
+        <input type="password" id="brandPass" name="password" placeholder="Enter password" autocomplete="current-password"/>
       </div>
       <p class="modal-error" id="brandError"></p>
       <button type="submit" id="brandSubmit" class="btn-modal">Sign in</button>
@@ -653,47 +653,29 @@ footer{position:relative;z-index:1;padding:80px 48px 40px}
     if (e.target === document.getElementById('brandModal')) closeBrandModal();
   }
 
-  async function handleBrandLogin(e) {
-    e.preventDefault();
+  function handleBrandLogin(e) {
     const user = document.getElementById('brandUser').value.trim();
     const pass = document.getElementById('brandPass').value;
     const errEl = document.getElementById('brandError');
     const btn = document.getElementById('brandSubmit');
 
     if (!user || !pass) {
-      errEl.textContent = 'Please enter your username and password.';
+      e.preventDefault();
+      errEl.textContent = 'Please enter your email and password.';
       return;
     }
 
     if (user === 'branding' && pass === 'branding') {
+      e.preventDefault();
       window.location.href = BRAND_URL;
       return;
     }
 
+    // Let form POST natively to countlahapp.vercel.app/api/auth/login-form
+    // This is a top-level navigation so the session cookie is set first-party
     btn.disabled = true;
     btn.textContent = 'Signing in…';
     errEl.textContent = '';
-
-    try {
-      const res = await fetch(APP_URL + '/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-        body: JSON.stringify({ email: user, password: pass, rememberMe: true }),
-      });
-      if (res.ok) {
-        window.location.href = APP_URL + '/';
-      } else {
-        const data = await res.json().catch(() => ({}));
-        errEl.textContent = data.error || 'Invalid email or password.';
-        btn.disabled = false;
-        btn.textContent = 'Sign in';
-      }
-    } catch {
-      errEl.textContent = 'Connection error. Please try again.';
-      btn.disabled = false;
-      btn.textContent = 'Sign in';
-    }
   }
 
   document.addEventListener('keydown', function(e) {

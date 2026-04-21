@@ -99,6 +99,38 @@ router.post("/auth/login", async (req, res): Promise<void> => {
   });
 });
 
+// ── Login via form POST (cross-origin safe — returns redirect, not JSON) ─────
+
+router.post("/auth/login-form", async (req, res): Promise<void> => {
+  const email = (req.body.email ?? "").trim().toLowerCase();
+  const password = (req.body.password ?? "").trim();
+
+  if (!email || !password) {
+    res.redirect(302, "/?error=missing");
+    return;
+  }
+
+  const [user] = await db.select()
+    .from(usersTable)
+    .where(eq(usersTable.email, email));
+
+  if (!user || !(await bcrypt.compare(password, user.passwordHash))) {
+    res.redirect(302, "/?error=invalid");
+    return;
+  }
+
+  req.session.authenticated = true;
+  req.session.userId = user.id;
+  req.session.email = user.email;
+  req.session.role = user.role;
+  req.session.cookie.maxAge = 3 * 24 * 60 * 60 * 1000;
+
+  req.session.save((err) => {
+    if (err) { res.redirect(302, "/?error=session"); return; }
+    res.redirect(302, user.role === "admin" ? "/settings" : "/app");
+  });
+});
+
 // ── Logout ────────────────────────────────────────────────────────────────────
 
 router.post("/auth/logout", async (req, res): Promise<void> => {

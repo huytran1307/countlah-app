@@ -1,6 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
 import Layout from "../components/layout";
-import { refreshBranding } from "../hooks/use-branding";
 
 const inputCls =
   "w-full bg-white/[0.06] border border-white/[0.10] text-white rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-white/25 focus:bg-white/[0.08] transition-all duration-200 placeholder:text-white/20";
@@ -117,10 +116,6 @@ export default function SettingsPage() {
   const [contactMsg, setContactMsg] = useState<{ text: string; ok: boolean } | null>(null);
   const [contactSaving, setContactSaving] = useState(false);
 
-  const [logoMsg, setLogoMsg] = useState<{ text: string; ok: boolean } | null>(null);
-  const [companyName, setCompanyName] = useState("");
-  const [brandingSaving, setBrandingSaving] = useState(false);
-
   const load = useCallback(async () => {
     try {
       const data: AllSettings = await api("/api/settings/all");
@@ -133,7 +128,6 @@ export default function SettingsPage() {
       setFieldMapping(data.fieldMapping);
       setContactAutoCreate(data.contacts.autoCreate);
       setContactNameMatching(data.contacts.nameMatching);
-      setCompanyName(data.branding?.companyName ?? "");
     } finally {
       setLoading(false);
     }
@@ -161,25 +155,6 @@ export default function SettingsPage() {
       window.history.replaceState({}, "", "/settings");
     }
   }, [load]);
-
-  async function handleBrandingSave(e: React.FormEvent) {
-    e.preventDefault();
-    setBrandingSaving(true);
-    try {
-      await api("/api/settings/branding", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ companyName }),
-      });
-      setLogoMsg({ text: "Branding saved", ok: true });
-      await refreshBranding();
-      setTimeout(() => setLogoMsg(null), 3000);
-    } catch (err: any) {
-      setLogoMsg({ text: err.message ?? "Failed to save", ok: false });
-    } finally {
-      setBrandingSaving(false);
-    }
-  }
 
   async function handleAnthropicSave(e: React.FormEvent) {
     e.preventDefault();
@@ -353,34 +328,6 @@ export default function SettingsPage() {
             Admin Only
           </span>
         </div>
-
-        {/* ── 0. Branding ───────────────────────────────────────────── */}
-        <SectionCard title="Branding" description="Set the company name shown across the app">
-          <form onSubmit={handleBrandingSave} className="space-y-4">
-            <div>
-              <Label>Company / App Name</Label>
-              <input
-                type="text"
-                value={companyName}
-                onChange={e => setCompanyName(e.target.value)}
-                className={inputCls}
-                placeholder="e.g. COUNTLAH"
-                maxLength={60}
-              />
-              <p className="text-white/20 text-xs mt-1.5">Shown in the navigation bar.</p>
-            </div>
-
-            <SaveMsg msg={logoMsg} />
-
-            <button
-              type="submit"
-              disabled={brandingSaving}
-              className="gradient-primary glow-primary text-white font-semibold px-5 py-2.5 rounded-xl text-sm transition-all duration-200 hover:opacity-90 disabled:opacity-40"
-            >
-              {brandingSaving ? "Saving…" : "Save Branding"}
-            </button>
-          </form>
-        </SectionCard>
 
         {/* ── 1. Xero Configuration ─────────────────────────────────── */}
         <SectionCard title="Xero Configuration" description="Connect your Xero organisation to push invoices automatically">
