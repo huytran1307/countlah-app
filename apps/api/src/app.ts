@@ -119,7 +119,10 @@ app.use(
 );
 
 // Serve uploads directory
-app.use("/api/uploads", express.static(path.join(process.cwd(), "uploads")));
+const uploadsStaticDir = process.env.NODE_ENV === "production"
+  ? "/tmp/uploads"
+  : path.join(process.cwd(), "uploads");
+app.use("/api/uploads", express.static(uploadsStaticDir));
 
 app.use("/api", router);
 

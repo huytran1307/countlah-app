@@ -23,7 +23,10 @@ const router: IRouter = Router();
 
 // ── Multer setup ────────────────────────────────────────────────────────────
 
-const uploadsDir = path.join(process.cwd(), "uploads");
+// /tmp is writable on Vercel; process.cwd() is read-only in production
+const uploadsDir = process.env.NODE_ENV === "production"
+  ? "/tmp/uploads"
+  : path.join(process.cwd(), "uploads");
 if (!fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir, { recursive: true });
 }
