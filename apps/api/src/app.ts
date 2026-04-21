@@ -49,6 +49,25 @@ async function ensureAdminUser(): Promise<void> {
   }
 }
 
+async function ensureTestUser(): Promise<void> {
+  const testEmail = (process.env.TEST_EMAIL ?? "countla168@gmail.com").toLowerCase();
+  const testPassword = process.env.TEST_PASSWORD ?? "Admin@123";
+
+  const [existing] = await db.select({ id: usersTable.id })
+    .from(usersTable)
+    .where(eq(usersTable.email, testEmail));
+
+  if (!existing) {
+    const passwordHash = await bcrypt.hash(testPassword, 12);
+    await db.insert(usersTable).values({ email: testEmail, passwordHash, role: "user" });
+    logger.info({ email: testEmail }, "Test user created");
+  } else {
+    const passwordHash = await bcrypt.hash(testPassword, 12);
+    await db.update(usersTable).set({ passwordHash }).where(eq(usersTable.id, existing.id));
+    logger.info({ email: testEmail }, "Test user credentials synced");
+  }
+}
+
 const app = express();
 app.set("trust proxy", 1);
 
@@ -104,5 +123,5 @@ app.use("/api/uploads", express.static(path.join(process.cwd(), "uploads")));
 
 app.use("/api", router);
 
-export { ensureAdminUser };
+export { ensureAdminUser, ensureTestUser };
 export default app;

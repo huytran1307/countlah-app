@@ -88,9 +88,9 @@ router.post("/auth/login", async (req, res): Promise<void> => {
   req.session.email = user.email;
   req.session.role = user.role;
 
-  // Remember me: persist for 30 days; otherwise session cookie (expires on browser close)
+  // Remember me: persist for 3 days; otherwise session cookie (expires on browser close)
   req.session.cookie.maxAge = rememberMe
-    ? 30 * 24 * 60 * 60 * 1000
+    ? 3 * 24 * 60 * 60 * 1000
     : undefined;
 
   req.session.save((err) => {
