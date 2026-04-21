@@ -204,6 +204,11 @@
 
   body {
     @apply font-sans antialiased bg-background text-foreground;
+    background-image:
+      radial-gradient(ellipse 70% 40% at 50% 0%, rgba(249,90,24,0.07) 0%, transparent 100%),
+      radial-gradient(circle, rgba(255,255,255,0.055) 1px, transparent 1px);
+    background-size: 100% 100%, 28px 28px;
+    background-attachment: fixed;
   }
 }
 
