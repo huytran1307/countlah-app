@@ -63,7 +63,7 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center p-6">
+    <div className="min-h-screen flex items-center justify-center p-6">
       <div className="w-full max-w-sm">
         <div className="mb-12 flex flex-col items-center gap-4">
           <a href="https://countlah.vercel.app" className="hover:opacity-80 transition-opacity duration-200">

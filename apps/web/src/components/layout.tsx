@@ -42,16 +42,16 @@ export default function Layout({ children }: LayoutProps) {
   ];
 
   return (
-    <div className="min-h-screen bg-background text-white flex flex-col">
-      <header className="border-b border-white/[0.07] px-8 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-8">
+    <div className="min-h-screen text-white flex flex-col">
+      <header className="border-b border-white/[0.07] px-4 md:px-8 py-4 flex items-center justify-between">
+        <div className="flex items-center gap-4 md:gap-8">
           <button
             onClick={() => navigate("/dashboard")}
             className="hover:opacity-80 transition-opacity duration-200"
           >
-            <CountlahLogo className="h-7 w-auto" />
+            <CountlahLogo className="h-6 md:h-7 w-auto" />
           </button>
-          <nav className="flex items-center gap-1">
+          <nav className="hidden md:flex items-center gap-1">
             {navItems.map(({ label, path }) => (
               <button
                 key={path}
@@ -67,10 +67,8 @@ export default function Layout({ children }: LayoutProps) {
             ))}
           </nav>
         </div>
-        <div className="flex items-center gap-4">
-          {me?.email && (
-            <span className="text-white/35 text-xs font-medium">{me.email}</span>
-          )}
+        <div className="flex items-center gap-3">
+          <span className="hidden md:block text-white/35 text-xs font-medium">{me?.email}</span>
           {me?.isAdmin && (
             <span className="text-xs font-medium px-2 py-0.5 rounded-md bg-orange-500/15 text-orange-400 border border-orange-500/20">
               Admin
