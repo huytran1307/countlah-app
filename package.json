@@ -9,6 +9,7 @@
     "typecheck": "pnpm run typecheck:libs && pnpm -r --filter \"./apps/**\" --filter \"./scripts\" --if-present run typecheck"
   },
   "private": true,
+  "type": "module",
   "devDependencies": {
     "@rollup/rollup-darwin-arm64": "^4.60.2",
     "@tailwindcss/oxide-darwin-arm64": "4.2.2",
