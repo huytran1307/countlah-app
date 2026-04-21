@@ -75,25 +75,27 @@ if (!process.env.SESSION_SECRET) {
   throw new Error("SESSION_SECRET must be set");
 }
 
-app.use(
-  pinoHttp({
-    logger,
-    serializers: {
-      req(req) {
-        return {
-          id: req.id,
-          method: req.method,
-          url: req.url?.split("?")[0],
-        };
+// pino-http uses worker threads which break on Vercel's read-only filesystem
+if (process.env.VERCEL) {
+  app.use((req, res, next) => {
+    res.on("finish", () => console.log(`${req.method} ${req.url?.split("?")[0]} ${res.statusCode}`));
+    next();
+  });
+} else {
+  app.use(
+    pinoHttp({
+      logger,
+      serializers: {
+        req(req) {
+          return { id: req.id, method: req.method, url: req.url?.split("?")[0] };
+        },
+        res(res) {
+          return { statusCode: res.statusCode };
+        },
       },
-      res(res) {
-        return {
-          statusCode: res.statusCode,
-        };
-      },
-    },
-  }),
-);
+    }),
+  );
+}
 
 app.use(cors({ origin: true, credentials: true }));
 app.use(express.json({ limit: "10mb" }));
