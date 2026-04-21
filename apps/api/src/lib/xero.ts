@@ -8,7 +8,7 @@ export const XERO_AUTH_URL = "https://login.xero.com/identity/connect/authorize"
 export const XERO_TOKEN_URL = "https://identity.xero.com/connect/token";
 export const XERO_API_BASE = "https://api.xero.com/api.xro/2.0";
 export const XERO_CONNECTIONS_URL = "https://api.xero.com/connections";
-export const XERO_SCOPES = "openid profile email offline_access accounting.transactions accounting.contacts accounting.settings";
+export const XERO_SCOPES = "openid profile email offline_access accounting.invoices accounting.contacts accounting.settings";
 
 // ─── PKCE ─────────────────────────────────────────────────────────────────────
 
