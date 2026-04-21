@@ -15,8 +15,8 @@ import { db, pool, usersTable } from "@workspace/db";
 // Uses ADMIN_EMAIL / ADMIN_PASSWORD env vars (defaults maintained for dev).
 
 async function ensureAdminUser(): Promise<void> {
-  const adminEmail = (process.env.ADMIN_EMAIL ?? "admin").toLowerCase();
-  const adminPassword = process.env.ADMIN_PASSWORD ?? "@Admin123";
+  const adminEmail = (process.env.ADMIN_EMAIL ?? "admin").trim().toLowerCase();
+  const adminPassword = (process.env.ADMIN_PASSWORD ?? "@Admin123").trim();
 
   // Remove any existing admin accounts that don't match the configured email,
   // so credential changes in .env take effect without manual DB edits.
@@ -50,8 +50,8 @@ async function ensureAdminUser(): Promise<void> {
 }
 
 async function ensureTestUser(): Promise<void> {
-  const testEmail = (process.env.TEST_EMAIL ?? "countla168@gmail.com").toLowerCase();
-  const testPassword = process.env.TEST_PASSWORD ?? "Admin@123";
+  const testEmail = (process.env.TEST_EMAIL ?? "countla168@gmail.com").trim().toLowerCase();
+  const testPassword = (process.env.TEST_PASSWORD ?? "Admin@123").trim();
 
   const [existing] = await db.select({ id: usersTable.id })
     .from(usersTable)
