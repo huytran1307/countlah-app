@@ -119,7 +119,7 @@ app.use(
 );
 
 // Serve uploads directory
-const uploadsStaticDir = process.env.NODE_ENV === "production"
+const uploadsStaticDir = process.env.VERCEL
   ? "/tmp/uploads"
   : path.join(process.cwd(), "uploads");
 app.use("/api/uploads", express.static(uploadsStaticDir));

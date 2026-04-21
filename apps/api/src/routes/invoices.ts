@@ -23,8 +23,8 @@ const router: IRouter = Router();
 
 // ── Multer setup ────────────────────────────────────────────────────────────
 
-// /tmp is writable on Vercel; process.cwd() is read-only in production
-const uploadsDir = process.env.NODE_ENV === "production"
+// Vercel's filesystem is read-only except /tmp; VERCEL env var is auto-set by Vercel
+const uploadsDir = process.env.VERCEL
   ? "/tmp/uploads"
   : path.join(process.cwd(), "uploads");
 if (!fs.existsSync(uploadsDir)) {
