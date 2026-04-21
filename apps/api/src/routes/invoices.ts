@@ -17,7 +17,7 @@ import {
 import { requireAuth } from "../middlewares/requireAuth";
 import { getClaudeClient } from "../lib/claude";
 import { extractInvoiceFromFile, isImageMime } from "../lib/ocr";
-import { getValidToken, xeroPost, buildXeroInvoice, XeroApiError, getUserSetting } from "../lib/xero";
+import { getValidToken, xeroPost, buildXeroInvoice, XeroApiError, getSetting } from "../lib/xero";
 
 const router: IRouter = Router();
 
@@ -302,10 +302,10 @@ router.post("/invoices/:id/push-xero", requireAuth, async (req, res): Promise<vo
     const { accessToken, tenantId, tenantName } = await getValidToken(userId);
 
     const [accountCode, taxType, currency, invoiceType] = await Promise.all([
-      getUserSetting(userId, "accounting_account_code"),
-      getUserSetting(userId, "accounting_tax_type"),
-      getUserSetting(userId, "accounting_currency"),
-      getUserSetting(userId, "accounting_invoice_type"),
+      getSetting("accounting_account_code"),
+      getSetting("accounting_tax_type"),
+      getSetting("accounting_currency"),
+      getSetting("accounting_invoice_type"),
     ]);
 
     const accounting = {

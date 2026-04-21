@@ -35,6 +35,13 @@ const GLOBAL = {
   BRANDING_COMPANY_NAME: "branding_company_name",
   XERO_CLIENT_ID: "xero_client_id",
   XERO_CLIENT_SECRET: "xero_client_secret",
+  ACCT_ACCOUNT_CODE: "accounting_account_code",
+  ACCT_TAX_TYPE: "accounting_tax_type",
+  ACCT_CURRENCY: "accounting_currency",
+  ACCT_INVOICE_TYPE: "accounting_invoice_type",
+  FIELD_MAPPING: "field_mapping",
+  CONTACT_AUTO_CREATE: "contact_auto_create",
+  CONTACT_NAME_MATCHING: "contact_name_matching",
 };
 
 const USER = {
@@ -44,13 +51,6 @@ const USER = {
   XERO_TENANT_ID: "xero_tenant_id",
   XERO_TENANT_NAME: "xero_tenant_name",
   XERO_CONNECTED: "xero_connected",
-  ACCT_ACCOUNT_CODE: "accounting_account_code",
-  ACCT_TAX_TYPE: "accounting_tax_type",
-  ACCT_CURRENCY: "accounting_currency",
-  ACCT_INVOICE_TYPE: "accounting_invoice_type",
-  FIELD_MAPPING: "field_mapping",
-  CONTACT_AUTO_CREATE: "contact_auto_create",
-  CONTACT_NAME_MATCHING: "contact_name_matching",
 };
 
 const XERO_TOKEN_KEYS = [
@@ -133,13 +133,13 @@ router.get("/settings/all", requireAuth, async (req, res): Promise<void> => {
     getUserSetting(userId, USER.XERO_ACCESS_TOKEN),
     getUserSetting(userId, USER.XERO_TENANT_ID),
     getUserSetting(userId, USER.XERO_TENANT_NAME),
-    getUserSetting(userId, USER.ACCT_ACCOUNT_CODE),
-    getUserSetting(userId, USER.ACCT_TAX_TYPE),
-    getUserSetting(userId, USER.ACCT_CURRENCY),
-    getUserSetting(userId, USER.ACCT_INVOICE_TYPE),
-    getUserSetting(userId, USER.FIELD_MAPPING),
-    getUserSetting(userId, USER.CONTACT_AUTO_CREATE),
-    getUserSetting(userId, USER.CONTACT_NAME_MATCHING),
+    getSetting(GLOBAL.ACCT_ACCOUNT_CODE),
+    getSetting(GLOBAL.ACCT_TAX_TYPE),
+    getSetting(GLOBAL.ACCT_CURRENCY),
+    getSetting(GLOBAL.ACCT_INVOICE_TYPE),
+    getSetting(GLOBAL.FIELD_MAPPING),
+    getSetting(GLOBAL.CONTACT_AUTO_CREATE),
+    getSetting(GLOBAL.CONTACT_NAME_MATCHING),
     getSetting(GLOBAL.BRANDING_LOGO_URL),
     getSetting(GLOBAL.BRANDING_COMPANY_NAME),
   ]);
@@ -333,41 +333,38 @@ router.delete("/settings/xero/connect", requireAuth, async (req, res): Promise<v
   res.json({ success: true, connected: false });
 });
 
-// ─── Accounting Defaults — per-user ──────────────────────────────────────────
+// ─── Accounting Defaults — global (admin-only) ───────────────────────────────
 
-router.post("/settings/accounting", requireAuth, async (req, res): Promise<void> => {
-  const userId = req.session.userId!;
+router.post("/settings/accounting", requireAdmin, async (req, res): Promise<void> => {
   const { accountCode, taxType, currency, invoiceType } = req.body;
   await Promise.all([
-    typeof accountCode === "string" ? setUserSetting(userId, USER.ACCT_ACCOUNT_CODE, accountCode.trim()) : Promise.resolve(),
-    typeof taxType === "string" ? setUserSetting(userId, USER.ACCT_TAX_TYPE, taxType.trim()) : Promise.resolve(),
-    typeof currency === "string" ? setUserSetting(userId, USER.ACCT_CURRENCY, currency.trim()) : Promise.resolve(),
-    typeof invoiceType === "string" ? setUserSetting(userId, USER.ACCT_INVOICE_TYPE, invoiceType.trim()) : Promise.resolve(),
+    typeof accountCode === "string" ? setSetting(GLOBAL.ACCT_ACCOUNT_CODE, accountCode.trim()) : Promise.resolve(),
+    typeof taxType === "string" ? setSetting(GLOBAL.ACCT_TAX_TYPE, taxType.trim()) : Promise.resolve(),
+    typeof currency === "string" ? setSetting(GLOBAL.ACCT_CURRENCY, currency.trim()) : Promise.resolve(),
+    typeof invoiceType === "string" ? setSetting(GLOBAL.ACCT_INVOICE_TYPE, invoiceType.trim()) : Promise.resolve(),
   ]);
   res.json({ success: true });
 });
 
-// ─── Field Mapping — per-user ─────────────────────────────────────────────────
+// ─── Field Mapping — global (admin-only) ─────────────────────────────────────
 
-router.post("/settings/field-mapping", requireAuth, async (req, res): Promise<void> => {
-  const userId = req.session.userId!;
+router.post("/settings/field-mapping", requireAdmin, async (req, res): Promise<void> => {
   const { fieldMapping } = req.body;
   if (!fieldMapping || typeof fieldMapping !== "object") {
     res.status(400).json({ error: "Invalid field mapping" });
     return;
   }
-  await setUserSetting(userId, USER.FIELD_MAPPING, JSON.stringify(fieldMapping));
+  await setSetting(GLOBAL.FIELD_MAPPING, JSON.stringify(fieldMapping));
   res.json({ success: true });
 });
 
-// ─── Contact Settings — per-user ──────────────────────────────────────────────
+// ─── Contact Settings — global (admin-only) ───────────────────────────────────
 
-router.post("/settings/contacts", requireAuth, async (req, res): Promise<void> => {
-  const userId = req.session.userId!;
+router.post("/settings/contacts", requireAdmin, async (req, res): Promise<void> => {
   const { autoCreate, nameMatching } = req.body;
   await Promise.all([
-    typeof autoCreate === "boolean" ? setUserSetting(userId, USER.CONTACT_AUTO_CREATE, String(autoCreate)) : Promise.resolve(),
-    typeof nameMatching === "string" ? setUserSetting(userId, USER.CONTACT_NAME_MATCHING, nameMatching.trim()) : Promise.resolve(),
+    typeof autoCreate === "boolean" ? setSetting(GLOBAL.CONTACT_AUTO_CREATE, String(autoCreate)) : Promise.resolve(),
+    typeof nameMatching === "string" ? setSetting(GLOBAL.CONTACT_NAME_MATCHING, nameMatching.trim()) : Promise.resolve(),
   ]);
   res.json({ success: true });
 });
