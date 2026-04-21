@@ -1,3 +1,6 @@
+// Allow self-signed certs from Supabase connection pooler
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+
 import app, { ensureAdminUser, ensureTestUser } from '../apps/api/dist/app.mjs';
 
 let initialized = false;
