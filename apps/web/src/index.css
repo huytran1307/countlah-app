@@ -273,41 +273,78 @@
   50% { background-position: 100% 50%; }
 }
 
-/* Hero symbol ↔ chart morph */
-@keyframes symbolShow {
-  0%, 40% { opacity: 1; }
-  55%, 90% { opacity: 0; }
-  100% { opacity: 1; }
+/* Hero: 3 points expand → logo → chart bars (10s loop) */
+
+/* Each path scales from its centre dot into its full shape */
+@keyframes path1Expand {
+  0%, 4%    { opacity: 0; transform: scale(0); }
+  14%       { opacity: 1; transform: scale(1); }
+  58%       { opacity: 1; transform: scale(1); }
+  66%, 100% { opacity: 0; transform: scale(0.15); }
 }
+@keyframes path2Expand {
+  0%, 9%    { opacity: 0; transform: scale(0); }
+  19%       { opacity: 1; transform: scale(1); }
+  58%       { opacity: 1; transform: scale(1); }
+  66%, 100% { opacity: 0; transform: scale(0.15); }
+}
+@keyframes path3Expand {
+  0%, 14%   { opacity: 0; transform: scale(0); }
+  24%       { opacity: 1; transform: scale(1); }
+  58%       { opacity: 1; transform: scale(1); }
+  66%, 100% { opacity: 0; transform: scale(0.15); }
+}
+
+/* Chart SVG container fades in to reveal rising bars */
 @keyframes chartShow {
-  0%, 40% { opacity: 0; }
-  55%, 90% { opacity: 1; }
-  100% { opacity: 0; }
+  0%, 66%   { opacity: 0; }
+  72%, 91%  { opacity: 1; }
+  99%, 100% { opacity: 0; }
 }
+
+/* Each bar rises from the bottom, staggered */
+@keyframes bar1Rise {
+  0%, 68%   { transform: scaleY(0); }
+  77%, 100% { transform: scaleY(1); }
+}
+@keyframes bar2Rise {
+  0%, 71%   { transform: scaleY(0); }
+  80%, 100% { transform: scaleY(1); }
+}
+@keyframes bar3Rise {
+  0%, 74%   { transform: scaleY(0); }
+  83%, 100% { transform: scaleY(1); }
+}
+@keyframes bar4Rise {
+  0%, 77%   { transform: scaleY(0); }
+  86%, 100% { transform: scaleY(1); }
+}
+@keyframes bar5Rise {
+  0%, 80%   { transform: scaleY(0); }
+  89%, 100% { transform: scaleY(1); }
+}
+
 @keyframes glowPulse {
   0%, 100% { opacity: 0.5; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.5); }
-}
-@keyframes path1Breathe {
-  0%, 100% { opacity: 1; }
-  40%       { opacity: 0.55; }
-}
-@keyframes path2Breathe {
-  0%, 100% { opacity: 0.75; }
-  25%       { opacity: 1; }
-  60%       { opacity: 0.4; }
-}
-@keyframes path3Breathe {
-  0%, 100% { opacity: 0.85; }
-  50%       { opacity: 0.45; }
+  50%      { opacity: 1;   transform: scale(1.5); }
 }
 
 /* Dashboard mockup */
 @keyframes floatChip {
   0%, 100% { transform: translateY(0px); }
-  50%       { transform: translateY(-5px); }
+  50%      { transform: translateY(-5px); }
 }
-@keyframes progressGrow {
-  0%   { width: 52%; }
-  100% { width: 80%; }
+
+/* Progress bar counts up then resets — loops */
+@keyframes progressLoop {
+  0%   { width: 0%; }
+  70%  { width: 80%; }
+  88%  { width: 80%; }
+  100% { width: 0%; }
+}
+
+/* Invoice rows slide in on appearance */
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
 }

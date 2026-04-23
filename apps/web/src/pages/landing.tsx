@@ -253,59 +253,65 @@ function CheckItem({ children }: { children: React.ReactNode }) {
 // ─── Hero visual components ───────────────────────────────────────────────────
 
 function CountlahSymbolHero() {
+  const pathStyle = (anim: string): React.CSSProperties => ({
+    transformBox: "fill-box",
+    transformOrigin: "center",
+    animation: anim,
+  });
+  const barStyle = (anim: string): React.CSSProperties => ({
+    transformBox: "fill-box",
+    transformOrigin: "bottom",
+    animation: anim,
+  });
+
   return (
     <div className="relative flex items-center justify-center w-28 h-24">
-      {/* Ambient glow */}
+      {/* Ambient glow pulses with the logo phase */}
       <div
         className="absolute inset-0 rounded-full bg-orange-500/25 blur-3xl scale-[2] pointer-events-none"
-        style={{ animation: "glowPulse 8s ease-in-out infinite" }}
+        style={{ animation: "glowPulse 10s ease-in-out infinite" }}
       />
-      {/* Symbol paths — breathe, then fade out */}
-      <svg
-        viewBox="0 0 90 74"
-        className="absolute inset-0 w-full h-full"
-        style={{ animation: "symbolShow 8s ease-in-out infinite" }}
-      >
+
+      {/* 3 points expand into logo paths, then collapse */}
+      <svg viewBox="0 0 90 74" className="absolute inset-0 w-full h-full">
         <path
           fill="#F95A18"
           d="M14.43,70.18L1.49,57.23c-.95-.95-1.49-2.25-1.49-3.6v-26.51c0-4.58,5.54-6.88,8.78-3.64l41.06,41.06c3.24,3.24.95,8.78-3.64,8.78h-24.16c-2.86,0-5.59-1.13-7.61-3.15"
-          style={{ animation: "path1Breathe 8s ease-in-out infinite" }}
+          style={pathStyle("path1Expand 10s ease-in-out infinite")}
         />
         <path
           fill="#F95A18"
           d="M4.39,8.78l17.42,17.4c2.02,2.02,4.76,3.15,7.61,3.15l46.2-.02c2.81,0,5.09-2.28,5.09-5.09V5.09c0-2.81-2.28-5.09-5.09-5.09H8.02C3.44,0,1.15,5.54,4.39,8.78"
-          style={{ animation: "path2Breathe 8s ease-in-out infinite" }}
+          style={pathStyle("path2Expand 10s ease-in-out infinite")}
         />
         <path
           fill="#F95A18"
           d="M73.41,73.32h9.52c2.81,0,5.08-2.27,5.09-5.08v-7.38s0-19.15,0-19.15c0-2.81-2.28-5.09-5.09-5.08l-38.1.03c-4.63,0-6.94,5.6-3.67,8.87l24.65,24.65c2.02,2.02,4.76,3.15,7.61,3.15"
-          style={{ animation: "path3Breathe 8s ease-in-out infinite" }}
+          style={pathStyle("path3Expand 10s ease-in-out infinite")}
         />
       </svg>
-      {/* Chart bars — cross-fade in */}
+
+      {/* Chart bars rise from baseline once logo collapses */}
       <svg
         viewBox="0 0 90 74"
         className="absolute inset-0 w-full h-full"
-        style={{ animation: "chartShow 8s ease-in-out infinite" }}
+        style={{ animation: "chartShow 10s ease-in-out infinite" }}
       >
-        <rect x="5" y="44" width="12" height="26" rx="2.5" fill="#F95A18" opacity="0.55" />
-        <rect x="22" y="29" width="12" height="41" rx="2.5" fill="#F95A18" opacity="0.75" />
-        <rect x="39" y="14" width="12" height="56" rx="2.5" fill="#F95A18" />
-        <rect x="56" y="21" width="12" height="49" rx="2.5" fill="#F95A18" opacity="0.85" />
-        <rect x="73" y="33" width="12" height="37" rx="2.5" fill="#F95A18" opacity="0.65" />
-        <polyline
-          points="11,44 28,29 45,14 62,21 79,33"
-          stroke="#FFA070"
-          strokeWidth="2"
-          fill="none"
-          opacity="0.7"
-          strokeLinecap="round"
-        />
-        <circle cx="11" cy="44" r="2.5" fill="#FFA070" opacity="0.9" />
-        <circle cx="28" cy="29" r="2.5" fill="#FFA070" opacity="0.9" />
-        <circle cx="45" cy="14" r="2.5" fill="#FFA070" opacity="0.9" />
-        <circle cx="62" cy="21" r="2.5" fill="#FFA070" opacity="0.9" />
-        <circle cx="79" cy="33" r="2.5" fill="#FFA070" opacity="0.9" />
+        {/* Baseline */}
+        <line x1="2" y1="72" x2="88" y2="72" stroke="#F95A18" strokeWidth="1" opacity="0.2" />
+        {/* Bars */}
+        <rect x="5"  y="44" width="13" height="28" rx="2.5" fill="#F95A18" opacity="0.50" style={barStyle("bar1Rise 10s ease-in-out infinite")} />
+        <rect x="22" y="28" width="13" height="44" rx="2.5" fill="#F95A18" opacity="0.70" style={barStyle("bar2Rise 10s ease-in-out infinite")} />
+        <rect x="39" y="12" width="13" height="60" rx="2.5" fill="#F95A18"               style={barStyle("bar3Rise 10s ease-in-out infinite")} />
+        <rect x="56" y="20" width="13" height="52" rx="2.5" fill="#F95A18" opacity="0.85" style={barStyle("bar4Rise 10s ease-in-out infinite")} />
+        <rect x="73" y="33" width="13" height="39" rx="2.5" fill="#F95A18" opacity="0.60" style={barStyle("bar5Rise 10s ease-in-out infinite")} />
+        {/* Trend line + dots */}
+        <polyline points="11.5,44 28.5,28 45.5,12 62.5,20 79.5,33" stroke="#FFA070" strokeWidth="1.8" fill="none" opacity="0.75" strokeLinecap="round" strokeLinejoin="round" />
+        <circle cx="11.5" cy="44"  r="2.5" fill="#FFA070" opacity="0.9" />
+        <circle cx="28.5" cy="28"  r="2.5" fill="#FFA070" opacity="0.9" />
+        <circle cx="45.5" cy="12"  r="2.5" fill="#FFA070" opacity="0.9" />
+        <circle cx="62.5" cy="20"  r="2.5" fill="#FFA070" opacity="0.9" />
+        <circle cx="79.5" cy="33"  r="2.5" fill="#FFA070" opacity="0.9" />
       </svg>
     </div>
   );
@@ -325,27 +331,32 @@ function HeroDashboard() {
             <p className="text-white/35 text-[10px] font-medium uppercase tracking-widest">Revenue · Apr 2025</p>
             <p className="text-white font-bold text-lg leading-tight">S$24,580</p>
           </div>
-          <span className="text-[11px] font-semibold px-2 py-1 rounded-lg bg-green-500/15 text-green-400">↑ 12%</span>
+          <span className="text-[11px] font-semibold px-2 py-1 rounded-lg bg-green-500/15 text-green-400 animate-pulse">↑ 12%</span>
         </div>
 
-        {/* Progress bar */}
+        {/* Progress bar — counts up then resets */}
         <div className="px-4 pt-3 pb-1">
           <div className="flex justify-between text-[10px] text-white/30 mb-1.5">
-            <span>Filing progress</span><span>80%</span>
+            <span>Filing progress</span>
+            <span style={{ animation: "fadeSlideIn 0.4s ease-out 0.2s both" }}>80%</span>
           </div>
-          <div className="h-1.5 bg-white/[0.06] rounded-full">
-            <div className="h-full gradient-primary rounded-full" style={{ width: "52%", animation: "progressGrow 2.5s ease-out 0.5s forwards" }} />
+          <div className="h-1.5 bg-white/[0.06] rounded-full overflow-hidden">
+            <div className="h-full gradient-primary rounded-full" style={{ animation: "progressLoop 5s ease-in-out infinite" }} />
           </div>
         </div>
 
-        {/* Invoice rows */}
+        {/* Invoice rows — slide in one by one */}
         <div className="px-4 py-2">
           {[
-            { name: "Acme Corp", amount: "S$4,200", paid: true },
-            { name: "Tech Solutions Pte", amount: "S$8,500", paid: true },
+            { name: "Acme Corp",        amount: "S$4,200", paid: true  },
+            { name: "Tech Solutions Pte", amount: "S$8,500", paid: true  },
             { name: "Global Trade Ltd", amount: "S$3,800", paid: false },
-          ].map((inv) => (
-            <div key={inv.name} className="flex items-center justify-between py-2.5 border-b border-white/[0.05] last:border-0">
+          ].map((inv, i) => (
+            <div
+              key={inv.name}
+              className="flex items-center justify-between py-2.5 border-b border-white/[0.05] last:border-0"
+              style={{ animation: `fadeSlideIn 0.45s ease-out ${0.3 + i * 0.18}s both` }}
+            >
               <div className="flex items-center gap-2.5">
                 <div className="w-6 h-6 rounded-lg bg-white/[0.06] flex items-center justify-center text-white/40 text-[10px] font-bold">
                   {inv.name[0]}
