@@ -34,6 +34,8 @@ interface Service {
   tagline: string;
   detail: string;
   icon: React.ReactNode;
+  featured?: boolean;
+  fullWidth?: boolean;
 }
 
 const SERVICES: Service[] = [
@@ -50,6 +52,7 @@ const SERVICES: Service[] = [
   },
   {
     id: "gst",
+    featured: true,
     title: "GST Filing & Compliance",
     tagline: "Never miss a deadline again",
     detail: "We prepare, review, and submit your GST returns every quarter — penalty-free, every time. Full reconciliation, IRAS correspondence handled, and proactive alerts for any regulatory changes that affect your business.",
@@ -94,6 +97,7 @@ const SERVICES: Service[] = [
   },
   {
     id: "cfo",
+    fullWidth: true,
     title: "CFO Advisory",
     tagline: "Strategy, not just compliance",
     detail: "Monthly financial reviews, cash flow forecasting, and growth planning — like having a CFO on call. We help you understand your numbers and make decisions that actually move your business forward.",
@@ -242,6 +246,146 @@ function CheckItem({ children }: { children: React.ReactNode }) {
         </svg>
       </div>
       <span className="text-white/60 text-sm">{children}</span>
+    </div>
+  );
+}
+
+// ─── Hero visual components ───────────────────────────────────────────────────
+
+function CountlahSymbolHero() {
+  return (
+    <div className="relative flex items-center justify-center w-28 h-24">
+      {/* Ambient glow */}
+      <div
+        className="absolute inset-0 rounded-full bg-orange-500/25 blur-3xl scale-[2] pointer-events-none"
+        style={{ animation: "glowPulse 8s ease-in-out infinite" }}
+      />
+      {/* Symbol paths — breathe, then fade out */}
+      <svg
+        viewBox="0 0 90 74"
+        className="absolute inset-0 w-full h-full"
+        style={{ animation: "symbolShow 8s ease-in-out infinite" }}
+      >
+        <path
+          fill="#F95A18"
+          d="M14.43,70.18L1.49,57.23c-.95-.95-1.49-2.25-1.49-3.6v-26.51c0-4.58,5.54-6.88,8.78-3.64l41.06,41.06c3.24,3.24.95,8.78-3.64,8.78h-24.16c-2.86,0-5.59-1.13-7.61-3.15"
+          style={{ animation: "path1Breathe 8s ease-in-out infinite" }}
+        />
+        <path
+          fill="#F95A18"
+          d="M4.39,8.78l17.42,17.4c2.02,2.02,4.76,3.15,7.61,3.15l46.2-.02c2.81,0,5.09-2.28,5.09-5.09V5.09c0-2.81-2.28-5.09-5.09-5.09H8.02C3.44,0,1.15,5.54,4.39,8.78"
+          style={{ animation: "path2Breathe 8s ease-in-out infinite" }}
+        />
+        <path
+          fill="#F95A18"
+          d="M73.41,73.32h9.52c2.81,0,5.08-2.27,5.09-5.08v-7.38s0-19.15,0-19.15c0-2.81-2.28-5.09-5.09-5.08l-38.1.03c-4.63,0-6.94,5.6-3.67,8.87l24.65,24.65c2.02,2.02,4.76,3.15,7.61,3.15"
+          style={{ animation: "path3Breathe 8s ease-in-out infinite" }}
+        />
+      </svg>
+      {/* Chart bars — cross-fade in */}
+      <svg
+        viewBox="0 0 90 74"
+        className="absolute inset-0 w-full h-full"
+        style={{ animation: "chartShow 8s ease-in-out infinite" }}
+      >
+        <rect x="5" y="44" width="12" height="26" rx="2.5" fill="#F95A18" opacity="0.55" />
+        <rect x="22" y="29" width="12" height="41" rx="2.5" fill="#F95A18" opacity="0.75" />
+        <rect x="39" y="14" width="12" height="56" rx="2.5" fill="#F95A18" />
+        <rect x="56" y="21" width="12" height="49" rx="2.5" fill="#F95A18" opacity="0.85" />
+        <rect x="73" y="33" width="12" height="37" rx="2.5" fill="#F95A18" opacity="0.65" />
+        <polyline
+          points="11,44 28,29 45,14 62,21 79,33"
+          stroke="#FFA070"
+          strokeWidth="2"
+          fill="none"
+          opacity="0.7"
+          strokeLinecap="round"
+        />
+        <circle cx="11" cy="44" r="2.5" fill="#FFA070" opacity="0.9" />
+        <circle cx="28" cy="29" r="2.5" fill="#FFA070" opacity="0.9" />
+        <circle cx="45" cy="14" r="2.5" fill="#FFA070" opacity="0.9" />
+        <circle cx="62" cy="21" r="2.5" fill="#FFA070" opacity="0.9" />
+        <circle cx="79" cy="33" r="2.5" fill="#FFA070" opacity="0.9" />
+      </svg>
+    </div>
+  );
+}
+
+function HeroDashboard() {
+  return (
+    <div className="relative w-full max-w-xs mx-auto">
+      {/* Ambient glow */}
+      <div className="absolute -inset-4 bg-orange-500/[0.06] rounded-3xl blur-2xl pointer-events-none" />
+
+      {/* Main card */}
+      <div className="relative glass rounded-2xl overflow-hidden border border-white/[0.10] shadow-2xl">
+        {/* Card header */}
+        <div className="bg-orange-500/[0.07] px-4 py-3.5 flex items-center justify-between border-b border-white/[0.06]">
+          <div>
+            <p className="text-white/35 text-[10px] font-medium uppercase tracking-widest">Revenue · Apr 2025</p>
+            <p className="text-white font-bold text-lg leading-tight">S$24,580</p>
+          </div>
+          <span className="text-[11px] font-semibold px-2 py-1 rounded-lg bg-green-500/15 text-green-400">↑ 12%</span>
+        </div>
+
+        {/* Progress bar */}
+        <div className="px-4 pt-3 pb-1">
+          <div className="flex justify-between text-[10px] text-white/30 mb-1.5">
+            <span>Filing progress</span><span>80%</span>
+          </div>
+          <div className="h-1.5 bg-white/[0.06] rounded-full">
+            <div className="h-full gradient-primary rounded-full" style={{ width: "52%", animation: "progressGrow 2.5s ease-out 0.5s forwards" }} />
+          </div>
+        </div>
+
+        {/* Invoice rows */}
+        <div className="px-4 py-2">
+          {[
+            { name: "Acme Corp", amount: "S$4,200", paid: true },
+            { name: "Tech Solutions Pte", amount: "S$8,500", paid: true },
+            { name: "Global Trade Ltd", amount: "S$3,800", paid: false },
+          ].map((inv) => (
+            <div key={inv.name} className="flex items-center justify-between py-2.5 border-b border-white/[0.05] last:border-0">
+              <div className="flex items-center gap-2.5">
+                <div className="w-6 h-6 rounded-lg bg-white/[0.06] flex items-center justify-center text-white/40 text-[10px] font-bold">
+                  {inv.name[0]}
+                </div>
+                <span className="text-white/65 text-xs truncate max-w-[120px]">{inv.name}</span>
+              </div>
+              <div className="flex items-center gap-2 flex-shrink-0">
+                <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-medium ${inv.paid ? "bg-green-500/15 text-green-400" : "bg-orange-500/15 text-orange-400"}`}>
+                  {inv.paid ? "Paid" : "Due"}
+                </span>
+                <span className="text-white/80 text-xs font-medium">{inv.amount}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="px-4 pb-3.5 pt-1 text-[10px] text-white/20 text-right">
+          Powered by Countlah · ACRA Compliant
+        </div>
+      </div>
+
+      {/* Floating chip — GST filed */}
+      <div
+        className="absolute -top-3 -right-4 glass rounded-xl px-2.5 py-1.5 border border-white/[0.12] flex items-center gap-1.5 shadow-lg"
+        style={{ animation: "floatChip 3s ease-in-out infinite" }}
+      >
+        <div className="w-2.5 h-2.5 rounded-full bg-green-500/30 flex items-center justify-center">
+          <div className="w-1.5 h-1.5 rounded-full bg-green-400" />
+        </div>
+        <span className="text-white/70 text-[11px] font-medium whitespace-nowrap">GST Filed ✓</span>
+      </div>
+
+      {/* Floating chip — savings */}
+      <div
+        className="absolute -bottom-3 -left-4 glass rounded-xl px-2.5 py-1.5 border border-white/[0.12] flex items-center gap-1.5 shadow-lg"
+        style={{ animation: "floatChip 4s ease-in-out infinite 1.2s" }}
+      >
+        <span className="text-orange-400 text-xs font-bold">↑</span>
+        <span className="text-white/70 text-[11px] font-medium whitespace-nowrap">S$2,400 saved</span>
+      </div>
     </div>
   );
 }
@@ -478,52 +622,64 @@ export default function LandingPage() {
       </div>
 
       {/* ── Hero ───────────────────────────────────────────────────────────── */}
-      <section className="max-w-4xl mx-auto px-4 pt-20 pb-24 text-center">
+      <section className="max-w-6xl mx-auto px-4 pt-16 pb-20">
+        <div className="grid md:grid-cols-2 gap-12 items-center">
 
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold border border-orange-500/25 bg-orange-500/[0.08] text-orange-300 mb-6">
-          <span className="w-1.5 h-1.5 rounded-full bg-orange-400 animate-pulse" />
-          ACRA-Registered · Singapore
-        </div>
+          {/* Left: text */}
+          <div className="text-center md:text-left">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold border border-orange-500/25 bg-orange-500/[0.08] text-orange-300 mb-6">
+              <span className="w-1.5 h-1.5 rounded-full bg-orange-400 animate-pulse" />
+              ACRA-Registered · Singapore
+            </div>
 
-        <h1 className="text-4xl md:text-6xl font-bold text-white tracking-tight leading-[1.1] mb-6">
-          Still filing your own{" "}
-          <span className="gradient-primary-text">GST at midnight?</span>
-        </h1>
+            <h1 className="text-4xl md:text-5xl font-bold text-white tracking-tight leading-[1.1] mb-6">
+              Still filing your own{" "}
+              <span className="gradient-primary-text">GST at midnight?</span>
+            </h1>
 
-        <p className="text-white/50 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto mb-10">
-          You didn't start a business to live in spreadsheets.{" "}
-          <span className="text-white/70">Let us handle every number</span>{" "}
-          — so you get back to running yours.
-        </p>
+            <p className="text-white/50 text-lg leading-relaxed mb-10">
+              You didn't start a business to live in spreadsheets.{" "}
+              <span className="text-white/70">Let us handle every number</span>{" "}
+              — so you get back to running yours.
+            </p>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-12">
-          <a
-            href={CONSULTATION_URL}
-            className="gradient-primary glow-primary text-white font-semibold px-7 py-3.5 rounded-xl text-sm transition-all duration-200 hover:opacity-90 active:scale-[0.98] flex items-center gap-2"
-          >
-            Book My Free Consultation
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-            </svg>
-          </a>
-          <button
-            onClick={() => setActiveModal("how-it-works")}
-            className="px-7 py-3.5 rounded-xl text-sm font-semibold text-white/60 hover:text-white border border-white/[0.10] hover:border-white/25 hover:bg-white/[0.04] transition-all duration-200 flex items-center gap-2"
-          >
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z" />
-            </svg>
-            See How It Works
-          </button>
-        </div>
+            <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-3 mb-10">
+              <a
+                href={CONSULTATION_URL}
+                className="gradient-primary glow-primary text-white font-semibold px-7 py-3.5 rounded-xl text-sm transition-all duration-200 hover:opacity-90 active:scale-[0.98] flex items-center gap-2"
+              >
+                Book My Free Consultation
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                </svg>
+              </a>
+              <button
+                onClick={() => setActiveModal("how-it-works")}
+                className="px-7 py-3.5 rounded-xl text-sm font-semibold text-white/60 hover:text-white border border-white/[0.10] hover:border-white/25 hover:bg-white/[0.04] transition-all duration-200 flex items-center gap-2"
+              >
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z" />
+                </svg>
+                See How It Works
+              </button>
+            </div>
 
-        <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-white/30 text-xs font-medium">
-          {["ISCA Member", "PDPA Compliant", "Xero & QuickBooks Certified", "Est. 2014"].map((badge, i, arr) => (
-            <span key={badge} className="flex items-center gap-5">
-              <span>{badge}</span>
-              {i < arr.length - 1 && <span className="text-white/15">·</span>}
-            </span>
-          ))}
+            <div className="flex flex-wrap items-center justify-center md:justify-start gap-x-5 gap-y-2 text-white/30 text-xs font-medium">
+              {["ISCA Member", "PDPA Compliant", "Xero & QuickBooks Certified", "Est. 2014"].map((badge, i, arr) => (
+                <span key={badge} className="flex items-center gap-5">
+                  <span>{badge}</span>
+                  {i < arr.length - 1 && <span className="text-white/15">·</span>}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Right: animated visual */}
+          <div className="flex flex-col items-center gap-8">
+            <CountlahSymbolHero />
+            <HeroDashboard />
+          </div>
+
         </div>
       </section>
 
@@ -544,32 +700,73 @@ export default function LandingPage() {
             <button
               key={s.id}
               onClick={() => openService(s)}
-              className="glass rounded-2xl p-6 text-left group
-                border border-white/[0.08]
+              className={`glass rounded-2xl text-left group border border-white/[0.08]
                 hover:border-orange-500/40 hover:bg-orange-500/[0.05]
-                sm:hover:-translate-y-1.5 hover:shadow-[0_8px_32px_rgba(249,90,24,0.12)]
+                hover:shadow-[0_8px_32px_rgba(249,90,24,0.12)]
                 active:scale-[0.98] active:border-orange-500/60
-                transition-all duration-200 cursor-pointer"
+                transition-all duration-200 cursor-pointer
+                ${s.featured
+                  ? "sm:row-span-2 p-7 flex flex-col sm:hover:-translate-y-1"
+                  : s.fullWidth
+                    ? "sm:col-span-2 lg:col-span-3 p-5 sm:hover:-translate-y-1"
+                    : "p-6 sm:hover:-translate-y-1.5"
+                }`}
             >
-              {/* Header row: icon + arrow */}
-              <div className="flex items-start justify-between mb-4">
-                <div className="w-10 h-10 rounded-xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center text-orange-400
-                  group-hover:bg-orange-500/20 group-hover:border-orange-500/40 group-hover:scale-110
-                  transition-all duration-200">
-                  {s.icon}
+              {s.featured ? (
+                <>
+                  <div className="flex items-start justify-between mb-5">
+                    <div className="w-10 h-10 rounded-xl bg-orange-500/15 border border-orange-500/30 flex items-center justify-center text-orange-400
+                      group-hover:bg-orange-500/25 group-hover:border-orange-500/50 group-hover:scale-110 transition-all duration-200">
+                      {s.icon}
+                    </div>
+                    <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-lg bg-orange-500/10 border border-orange-500/20 text-orange-400 whitespace-nowrap">
+                      Most Requested
+                    </span>
+                  </div>
+                  <h3 className="text-white font-bold text-base mb-2">{s.title}</h3>
+                  <p className="text-orange-400/80 text-sm font-medium mb-4">{s.tagline}</p>
+                  <p className="text-white/40 text-sm leading-relaxed flex-1">{s.detail}</p>
+                  <div className="mt-6 pt-5 border-t border-white/[0.06] flex items-center gap-2 text-sm font-medium text-orange-400/70 group-hover:text-orange-400 transition-colors duration-200">
+                    <span>Learn more</span>
+                    <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                    </svg>
+                  </div>
+                </>
+              ) : s.fullWidth ? (
+                <div className="flex items-center gap-5">
+                  <div className="w-10 h-10 rounded-xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center text-orange-400 flex-shrink-0
+                    group-hover:bg-orange-500/20 group-hover:border-orange-500/40 group-hover:scale-110 transition-all duration-200">
+                    {s.icon}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex flex-wrap items-baseline gap-x-2 mb-1">
+                      <h3 className="text-white font-semibold text-sm">{s.title}</h3>
+                      <span className="text-orange-400/60 text-xs font-medium">· {s.tagline}</span>
+                    </div>
+                    <p className="text-white/35 text-xs leading-relaxed line-clamp-1 group-hover:text-white/50 transition-colors duration-200">{s.detail}</p>
+                  </div>
+                  <svg className="w-4 h-4 text-white/20 group-hover:text-orange-400 group-hover:translate-x-0.5 transition-all duration-200 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                  </svg>
                 </div>
-                {/* Arrow — always visible faint, brightens on hover */}
-                <svg
-                  className="w-4 h-4 text-white/20 group-hover:text-orange-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-200 flex-shrink-0"
-                  fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-                </svg>
-              </div>
-
-              <h3 className="text-white font-semibold text-sm mb-1.5">{s.title}</h3>
-              <p className="text-white/40 text-xs leading-relaxed mb-3">{s.tagline}</p>
-              <p className="text-white/25 text-xs leading-relaxed line-clamp-2 group-hover:text-white/40 transition-colors duration-200">{s.detail}</p>
+              ) : (
+                <>
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="w-10 h-10 rounded-xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center text-orange-400
+                      group-hover:bg-orange-500/20 group-hover:border-orange-500/40 group-hover:scale-110 transition-all duration-200">
+                      {s.icon}
+                    </div>
+                    <svg className="w-4 h-4 text-white/20 group-hover:text-orange-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-200 flex-shrink-0"
+                      fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                    </svg>
+                  </div>
+                  <h3 className="text-white font-semibold text-sm mb-1.5">{s.title}</h3>
+                  <p className="text-white/40 text-xs leading-relaxed mb-3">{s.tagline}</p>
+                  <p className="text-white/25 text-xs leading-relaxed line-clamp-2 group-hover:text-white/40 transition-colors duration-200">{s.detail}</p>
+                </>
+              )}
             </button>
           ))}
         </div>
@@ -651,7 +848,7 @@ export default function LandingPage() {
               key={plan.name}
               className={`rounded-2xl p-7 relative flex flex-col ${
                 plan.popular
-                  ? "border border-orange-500/40 bg-orange-500/[0.04]"
+                  ? "border border-orange-500/50 bg-orange-500/[0.09] shadow-[0_0_48px_rgba(249,90,24,0.20),0_0_80px_rgba(249,90,24,0.08)] md:scale-[1.06] z-10"
                   : "glass"
               }`}
             >

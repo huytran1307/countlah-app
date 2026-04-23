@@ -272,3 +272,42 @@
   0%, 100% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
 }
+
+/* Hero symbol ↔ chart morph */
+@keyframes symbolShow {
+  0%, 40% { opacity: 1; }
+  55%, 90% { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes chartShow {
+  0%, 40% { opacity: 0; }
+  55%, 90% { opacity: 1; }
+  100% { opacity: 0; }
+}
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.5); }
+}
+@keyframes path1Breathe {
+  0%, 100% { opacity: 1; }
+  40%       { opacity: 0.55; }
+}
+@keyframes path2Breathe {
+  0%, 100% { opacity: 0.75; }
+  25%       { opacity: 1; }
+  60%       { opacity: 0.4; }
+}
+@keyframes path3Breathe {
+  0%, 100% { opacity: 0.85; }
+  50%       { opacity: 0.45; }
+}
+
+/* Dashboard mockup */
+@keyframes floatChip {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-5px); }
+}
+@keyframes progressGrow {
+  0%   { width: 52%; }
+  100% { width: 80%; }
+}
