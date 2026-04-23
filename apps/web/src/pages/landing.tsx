@@ -688,18 +688,20 @@ export default function LandingPage() {
               </button>
             </div>
 
-            {/* Scarcity pill — collapses to dot, expands to text, loops */}
+            {/* Scarcity pill — dot absolutely centred so it never shifts */}
             <div className="flex justify-center md:justify-start mb-8">
               <div
-                className="inline-flex items-center h-8 rounded-full bg-orange-500/10 border border-orange-500/25 overflow-hidden whitespace-nowrap"
-                style={{ animation: "pillExpand 9s cubic-bezier(0.4,0,0.2,1) infinite" }}
+                className="relative inline-flex items-center h-8 rounded-full bg-orange-500/10 border border-orange-500/25 overflow-hidden"
+                style={{ width: "32px", animation: "pillExpand 9s cubic-bezier(0.4,0,0.2,1) infinite" }}
               >
+                {/* Dot: pinned to the centre of the 32×32 circle via absolute */}
                 <span
-                  className="w-2 h-2 rounded-full bg-orange-500 flex-shrink-0"
+                  className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-orange-500"
                   style={{ animation: "dotPulse 2.2s ease-in-out infinite" }}
                 />
+                {/* Text: pl-8 offsets it past the dot; hidden by overflow when collapsed */}
                 <span
-                  className="text-orange-300 text-xs font-medium ml-2.5 flex-shrink-0"
+                  className="pl-8 pr-3.5 text-orange-300 text-xs font-medium whitespace-nowrap"
                   style={{ animation: "pillReveal 9s ease-in-out infinite" }}
                 >
                   ⚡ Only {SLOTS} spots left this month
