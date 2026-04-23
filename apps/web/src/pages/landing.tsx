@@ -493,7 +493,6 @@ export default function LandingPage() {
   const [activeModal, setActiveModal] = useState<ModalType>(null);
   const [activeService, setActiveService] = useState<Service | null>(null);
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
-  const [bannerVisible, setBannerVisible] = useState(true);
   const [testimonialIndex, setTestimonialIndex] = useState(0);
   const touchStartX = useRef<number | null>(null);
 
@@ -580,30 +579,6 @@ export default function LandingPage() {
 
       {/* ── Sticky header: banner + floating nav ───────────────────────────── */}
       <div className="sticky top-0 z-50">
-        {/* Scarcity banner */}
-        {bannerVisible && (
-          <div className="gradient-primary">
-            <div className="max-w-6xl mx-auto px-4 py-2 flex items-center justify-center gap-2 relative">
-              <svg className="w-3.5 h-3.5 text-white/80 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M11.3 1.046A1 1 0 0 1 12 2v5h4a1 1 0 0 1 .82 1.573l-7 10A1 1 0 0 1 8 18v-5H4a1 1 0 0 1-.82-1.573l7-10a1 1 0 0 1 1.12-.38Z" clipRule="evenodd" />
-              </svg>
-              <p className="text-white text-xs font-semibold text-center">
-                Only 5 new clients per month —{" "}
-                <span className="font-bold">{SLOTS} slots left this month</span>
-              </p>
-              <button
-                onClick={() => setBannerVisible(false)}
-                className="absolute right-4 text-white/50 hover:text-white transition-colors"
-                aria-label="Dismiss"
-              >
-                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 14 14" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M1 1l12 12M13 1L1 13" />
-                </svg>
-              </button>
-            </div>
-          </div>
-        )}
-
         {/* Floating glass nav */}
         <div className="px-4 py-3 flex justify-center">
           <nav className="w-full max-w-2xl flex items-center gap-2 px-3 py-2 rounded-2xl border border-white/[0.08] bg-white/[0.04] backdrop-blur-xl shadow-xl">
@@ -681,7 +656,7 @@ export default function LandingPage() {
               — so you get back to running yours.
             </p>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-3 mb-10">
+            <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-3 mb-5">
               <a
                 href={CONSULTATION_URL}
                 className="gradient-primary glow-primary text-white font-semibold px-7 py-3.5 rounded-xl text-sm transition-all duration-200 hover:opacity-90 active:scale-[0.98] flex items-center gap-2"
@@ -700,6 +675,25 @@ export default function LandingPage() {
                 </svg>
                 See How It Works
               </button>
+            </div>
+
+            {/* Scarcity pill — collapses to dot, expands to text, loops */}
+            <div className="flex justify-center md:justify-start mb-8">
+              <div
+                className="inline-flex items-center h-8 rounded-full bg-orange-500/10 border border-orange-500/25 overflow-hidden whitespace-nowrap"
+                style={{ animation: "pillExpand 9s cubic-bezier(0.4,0,0.2,1) infinite" }}
+              >
+                <span
+                  className="w-2 h-2 rounded-full bg-orange-500 flex-shrink-0"
+                  style={{ animation: "dotPulse 2.2s ease-in-out infinite" }}
+                />
+                <span
+                  className="text-orange-300 text-xs font-medium ml-2.5 flex-shrink-0"
+                  style={{ animation: "pillReveal 9s ease-in-out infinite" }}
+                >
+                  ⚡ Only {SLOTS} spots left this month
+                </span>
+              </div>
             </div>
 
             <div className="flex flex-wrap items-center justify-center md:justify-start gap-x-5 gap-y-2 text-white/30 text-xs font-medium">
