@@ -506,6 +506,28 @@ export default function LandingPage() {
   const [testimonialIndex, setTestimonialIndex] = useState(0);
   const touchStartX = useRef<number | null>(null);
 
+  // ── Parallax blobs ──────────────────────────────────────────────────────────
+  const blob1Ref = useRef<HTMLDivElement>(null);
+  const blob2Ref = useRef<HTMLDivElement>(null);
+  const blob3Ref = useRef<HTMLDivElement>(null);
+  const heroVisualRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    let raf = 0;
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const y = window.scrollY;
+        if (blob1Ref.current) blob1Ref.current.style.transform = `translateY(${y * 0.18}px)`;
+        if (blob2Ref.current) blob2Ref.current.style.transform = `translateY(${-y * 0.12}px)`;
+        if (blob3Ref.current) blob3Ref.current.style.transform = `translateY(${y * 0.08}px)`;
+        if (heroVisualRef.current) heroVisualRef.current.style.transform = `translateY(${y * 0.06}px)`;
+      });
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => { window.removeEventListener("scroll", onScroll); cancelAnimationFrame(raf); };
+  }, []);
+
   // Auto-open login modal when visiting /login or /admin routes
   useEffect(() => {
     const path = window.location.pathname;
@@ -586,6 +608,11 @@ export default function LandingPage() {
 
   return (
     <div className="min-h-screen text-white">
+
+      {/* ── Parallax background blobs (fixed, scroll-driven via JS) ─────────── */}
+      <div ref={blob1Ref} className="fixed top-[-10%] left-[-8%] w-[520px] h-[520px] rounded-full bg-orange-500/[0.07] blur-[120px] pointer-events-none -z-10 will-change-transform" />
+      <div ref={blob2Ref} className="fixed top-[30%] right-[-12%] w-[420px] h-[420px] rounded-full bg-red-500/[0.06] blur-[100px] pointer-events-none -z-10 will-change-transform" />
+      <div ref={blob3Ref} className="fixed bottom-[10%] left-[20%] w-[360px] h-[360px] rounded-full bg-orange-400/[0.05] blur-[90px] pointer-events-none -z-10 will-change-transform" />
 
       {/* ── Sticky header: banner + floating nav ───────────────────────────── */}
       <div className="sticky top-0 z-50">
@@ -688,21 +715,21 @@ export default function LandingPage() {
               </button>
             </div>
 
-            {/* Scarcity pill — dot absolutely centred so it never shifts */}
+            {/* Scarcity pill — dot + text centred as a flex group */}
             <div className="flex justify-center md:justify-start mb-8">
               <div
-                className="relative inline-flex items-center h-8 rounded-full bg-orange-500/10 border border-orange-500/25 overflow-hidden"
+                className="inline-flex items-center justify-center h-8 rounded-full bg-orange-500/10 border border-orange-500/25 overflow-hidden"
                 style={{ width: "32px", animation: "pillExpand 9s cubic-bezier(0.4,0,0.2,1) infinite" }}
               >
-                {/* Dot: pinned to the centre of the 32×32 circle via absolute */}
+                {/* Dot: in-flow so it stays centred with the text group */}
                 <span
-                  className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-orange-500"
+                  className="w-2 h-2 rounded-full bg-orange-500 flex-shrink-0"
                   style={{ animation: "dotPulse 2.2s ease-in-out infinite" }}
                 />
-                {/* Text: pl-8 offsets it past the dot; hidden by overflow when collapsed */}
+                {/* Text: max-width animates from 0 → visible; overflow clips during collapse */}
                 <span
-                  className="pl-8 pr-3.5 text-orange-300 text-xs font-medium whitespace-nowrap"
-                  style={{ animation: "pillReveal 9s ease-in-out infinite" }}
+                  className="overflow-hidden whitespace-nowrap text-orange-300 text-xs font-medium"
+                  style={{ animation: "textExpand 9s ease-in-out infinite" }}
                 >
                   ⚡ Only {SLOTS} spots left this month
                 </span>
@@ -720,7 +747,7 @@ export default function LandingPage() {
           </div>
 
           {/* Right: animated visual */}
-          <div className="flex flex-col items-center gap-8">
+          <div ref={heroVisualRef} className="flex flex-col items-center gap-8 will-change-transform">
             <CountlahSymbolHero />
             <HeroDashboard />
           </div>
