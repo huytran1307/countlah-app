@@ -544,19 +544,32 @@ export default function LandingPage() {
             <button
               key={s.id}
               onClick={() => openService(s)}
-              className="glass rounded-2xl p-6 text-left group hover:border-white/[0.14] hover:bg-white/[0.06] transition-all duration-200 cursor-pointer"
+              className="glass rounded-2xl p-6 text-left group
+                border border-white/[0.08]
+                hover:border-orange-500/40 hover:bg-orange-500/[0.05]
+                sm:hover:-translate-y-1.5 hover:shadow-[0_8px_32px_rgba(249,90,24,0.12)]
+                active:scale-[0.98] active:border-orange-500/60
+                transition-all duration-200 cursor-pointer"
             >
-              <div className="w-10 h-10 rounded-xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center text-orange-400 mb-4 group-hover:bg-orange-500/15 transition-colors duration-200">
-                {s.icon}
-              </div>
-              <h3 className="text-white font-semibold text-sm mb-1.5">{s.title}</h3>
-              <p className="text-white/40 text-xs leading-relaxed mb-4">{s.tagline}</p>
-              <span className="text-orange-400 text-xs font-medium flex items-center gap-1 group-hover:gap-2 transition-all duration-200">
-                Learn more
-                <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              {/* Header row: icon + arrow */}
+              <div className="flex items-start justify-between mb-4">
+                <div className="w-10 h-10 rounded-xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center text-orange-400
+                  group-hover:bg-orange-500/20 group-hover:border-orange-500/40 group-hover:scale-110
+                  transition-all duration-200">
+                  {s.icon}
+                </div>
+                {/* Arrow — always visible faint, brightens on hover */}
+                <svg
+                  className="w-4 h-4 text-white/20 group-hover:text-orange-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-200 flex-shrink-0"
+                  fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}
+                >
                   <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
                 </svg>
-              </span>
+              </div>
+
+              <h3 className="text-white font-semibold text-sm mb-1.5">{s.title}</h3>
+              <p className="text-white/40 text-xs leading-relaxed mb-3">{s.tagline}</p>
+              <p className="text-white/25 text-xs leading-relaxed line-clamp-2 group-hover:text-white/40 transition-colors duration-200">{s.detail}</p>
             </button>
           ))}
         </div>
