@@ -11,6 +11,7 @@ import UserAppPage from "@/pages/user-app";
 import InvoiceDetailPage from "@/pages/invoice-detail";
 import InvoiceLogsPage from "@/pages/invoice-logs";
 import SettingsPage from "@/pages/settings";
+import AdminUsersPage from "@/pages/admin-users";
 import UserLayout from "@/components/user-layout";
 import { refreshBranding, invalidateBrandingCache } from "@/hooks/use-branding";
 
@@ -77,6 +78,9 @@ function Router() {
       </Route>
       <Route path="/settings">
         <AuthGuard><SettingsPage /></AuthGuard>
+      </Route>
+      <Route path="/admin-users">
+        <AuthGuard><AdminUsersPage /></AuthGuard>
       </Route>
 
       {/* User app routes */}

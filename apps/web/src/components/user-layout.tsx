@@ -2,6 +2,16 @@ import { useLogout, useGetMe, getGetMeQueryKey } from "@workspace/api-client-rea
 import { useQueryClient } from "@tanstack/react-query";
 import { useLocation } from "wouter";
 
+function CountlahSymbol({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 90 74" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill="#F95A18" d="M14.43,70.18L1.49,57.23c-.95-.95-1.49-2.25-1.49-3.6v-26.51c0-4.58,5.54-6.88,8.78-3.64l41.06,41.06c3.24,3.24.95,8.78-3.64,8.78h-24.16c-2.86,0-5.59-1.13-7.61-3.15"/>
+      <path fill="#F95A18" d="M4.39,8.78l17.42,17.4c2.02,2.02,4.76,3.15,7.61,3.15l46.2-.02c2.81,0,5.09-2.28,5.09-5.09V5.09c0-2.81-2.28-5.09-5.09-5.09H8.02C3.44,0,1.15,5.54,4.39,8.78"/>
+      <path fill="#F95A18" d="M73.41,73.32h9.52c2.81,0,5.08-2.27,5.09-5.08v-7.38s0-19.15,0-19.15c0-2.81-2.28-5.09-5.09-5.08l-38.1.03c-4.63,0-6.94,5.6-3.67,8.87l24.65,24.65c2.02,2.02,4.76,3.15,7.61,3.15"/>
+    </svg>
+  );
+}
+
 function CountlahLogo({ className }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 440.41 73.33" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -129,7 +139,7 @@ export default function UserLayout({ children, activeView, onViewChange }: UserL
 
         {/* Mobile top bar */}
         <header className="flex md:hidden items-center justify-between px-4 py-3 border-b border-white/[0.07]">
-          <CountlahLogo className="h-6 w-auto" />
+          <CountlahSymbol className="h-7 w-auto" />
           <button
             onClick={handleLogout}
             className="text-white/40 hover:text-white/80 text-sm transition-colors"
