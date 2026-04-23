@@ -260,4 +260,15 @@
     background: rgba(255, 255, 255, 0.06);
     border-color: rgba(255, 255, 255, 0.12);
   }
+
+  .gradient-animated-bg {
+    background: linear-gradient(135deg, rgba(249,90,24,0.12), rgba(65,120,235,0.10), rgba(148,183,255,0.08), rgba(249,90,24,0.12));
+    background-size: 300% 300%;
+    animation: gradientShift 8s ease infinite;
+  }
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
 }

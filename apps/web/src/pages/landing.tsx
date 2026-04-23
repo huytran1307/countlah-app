@@ -312,6 +312,7 @@ export default function LandingPage() {
   const [activeService, setActiveService] = useState<Service | null>(null);
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
   const [bannerVisible, setBannerVisible] = useState(true);
+  const [testimonialIndex, setTestimonialIndex] = useState(0);
 
   // Auto-open login modal when visiting /login or /admin routes
   useEffect(() => {
@@ -351,6 +352,15 @@ export default function LandingPage() {
   useEffect(() => {
     document.body.style.overflow = activeModal ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
+  }, [activeModal]);
+
+  // Auto-advance testimonial slider
+  useEffect(() => {
+    if (activeModal !== "testimonials") return;
+    const id = setInterval(() => {
+      setTestimonialIndex(i => (i + 1) % TESTIMONIALS.length);
+    }, 4000);
+    return () => clearInterval(id);
   }, [activeModal]);
 
   async function handleLogin(e: React.FormEvent<HTMLFormElement>) {
@@ -588,11 +598,18 @@ export default function LandingPage() {
 
           <div className="text-center">
             <button
-              onClick={() => setActiveModal("testimonials")}
-              className="text-orange-400 hover:text-orange-300 text-sm font-medium transition-colors duration-200 flex items-center gap-1.5 mx-auto"
+              onClick={() => { setTestimonialIndex(0); setActiveModal("testimonials"); }}
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-white border border-white/[0.12] hover:border-orange-500/40 hover:bg-orange-500/[0.06] transition-all duration-200 group"
             >
-              See all reviews
-              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <div className="flex gap-0.5">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <svg key={i} className="w-3.5 h-3.5 text-orange-400" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 0 0 .95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 0 0-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 0 0-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 0 0-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 0 0 .951-.69l1.07-3.292Z" />
+                  </svg>
+                ))}
+              </div>
+              See all client reviews
+              <svg className="w-3.5 h-3.5 text-white/40 group-hover:text-white group-hover:translate-x-0.5 transition-all duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
               </svg>
             </button>
@@ -601,7 +618,10 @@ export default function LandingPage() {
       </section>
 
       {/* ── Pricing ─────────────────────────────────────────────────────────── */}
-      <section id="pricing" className="max-w-6xl mx-auto px-4 py-20">
+      <div className="relative">
+        <div className="absolute inset-0 gradient-animated-bg" />
+        <div className="absolute inset-0 border-y border-white/[0.06]" />
+      <section id="pricing" className="relative max-w-6xl mx-auto px-4 py-20">
         <div className="text-center mb-12">
           <SectionLabel>Simple pricing</SectionLabel>
           <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight mb-3">
@@ -659,6 +679,7 @@ export default function LandingPage() {
           ))}
         </div>
       </section>
+      </div>
 
       {/* ── Final CTA ───────────────────────────────────────────────────────── */}
       <section className="max-w-6xl mx-auto px-4 pb-24">
@@ -919,20 +940,60 @@ export default function LandingPage() {
         )}
       </Modal>
 
-      {/* All testimonials */}
-      <Modal open={activeModal === "testimonials"} onClose={() => setActiveModal(null)} wide>
+      {/* All testimonials — auto gallery */}
+      <Modal open={activeModal === "testimonials"} onClose={() => setActiveModal(null)}>
         <div className="p-8">
           <p className="text-white/40 text-xs font-semibold uppercase tracking-widest mb-2">Reviews</p>
-          <h2 className="text-2xl font-bold text-white mb-6">What our clients say.</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {TESTIMONIALS.map((t) => (
-              <div key={t.name} className="bg-white/[0.03] border border-white/[0.07] rounded-xl p-5">
-                <Stars />
-                <blockquote className="text-white/65 text-sm leading-relaxed mt-3 mb-4">"{t.quote}"</blockquote>
-                <p className="text-white text-sm font-semibold">{t.name}</p>
-                <p className="text-white/35 text-xs mt-0.5">{t.role}</p>
-              </div>
+          <h2 className="text-xl font-bold text-white mb-6">What our clients say.</h2>
+
+          {/* Single card */}
+          <div className="bg-white/[0.03] border border-white/[0.07] rounded-2xl p-6 min-h-[180px] flex flex-col justify-between">
+            <div>
+              <Stars />
+              <blockquote className="text-white/70 text-sm leading-relaxed mt-4 mb-5">
+                "{TESTIMONIALS[testimonialIndex].quote}"
+              </blockquote>
+            </div>
+            <div>
+              <p className="text-white text-sm font-semibold">{TESTIMONIALS[testimonialIndex].name}</p>
+              <p className="text-white/35 text-xs mt-0.5">{TESTIMONIALS[testimonialIndex].role}</p>
+            </div>
+          </div>
+
+          {/* Dot indicators */}
+          <div className="flex items-center justify-center gap-2 mt-5">
+            {TESTIMONIALS.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setTestimonialIndex(i)}
+                className={`h-1.5 rounded-full transition-all duration-300 ${
+                  i === testimonialIndex ? "w-6 bg-orange-400" : "w-1.5 bg-white/20 hover:bg-white/40"
+                }`}
+              />
             ))}
+          </div>
+
+          {/* Prev / Next */}
+          <div className="flex items-center justify-between mt-5">
+            <button
+              onClick={() => setTestimonialIndex(i => (i - 1 + TESTIMONIALS.length) % TESTIMONIALS.length)}
+              className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm text-white/45 hover:text-white border border-white/[0.08] hover:border-white/20 hover:bg-white/[0.04] transition-all duration-200"
+            >
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+              </svg>
+              Previous
+            </button>
+            <span className="text-white/25 text-xs">{testimonialIndex + 1} / {TESTIMONIALS.length}</span>
+            <button
+              onClick={() => setTestimonialIndex(i => (i + 1) % TESTIMONIALS.length)}
+              className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm text-white/45 hover:text-white border border-white/[0.08] hover:border-white/20 hover:bg-white/[0.04] transition-all duration-200"
+            >
+              Next
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+              </svg>
+            </button>
           </div>
         </div>
       </Modal>
