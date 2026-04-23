@@ -478,8 +478,7 @@ export default function LandingPage() {
       </div>
 
       {/* ── Hero ───────────────────────────────────────────────────────────── */}
-      <section className="relative max-w-4xl mx-auto px-4 pt-20 pb-24 text-center">
-        <div className="absolute inset-x-0 top-0 h-64 pointer-events-none" style={{ background: "radial-gradient(ellipse 60% 50% at 50% 0%, rgba(249,90,24,0.10) 0%, transparent 100%)" }} />
+      <section className="max-w-4xl mx-auto px-4 pt-20 pb-24 text-center">
 
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold border border-orange-500/25 bg-orange-500/[0.08] text-orange-300 mb-6">
           <span className="w-1.5 h-1.5 rounded-full bg-orange-400 animate-pulse" />
