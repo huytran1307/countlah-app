@@ -6,6 +6,16 @@ import { invalidateBrandingCache, refreshBranding } from "@/hooks/use-branding";
 
 // ─── Logo ─────────────────────────────────────────────────────────────────────
 
+function CountlahSymbol({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 90 74" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill="#F95A18" d="M14.43,70.18L1.49,57.23c-.95-.95-1.49-2.25-1.49-3.6v-26.51c0-4.58,5.54-6.88,8.78-3.64l41.06,41.06c3.24,3.24.95,8.78-3.64,8.78h-24.16c-2.86,0-5.59-1.13-7.61-3.15"/>
+      <path fill="#F95A18" d="M4.39,8.78l17.42,17.4c2.02,2.02,4.76,3.15,7.61,3.15l46.2-.02c2.81,0,5.09-2.28,5.09-5.09V5.09c0-2.81-2.28-5.09-5.09-5.09H8.02C3.44,0,1.15,5.54,4.39,8.78"/>
+      <path fill="#F95A18" d="M73.41,73.32h9.52c2.81,0,5.08-2.27,5.09-5.08v-7.38s0-19.15,0-19.15c0-2.81-2.28-5.09-5.09-5.08l-38.1.03c-4.63,0-6.94,5.6-3.67,8.87l24.65,24.65c2.02,2.02,4.76,3.15,7.61,3.15"/>
+    </svg>
+  );
+}
+
 function CountlahLogo({ className }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 440.41 73.33" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -582,9 +592,10 @@ export default function LandingPage() {
         {/* Floating glass nav */}
         <div className="px-4 py-3 flex justify-center">
           <nav className="w-full max-w-2xl flex items-center gap-2 px-3 py-2 rounded-2xl border border-white/[0.08] bg-white/[0.04] backdrop-blur-xl shadow-xl">
-            {/* Logo */}
+            {/* Logo — symbol only on mobile, full wordmark on sm+ */}
             <div className="flex-shrink-0 px-1">
-              <CountlahLogo className="h-5 w-auto" />
+              <CountlahSymbol className="h-5 w-auto sm:hidden" />
+              <CountlahLogo className="hidden sm:block h-5 w-auto" />
             </div>
 
             {/* Divider */}
