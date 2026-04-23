@@ -318,6 +318,21 @@ function CountlahSymbolHero() {
 }
 
 function HeroDashboard() {
+  const [phase, setPhase] = useState<"filing" | "done" | "new">("filing");
+  const [barKey, setBarKey] = useState(0);
+
+  useEffect(() => {
+    let t: ReturnType<typeof setTimeout>;
+    if (phase === "filing") {
+      t = setTimeout(() => setPhase("done"), 4200);
+    } else if (phase === "done") {
+      t = setTimeout(() => setPhase("new"), 1600);
+    } else {
+      t = setTimeout(() => { setBarKey(k => k + 1); setPhase("filing"); }, 900);
+    }
+    return () => clearTimeout(t);
+  }, [phase]);
+
   return (
     <div className="relative w-full max-w-xs mx-auto">
       {/* Ambient glow */}
@@ -334,14 +349,26 @@ function HeroDashboard() {
           <span className="text-[11px] font-semibold px-2 py-1 rounded-lg bg-green-500/15 text-green-400 animate-pulse">↑ 12%</span>
         </div>
 
-        {/* Progress bar — counts up then resets */}
+        {/* Progress bar — 3-phase state machine: filing → done → new project */}
         <div className="px-4 pt-3 pb-1">
-          <div className="flex justify-between text-[10px] text-white/30 mb-1.5">
-            <span>Filing progress</span>
-            <span style={{ animation: "fadeSlideIn 0.4s ease-out 0.2s both" }}>80%</span>
+          <div className="flex justify-between text-[10px] mb-1.5">
+            <span className={`transition-colors duration-300 ${phase === "new" ? "text-orange-400" : "text-white/30"}`}>
+              {phase === "new" ? "New project activating…" : "Filing progress"}
+            </span>
+            <span className={`transition-all duration-300 font-medium ${phase === "done" ? "text-green-400" : "text-white/0"}`}>
+              Done ✓
+            </span>
           </div>
           <div className="h-1.5 bg-white/[0.06] rounded-full overflow-hidden">
-            <div className="h-full gradient-primary rounded-full" style={{ animation: "progressLoop 5s ease-in-out infinite" }} />
+            <div
+              key={barKey}
+              className={`h-full rounded-full transition-[box-shadow] duration-500 ${phase === "done" ? "bg-green-500" : "gradient-primary"}`}
+              style={{
+                width: phase === "new" ? "0%" : undefined,
+                boxShadow: phase === "done" ? "0 0 10px rgba(34,197,94,0.55)" : undefined,
+                animation: phase === "filing" ? "progressFill 4.2s linear forwards" : "none",
+              }}
+            />
           </div>
         </div>
 
