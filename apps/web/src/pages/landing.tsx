@@ -682,7 +682,7 @@ export default function LandingPage() {
       </div>
 
       {/* ── Final CTA ───────────────────────────────────────────────────────── */}
-      <section className="max-w-6xl mx-auto px-4 pb-24">
+      <section className="max-w-6xl mx-auto px-4 py-24">
         <div className="glass rounded-3xl p-10 md:p-14 relative overflow-hidden">
           <div className="absolute inset-x-0 top-0 h-48 pointer-events-none" style={{ background: "radial-gradient(ellipse 50% 60% at 50% 0%, rgba(249,90,24,0.08) 0%, transparent 100%)" }} />
 
