@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useLogin } from "@workspace/api-client-react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useLocation } from "wouter";
@@ -313,6 +313,7 @@ export default function LandingPage() {
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
   const [bannerVisible, setBannerVisible] = useState(true);
   const [testimonialIndex, setTestimonialIndex] = useState(0);
+  const touchStartX = useRef<number | null>(null);
 
   // Auto-open login modal when visiting /login or /admin routes
   useEffect(() => {
@@ -942,22 +943,60 @@ export default function LandingPage() {
 
       {/* All testimonials — auto gallery */}
       <Modal open={activeModal === "testimonials"} onClose={() => setActiveModal(null)}>
-        <div className="p-8">
-          <p className="text-white/40 text-xs font-semibold uppercase tracking-widest mb-2">Reviews</p>
+        <div className="p-6 md:p-8">
+          <p className="text-white/40 text-xs font-semibold uppercase tracking-widest mb-1">Reviews</p>
           <h2 className="text-xl font-bold text-white mb-6">What our clients say.</h2>
 
-          {/* Single card */}
-          <div className="bg-white/[0.03] border border-white/[0.07] rounded-2xl p-6 min-h-[180px] flex flex-col justify-between">
-            <div>
-              <Stars />
-              <blockquote className="text-white/70 text-sm leading-relaxed mt-4 mb-5">
-                "{TESTIMONIALS[testimonialIndex].quote}"
-              </blockquote>
+          {/* Card + side arrows */}
+          <div className="flex items-center gap-3">
+            {/* Left arrow — hidden on mobile */}
+            <button
+              onClick={() => setTestimonialIndex(i => (i - 1 + TESTIMONIALS.length) % TESTIMONIALS.length)}
+              className="hidden sm:flex w-9 h-9 rounded-xl glass border border-white/[0.10] items-center justify-center text-white/40 hover:text-white hover:border-white/25 hover:bg-white/[0.06] transition-all duration-200 flex-shrink-0"
+            >
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+              </svg>
+            </button>
+
+            {/* Swipeable card */}
+            <div
+              className="flex-1 bg-white/[0.03] border border-white/[0.07] rounded-2xl p-6 min-h-[200px] flex flex-col justify-between select-none"
+              onTouchStart={e => { touchStartX.current = e.touches[0].clientX; }}
+              onTouchEnd={e => {
+                if (touchStartX.current === null) return;
+                const dx = e.changedTouches[0].clientX - touchStartX.current;
+                if (Math.abs(dx) > 40) {
+                  setTestimonialIndex(i =>
+                    dx < 0
+                      ? (i + 1) % TESTIMONIALS.length
+                      : (i - 1 + TESTIMONIALS.length) % TESTIMONIALS.length
+                  );
+                }
+                touchStartX.current = null;
+              }}
+            >
+              <div>
+                <Stars />
+                <blockquote className="text-white/70 text-sm leading-relaxed mt-4 mb-5">
+                  "{TESTIMONIALS[testimonialIndex].quote}"
+                </blockquote>
+              </div>
+              <div>
+                <p className="text-white text-sm font-semibold">{TESTIMONIALS[testimonialIndex].name}</p>
+                <p className="text-white/35 text-xs mt-0.5">{TESTIMONIALS[testimonialIndex].role}</p>
+              </div>
             </div>
-            <div>
-              <p className="text-white text-sm font-semibold">{TESTIMONIALS[testimonialIndex].name}</p>
-              <p className="text-white/35 text-xs mt-0.5">{TESTIMONIALS[testimonialIndex].role}</p>
-            </div>
+
+            {/* Right arrow — hidden on mobile */}
+            <button
+              onClick={() => setTestimonialIndex(i => (i + 1) % TESTIMONIALS.length)}
+              className="hidden sm:flex w-9 h-9 rounded-xl glass border border-white/[0.10] items-center justify-center text-white/40 hover:text-white hover:border-white/25 hover:bg-white/[0.06] transition-all duration-200 flex-shrink-0"
+            >
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+              </svg>
+            </button>
           </div>
 
           {/* Dot indicators */}
@@ -971,29 +1010,6 @@ export default function LandingPage() {
                 }`}
               />
             ))}
-          </div>
-
-          {/* Prev / Next */}
-          <div className="flex items-center justify-between mt-5">
-            <button
-              onClick={() => setTestimonialIndex(i => (i - 1 + TESTIMONIALS.length) % TESTIMONIALS.length)}
-              className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm text-white/45 hover:text-white border border-white/[0.08] hover:border-white/20 hover:bg-white/[0.04] transition-all duration-200"
-            >
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
-              </svg>
-              Previous
-            </button>
-            <span className="text-white/25 text-xs">{testimonialIndex + 1} / {TESTIMONIALS.length}</span>
-            <button
-              onClick={() => setTestimonialIndex(i => (i + 1) % TESTIMONIALS.length)}
-              className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm text-white/45 hover:text-white border border-white/[0.08] hover:border-white/20 hover:bg-white/[0.04] transition-all duration-200"
-            >
-              Next
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-              </svg>
-            </button>
           </div>
         </div>
       </Modal>
