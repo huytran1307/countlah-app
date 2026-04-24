@@ -76,7 +76,7 @@ export default function Layout({ children }: LayoutProps) {
       <header className="border-b border-white/[0.07] px-4 md:px-8 py-4 flex items-center justify-between">
         <div className="flex items-center gap-4 md:gap-8">
           <button
-            onClick={() => navigate("/dashboard")}
+            onClick={() => navigate("/")}
             className="hover:opacity-80 transition-opacity duration-200"
           >
             <CountlahSymbol className="h-7 w-auto block md:hidden" />

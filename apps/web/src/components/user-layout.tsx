@@ -95,7 +95,9 @@ export default function UserLayout({ children, activeView, onViewChange }: UserL
       {/* ── Sidebar — desktop only ───────────────────────────────────── */}
       <aside className="hidden md:flex w-56 flex-shrink-0 border-r border-white/[0.07] flex-col">
         <div className="px-5 py-5 border-b border-white/[0.06]">
-          <CountlahLogo className="h-6 w-auto" />
+          <button onClick={() => navigate("/")} className="hover:opacity-80 transition-opacity duration-200">
+            <CountlahLogo className="h-6 w-auto" />
+          </button>
         </div>
 
         <nav className="flex-1 py-4 px-3 space-y-0.5">
@@ -139,7 +141,9 @@ export default function UserLayout({ children, activeView, onViewChange }: UserL
 
         {/* Mobile top bar */}
         <header className="flex md:hidden items-center justify-between px-4 py-3 border-b border-white/[0.07]">
-          <CountlahSymbol className="h-7 w-auto" />
+          <button onClick={() => navigate("/")} className="hover:opacity-80 transition-opacity duration-200">
+            <CountlahSymbol className="h-7 w-auto" />
+          </button>
           <button
             onClick={handleLogout}
             className="text-white/40 hover:text-white/80 text-sm transition-colors"
