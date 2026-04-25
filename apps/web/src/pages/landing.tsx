@@ -754,14 +754,6 @@ export default function LandingPage() {
               </div>
             </div>
 
-            <div className="flex flex-wrap items-center justify-center md:justify-start gap-x-5 gap-y-2 text-white/30 text-xs font-medium">
-              {["ISCA Member", "PDPA Compliant", "Xero & QuickBooks Certified", "Est. 2014"].map((badge, i, arr) => (
-                <span key={badge} className="flex items-center gap-5">
-                  <span>{badge}</span>
-                  {i < arr.length - 1 && <span className="text-white/15">·</span>}
-                </span>
-              ))}
-            </div>
           </div>
 
           {/* Right: animated visual */}
