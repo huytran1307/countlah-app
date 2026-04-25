@@ -825,9 +825,12 @@ export default function LandingPage() {
                   transitionDelay: painVisible ? `${i * 90}ms` : "0ms",
                 }}
               >
-                <div className="flex items-start gap-3">
-                  <span className="flex-shrink-0 w-6 h-6 text-orange-500/80 mt-0.5">{icon}</span>
-                  <div>
+                <div className="flex items-start gap-3.5">
+                  <div className="flex-shrink-0 w-9 h-9 rounded-xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center
+                    group-hover:bg-orange-500/20 group-hover:border-orange-500/35 transition-all duration-200">
+                    <span className="w-5 h-5">{icon}</span>
+                  </div>
+                  <div className="pt-0.5">
                     <p className="text-sm font-semibold text-white mb-1.5 leading-snug">{title}</p>
                     <p className="text-xs text-white/45 leading-relaxed">{body}</p>
                   </div>
