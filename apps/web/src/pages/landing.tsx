@@ -506,6 +506,21 @@ export default function LandingPage() {
   const [testimonialIndex, setTestimonialIndex] = useState(0);
   const touchStartX = useRef<number | null>(null);
 
+  // ── Pain points scroll reveal ───────────────────────────────────────────────
+  const painPointsRef = useRef<HTMLDivElement>(null);
+  const [painVisible, setPainVisible] = useState(false);
+
+  useEffect(() => {
+    const el = painPointsRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setPainVisible(true); observer.disconnect(); } },
+      { threshold: 0.15 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   // ── Parallax blobs ──────────────────────────────────────────────────────────
   const blob1Ref = useRef<HTMLDivElement>(null);
   const blob2Ref = useRef<HTMLDivElement>(null);
@@ -776,7 +791,7 @@ export default function LandingPage() {
           </div>
 
           {/* Right: pain point cards */}
-          <div className="grid sm:grid-cols-2 gap-4">
+          <div ref={painPointsRef} className="grid sm:grid-cols-2 gap-4">
             {([
               {
                 icon: (
@@ -814,10 +829,15 @@ export default function LandingPage() {
                 title: "Overpaying tax because no one told you otherwise",
                 body: "Without proactive planning, you leave money on the table every financial year.",
               },
-            ] as { icon: React.ReactNode; title: string; body: string }[]).map(({ icon, title, body }) => (
+            ] as { icon: React.ReactNode; title: string; body: string }[]).map(({ icon, title, body }, i) => (
               <div
                 key={title}
-                className="px-5 py-5 rounded-xl border border-white/[0.07] border-l-2 border-l-orange-500/50 bg-white/[0.025] hover:bg-white/[0.04] transition-colors duration-200"
+                className="px-5 py-5 rounded-xl border border-white/[0.07] border-l-2 border-l-orange-500/50 bg-white/[0.025] hover:bg-white/[0.04] transition-all duration-500"
+                style={{
+                  opacity: painVisible ? 1 : 0,
+                  transform: painVisible ? "translateY(0)" : "translateY(16px)",
+                  transitionDelay: painVisible ? `${i * 90}ms` : "0ms",
+                }}
               >
                 <span className="mb-3 block text-orange-500/80">{icon}</span>
                 <p className="text-sm font-semibold text-white mb-2 leading-snug">{title}</p>
