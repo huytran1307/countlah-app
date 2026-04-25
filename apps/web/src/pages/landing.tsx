@@ -755,6 +755,64 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* ── Pain Points ────────────────────────────────────────────────────── */}
+      <section className="max-w-6xl mx-auto px-4 py-20">
+        <div className="grid md:grid-cols-[5fr_7fr] gap-12 lg:gap-20 items-start">
+
+          {/* Left: headline */}
+          <div className="md:sticky md:top-28">
+            <div className="inline-flex items-center gap-2.5 mb-7">
+              <div className="w-7 h-px bg-orange-500/60" />
+              <span className="text-[11px] font-semibold tracking-widest text-white/40 uppercase">Sound familiar?</span>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold text-white leading-[1.15] mb-5">
+              Running a business is hard enough.{" "}
+              <span className="gradient-primary-text italic">Your accountant shouldn't make it harder.</span>
+            </h2>
+            <p className="text-white/45 text-base leading-relaxed">
+              Most Singapore SME owners juggle their own books, chase deadlines they barely understand, and get zero proactive advice from their accountant.{" "}
+              <span className="text-white/65">That ends here.</span>
+            </p>
+          </div>
+
+          {/* Right: pain point cards */}
+          <div className="grid sm:grid-cols-2 gap-4">
+            {[
+              {
+                emoji: "😰",
+                title: "Panic-filing before every IRAS deadline",
+                body: "You scramble every quarter, hoping nothing is wrong — and dreading the penalty letters.",
+              },
+              {
+                emoji: "🚫",
+                title: "Your accountant ghosts you when you need them",
+                body: "You send questions and wait days for a vague reply — or nothing at all.",
+              },
+              {
+                emoji: "🤯",
+                title: "No idea if your business is actually profitable",
+                body: "Your books are months behind and you make decisions blind, hoping for the best.",
+              },
+              {
+                emoji: "💸",
+                title: "Overpaying tax because no one told you otherwise",
+                body: "Without proactive planning, you leave money on the table every financial year.",
+              },
+            ].map(({ emoji, title, body }) => (
+              <div
+                key={title}
+                className="px-5 py-5 rounded-xl border border-white/[0.07] border-l-2 border-l-orange-500/50 bg-white/[0.025] hover:bg-white/[0.04] transition-colors duration-200"
+              >
+                <span className="text-2xl mb-3 block">{emoji}</span>
+                <p className="text-sm font-semibold text-white mb-2 leading-snug">{title}</p>
+                <p className="text-xs text-white/45 leading-relaxed">{body}</p>
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </section>
+
       {/* ── Services ───────────────────────────────────────────────────────── */}
       <section id="services" className="max-w-6xl mx-auto px-4 py-20">
         <div className="text-center mb-12">
