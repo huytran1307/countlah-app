@@ -696,16 +696,16 @@ export default function LandingPage() {
 
           {/* Left: text */}
           <div className="text-center md:text-left">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold border border-orange-500/25 bg-orange-500/[0.08] text-orange-300 mb-6">
-              <span className="w-1.5 h-1.5 rounded-full bg-orange-400 animate-pulse" />
-              ACRA-Registered · Singapore
-            </div>
-
             <h1 className="text-4xl md:text-5xl font-black text-white tracking-tight leading-[1.1] mb-6 uppercase">
               You run the business,{" "}
               <span className="gradient-primary-text">we run your numbers</span>
             </h1>
 
+            <p className="text-white/50 text-lg leading-relaxed mb-10">
+              You didn't start a business to live in spreadsheets.{" "}
+              <span className="text-white/70">Let us handle every number</span>{" "}
+              — so you get back to running yours.
+            </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-3 mb-5">
               <a
