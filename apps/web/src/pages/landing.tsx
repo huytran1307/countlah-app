@@ -764,7 +764,7 @@ export default function LandingPage() {
             {([
               {
                 icon: (
-                  <svg viewBox="0 0 24 24" fill="none" stroke="#E86320" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
+                  <svg className="w-full h-full" viewBox="0 0 24 24" fill="none" stroke="#E86320" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
                     <circle cx="11" cy="14" r="8"/>
                     <polyline points="11,10 11,14 14,16"/>
                     <circle cx="19" cy="5" r="4"/>
@@ -777,7 +777,7 @@ export default function LandingPage() {
               },
               {
                 icon: (
-                  <svg viewBox="0 0 24 24" fill="none" stroke="#E86320" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
+                  <svg className="w-full h-full" viewBox="0 0 24 24" fill="none" stroke="#E86320" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
                     <path d="M3,4 Q3,2 5,2 H18 Q20,2 20,4 V12 Q20,14 18,14 H12 L8,18 V14 H5 Q3,14 3,12 Z"/>
                     <line x1="9"  y1="6.5" x2="14" y2="11.5"/>
                     <line x1="14" y1="6.5" x2="9"  y2="11.5"/>
@@ -788,7 +788,7 @@ export default function LandingPage() {
               },
               {
                 icon: (
-                  <svg viewBox="0 0 24 24" fill="none" stroke="#E86320" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
+                  <svg className="w-full h-full" viewBox="0 0 24 24" fill="none" stroke="#E86320" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
                     <rect x="2"  y="15" width="4" height="6"  rx="0.5"/>
                     <rect x="9"  y="10" width="4" height="11" rx="0.5"/>
                     <rect x="16" y="6"  width="4" height="15" rx="0.5"/>
@@ -802,7 +802,7 @@ export default function LandingPage() {
               },
               {
                 icon: (
-                  <svg viewBox="0 0 24 24" fill="none" stroke="#E86320" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
+                  <svg className="w-full h-full" viewBox="0 0 24 24" fill="none" stroke="#E86320" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
                     <path d="M4,2 H14 V17 L12.5,15.5 L11,17 L9.5,15.5 L8,17 L6.5,15.5 L5,17 L4,17 Z"/>
                     <line x1="6.5" y1="6"  x2="11.5" y2="6"/>
                     <line x1="6.5" y1="9"  x2="11.5" y2="9"/>
@@ -825,9 +825,13 @@ export default function LandingPage() {
                   transitionDelay: painVisible ? `${i * 90}ms` : "0ms",
                 }}
               >
-                <span className="mb-3 block text-orange-500/80">{icon}</span>
-                <p className="text-sm font-semibold text-white mb-2 leading-snug">{title}</p>
-                <p className="text-xs text-white/45 leading-relaxed">{body}</p>
+                <div className="flex items-start gap-3">
+                  <span className="flex-shrink-0 w-6 h-6 text-orange-500/80 mt-0.5">{icon}</span>
+                  <div>
+                    <p className="text-sm font-semibold text-white mb-1.5 leading-snug">{title}</p>
+                    <p className="text-xs text-white/45 leading-relaxed">{body}</p>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
