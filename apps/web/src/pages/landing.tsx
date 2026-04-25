@@ -515,9 +515,11 @@ export default function LandingPage() {
     if (!el) return;
     const observer = new IntersectionObserver(
       ([entry]) => { if (entry.isIntersecting) { setPainVisible(true); observer.disconnect(); } },
-      { threshold: 0.15 }
+      { threshold: 0, rootMargin: "0px 0px -80px 0px" }
     );
     observer.observe(el);
+    // Fire immediately if already in viewport on mount
+    if (el.getBoundingClientRect().top < window.innerHeight) setPainVisible(true);
     return () => observer.disconnect();
   }, []);
 
@@ -832,8 +834,9 @@ export default function LandingPage() {
             ] as { icon: React.ReactNode; title: string; body: string }[]).map(({ icon, title, body }, i) => (
               <div
                 key={title}
-                className="px-5 py-5 rounded-xl border border-white/[0.07] border-l-2 border-l-orange-500/50 bg-white/[0.025] hover:bg-white/[0.04] transition-all duration-500"
+                className="px-5 py-5 rounded-xl border border-orange-500/25 border-l-2 border-l-orange-500/70 bg-orange-950/25 hover:bg-orange-950/35 transition-all duration-500"
                 style={{
+                  boxShadow: "inset 0 1px 0 rgba(249,90,24,0.08), 0 0 24px rgba(249,90,24,0.06)",
                   opacity: painVisible ? 1 : 0,
                   transform: painVisible ? "translateY(0)" : "translateY(16px)",
                   transitionDelay: painVisible ? `${i * 90}ms` : "0ms",
