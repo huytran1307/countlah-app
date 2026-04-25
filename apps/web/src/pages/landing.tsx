@@ -937,8 +937,8 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ── Social proof ────────────────────────────────────────────────────── */}
-      <section className="border-y border-white/[0.06]" style={{ background: "rgba(255,255,255,0.015)" }}>
+      {/* ── Social proof — ARCHIVED, restore when ready ────────────────────── */}
+      {false && <section className="border-y border-white/[0.06]" style={{ background: "rgba(255,255,255,0.015)" }}>
         <div className="max-w-6xl mx-auto px-4 py-20">
           <div className="text-center mb-12">
             <SectionLabel>Trusted by Singapore SMEs</SectionLabel>
@@ -990,7 +990,7 @@ export default function LandingPage() {
             </button>
           </div>
         </div>
-      </section>
+      </section>}
 
       {/* ── Pricing ─────────────────────────────────────────────────────────── */}
       <div className="relative">
