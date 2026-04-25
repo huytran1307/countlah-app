@@ -513,14 +513,15 @@ export default function LandingPage() {
   useEffect(() => {
     const el = painPointsRef.current;
     if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setPainVisible(true); observer.disconnect(); } },
-      { threshold: 0, rootMargin: "0px 0px -80px 0px" }
-    );
-    observer.observe(el);
-    // Fire immediately if already in viewport on mount
-    if (el.getBoundingClientRect().top < window.innerHeight) setPainVisible(true);
-    return () => observer.disconnect();
+    const check = () => {
+      if (el.getBoundingClientRect().top < window.innerHeight * 0.88) {
+        setPainVisible(true);
+        window.removeEventListener("scroll", check);
+      }
+    };
+    check();
+    window.addEventListener("scroll", check, { passive: true });
+    return () => window.removeEventListener("scroll", check);
   }, []);
 
   // ── Parallax blobs ──────────────────────────────────────────────────────────
