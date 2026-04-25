@@ -36,7 +36,7 @@ function CountlahLogo({ className }: { className?: string }) {
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
-const SLOTS = 3;
+// const SLOTS = 3; // archived with scarcity pill
 
 interface Service {
   id: string;
@@ -728,18 +728,16 @@ export default function LandingPage() {
               </button>
             </div>
 
-            {/* Scarcity pill — dot + text centred as a flex group */}
+            {/* Scarcity pill — ARCHIVED, restore when needed:
             <div className="flex justify-center md:justify-start mb-8">
               <div
                 className="inline-flex items-center justify-center h-8 rounded-full bg-orange-500/10 border border-orange-500/25 overflow-hidden"
                 style={{ width: "32px", animation: "pillExpand 9s cubic-bezier(0.4,0,0.2,1) infinite" }}
               >
-                {/* Dot: in-flow so it stays centred with the text group */}
                 <span
                   className="w-2 h-2 rounded-full bg-orange-500 flex-shrink-0"
                   style={{ animation: "dotPulse 2.2s ease-in-out infinite" }}
                 />
-                {/* Text: max-width animates from 0 → visible; overflow clips during collapse */}
                 <span
                   className="overflow-hidden whitespace-nowrap text-orange-300 text-xs font-medium"
                   style={{ animation: "textExpand 9s ease-in-out infinite" }}
@@ -748,6 +746,7 @@ export default function LandingPage() {
                 </span>
               </div>
             </div>
+            */}
 
             <div className="flex flex-wrap items-center justify-center md:justify-start gap-x-5 gap-y-2 text-white/30 text-xs font-medium">
               {["CA Singapore", "SCTP Accredited", "PDPA Compliant", "Est. 2013"].map((badge, i, arr) => (
@@ -758,35 +757,6 @@ export default function LandingPage() {
               ))}
             </div>
 
-          </div>
-
-          {/* Right: animated visual */}
-          <div ref={heroVisualRef} className="flex flex-col items-center gap-8 will-change-transform">
-            <CountlahSymbolHero />
-            <HeroDashboard />
-          </div>
-
-        </div>
-      </section>
-
-      {/* ── Pain Points ────────────────────────────────────────────────────── */}
-      <section className="max-w-6xl mx-auto px-4 py-20">
-        <div className="grid md:grid-cols-[5fr_7fr] gap-12 lg:gap-20 items-start">
-
-          {/* Left: headline */}
-          <div className="md:sticky md:top-28">
-            <div className="inline-flex items-center gap-2.5 mb-7">
-              <div className="w-7 h-px bg-orange-500/60" />
-              <span className="text-[11px] font-semibold tracking-widest text-white/40 uppercase">Sound familiar?</span>
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-white leading-[1.15] mb-5">
-              Running a business is hard enough.{" "}
-              <span className="gradient-primary-text">Your accountant shouldn't make it harder.</span>
-            </h2>
-            <p className="text-white/45 text-base leading-relaxed">
-              Most Singapore SME owners juggle their own books, chase deadlines they barely understand, and get zero proactive advice from their accountant.{" "}
-              <span className="text-white/65">That ends here.</span>
-            </p>
           </div>
 
           {/* Right: pain point cards */}
@@ -844,6 +814,35 @@ export default function LandingPage() {
                 <p className="text-xs text-white/45 leading-relaxed">{body}</p>
               </div>
             ))}
+          </div>
+
+        </div>
+      </section>
+
+      {/* ── Pain Points ────────────────────────────────────────────────────── */}
+      <section className="max-w-6xl mx-auto px-4 py-20">
+        <div className="grid md:grid-cols-[5fr_7fr] gap-12 lg:gap-20 items-center">
+
+          {/* Left: headline */}
+          <div className="md:sticky md:top-28">
+            <div className="inline-flex items-center gap-2.5 mb-7">
+              <div className="w-7 h-px bg-orange-500/60" />
+              <span className="text-[11px] font-semibold tracking-widest text-white/40 uppercase">Sound familiar?</span>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold text-white leading-[1.15] mb-5">
+              Running a business is hard enough.{" "}
+              <span className="gradient-primary-text">Your accountant shouldn't make it harder.</span>
+            </h2>
+            <p className="text-white/45 text-base leading-relaxed">
+              Most Singapore SME owners juggle their own books, chase deadlines they barely understand, and get zero proactive advice from their accountant.{" "}
+              <span className="text-white/65">That ends here.</span>
+            </p>
+          </div>
+
+          {/* Right: animated visual */}
+          <div ref={heroVisualRef} className="flex flex-col items-center gap-8 will-change-transform">
+            <CountlahSymbolHero />
+            <HeroDashboard />
           </div>
 
         </div>
