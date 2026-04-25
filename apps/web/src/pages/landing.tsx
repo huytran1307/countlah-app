@@ -508,7 +508,7 @@ export default function LandingPage() {
 
   // ── Pain points scroll reveal ───────────────────────────────────────────────
   const painPointsRef = useRef<HTMLDivElement>(null);
-  const [painVisible, setPainVisible] = useState(false);
+  const [painVisible, setPainVisible] = useState(true);
 
   useEffect(() => {
     const el = painPointsRef.current;
