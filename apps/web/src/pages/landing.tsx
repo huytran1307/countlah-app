@@ -706,11 +706,6 @@ export default function LandingPage() {
               <span className="gradient-primary-text">we run your numbers</span>
             </h1>
 
-            <p className="text-white/50 text-lg leading-relaxed mb-10">
-              You didn't start a business to live in spreadsheets.{" "}
-              <span className="text-white/70">Let us handle every number</span>{" "}
-              — so you get back to running yours.
-            </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-3 mb-5">
               <a
