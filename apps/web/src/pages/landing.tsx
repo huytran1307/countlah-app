@@ -764,8 +764,12 @@ export default function LandingPage() {
             {([
               {
                 icon: (
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#E86320" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="11" cy="14" r="8"/>
+                    <polyline points="11,10 11,14 14,16"/>
+                    <circle cx="19" cy="5" r="4"/>
+                    <line x1="19" y1="3.5" x2="19" y2="5.5"/>
+                    <circle cx="19" cy="6.8" r="0.45" fill="#E86320" stroke="none"/>
                   </svg>
                 ),
                 title: "Panic-filing before every IRAS deadline",
@@ -773,8 +777,10 @@ export default function LandingPage() {
               },
               {
                 icon: (
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M18.364 18.364A9 9 0 0 0 5.636 5.636m12.728 12.728A9 9 0 0 1 5.636 5.636m12.728 12.728L5.636 5.636" />
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#E86320" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M3,4 Q3,2 5,2 H18 Q20,2 20,4 V12 Q20,14 18,14 H12 L8,18 V14 H5 Q3,14 3,12 Z"/>
+                    <line x1="9"  y1="6.5" x2="14" y2="11.5"/>
+                    <line x1="14" y1="6.5" x2="9"  y2="11.5"/>
                   </svg>
                 ),
                 title: "Your accountant ghosts you when you need them",
@@ -782,8 +788,13 @@ export default function LandingPage() {
               },
               {
                 icon: (
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" />
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#E86320" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="2"  y="15" width="4" height="6"  rx="0.5"/>
+                    <rect x="9"  y="10" width="4" height="11" rx="0.5"/>
+                    <rect x="16" y="6"  width="4" height="15" rx="0.5"/>
+                    <line x1="1" y1="21" x2="23" y2="21"/>
+                    <path d="M2,2.5 Q2,1 3.5,1 Q5,1 5,2.5 Q5,4 3.5,4.8" strokeWidth="1.5"/>
+                    <circle cx="3.5" cy="6.2" r="0.45" fill="#E86320" stroke="none"/>
                   </svg>
                 ),
                 title: "No idea if your business is actually profitable",
@@ -791,8 +802,13 @@ export default function LandingPage() {
               },
               {
                 icon: (
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 0 1 3 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 0 0-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 0 1-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 0 0 3 15h-.75" />
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#E86320" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M4,2 H14 V17 L12.5,15.5 L11,17 L9.5,15.5 L8,17 L6.5,15.5 L5,17 L4,17 Z"/>
+                    <line x1="6.5" y1="6"  x2="11.5" y2="6"/>
+                    <line x1="6.5" y1="9"  x2="11.5" y2="9"/>
+                    <line x1="6.5" y1="12" x2="9.5"  y2="12"/>
+                    <line x1="18" y1="22" x2="18" y2="13"/>
+                    <polyline points="15,16 18,13 21,16"/>
                   </svg>
                 ),
                 title: "Overpaying tax because no one told you otherwise",
