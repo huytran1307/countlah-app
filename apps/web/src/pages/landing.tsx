@@ -701,9 +701,9 @@ export default function LandingPage() {
               ACRA-Registered · Singapore
             </div>
 
-            <h1 className="text-4xl md:text-5xl font-bold text-white tracking-tight leading-[1.1] mb-6">
-              Still filing your own{" "}
-              <span className="gradient-primary-text">GST at midnight?</span>
+            <h1 className="text-4xl md:text-5xl font-black text-white tracking-tight leading-[1.1] mb-6 uppercase">
+              You run the business,{" "}
+              <span className="gradient-primary-text">we run your numbers</span>
             </h1>
 
             <p className="text-white/50 text-lg leading-relaxed mb-10">
