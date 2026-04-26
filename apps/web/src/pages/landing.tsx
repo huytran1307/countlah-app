@@ -1131,14 +1131,16 @@ export default function LandingPage() {
         </div>
 
         {/* Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 items-start mb-6">
+        <div className="-mx-4 md:mx-0 mb-6">
+          <div className="flex md:grid md:grid-cols-3 md:gap-5 md:items-start overflow-x-auto snap-x snap-mandatory gap-3 px-4 md:px-0 pb-4 md:pb-0 scrollbar-hide"
+            style={{ WebkitOverflowScrolling: "touch" }}>
           {PLAN_DETAILS.map((plan) => {
             const bracketPrice = PRICE_BRACKETS[activeBracket][plan.id];
             const isCustom = bracketPrice === "Custom";
             return (
               <div
                 key={plan.id}
-                className={`rounded-2xl p-7 relative flex flex-col ${
+                className={`rounded-2xl p-7 relative flex flex-col flex-shrink-0 w-[82vw] sm:w-[60vw] md:w-auto snap-start ${
                   plan.popular
                     ? "border border-orange-500/50 bg-orange-500/[0.09] shadow-[0_0_48px_rgba(249,90,24,0.20),0_0_80px_rgba(249,90,24,0.08)] md:scale-[1.06] z-10"
                     : "glass"
@@ -1188,6 +1190,7 @@ export default function LandingPage() {
               </div>
             );
           })}
+          </div>
         </div>
 
         {/* Add-ons strip */}
