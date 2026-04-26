@@ -154,46 +154,101 @@ const TESTIMONIALS = [
   },
 ];
 
-const PLANS = [
+const PRICE_BRACKETS = [
+  { label: "Up to S$50,000",       solid: "S$50",   steady: "S$50",   atas: "S$50",    note: "For annual revenue up to S$50,000" },
+  { label: "S$50K – S$300K",       solid: "S$300",  steady: "S$400",  atas: "S$500",   note: "For annual revenue S$50,001 – S$300,000" },
+  { label: "S$300K – S$600K",      solid: "S$400",  steady: "S$600",  atas: "S$800",   note: "For annual revenue S$300,001 – S$600,000" },
+  { label: "S$600K – S$1,000,000", solid: "S$500",  steady: "S$800",  atas: "S$1,100", note: "For annual revenue S$600,001 – S$1,000,000" },
+  { label: "Above S$1,000,000",    solid: "Custom", steady: "Custom", atas: "Custom",  note: "Custom quote — let's talk" },
+];
+
+type PlanId = "solid" | "steady" | "atas";
+
+const PLAN_DETAILS: {
+  id: PlanId; tier: string; name: string; popular?: boolean; desc: string;
+  keyFeatures: string[]; inheritNote?: string;
+  accordions: { icon: string; label: string; items: { title: string; detail?: string; addonPrice?: string }[] }[];
+}[] = [
   {
-    name: "Essential",
-    price: 280,
-    popular: false,
-    tagline: "For sole proprietors & newly incorporated companies with simple books.",
-    features: [
-      "Monthly bookkeeping (up to 50 txn)",
-      "Annual GST filing",
-      "Corporate tax filing",
-      "Email support",
-      "Dedicated account manager",
+    id: "solid", tier: "Starter", name: "Solid",
+    desc: "Clean books, compliance done. Steady foundation for sole proprietors and new companies.",
+    keyFeatures: ["Bookkeeping & bank reconciliation", "AR & AP ageing reports", "Monthly financial statements", "Annual GST & corporate tax filing", "Dedicated account manager"],
+    accordions: [
+      { icon: "📚", label: "Bookkeeping & accounts", items: [
+        { title: "General bookkeeping", detail: "Daily transactions, bank reconciliations, ledger, Fixed Assets Register & depreciation" },
+        { title: "Accounts receivable", detail: "Monthly AR ageing report" },
+        { title: "Accounts payable", detail: "Supplier invoice recording & monthly AP ageing report" },
+      ]},
+      { icon: "📊", label: "Reporting & support", items: [
+        { title: "Monthly financial statements", detail: "P&L and balance sheet delivered clean every month" },
+        { title: "Dedicated account manager", detail: "Email support, response within 24 hours" },
+        { title: "Complimentary onboarding", detail: "Financial health analysis, CPF account setup, IR8A filing" },
+      ]},
+      { icon: "🗓️", label: "Tax & compliance", items: [
+        { title: "Annual GST filing", detail: "Preparation, review, and IRAS submission" },
+        { title: "Corporate income tax filing", detail: "Form C-S / Form C annually" },
+      ]},
+      { icon: "➕", label: "Add-ons available", items: [
+        { title: "Payroll processing", addonPrice: "S$30 / employee / month", detail: "Salary processing, CPF, payslips. IR8A complimentary." },
+        { title: "Company incorporation", addonPrice: "S$500 (new) · S$300 (renewal)", detail: "Full ACRA registration with all statutory documents." },
+        { title: "Individual tax filing", addonPrice: "S$200 / consultation", detail: "Personal income tax returns for directors & individuals." },
+        { title: "Shares transfer", addonPrice: "S$100 / transfer", detail: "Stamp duty computation and IRAS filing included." },
+      ]},
     ],
   },
   {
-    name: "Professional",
-    price: 680,
-    popular: true,
-    tagline: "For growing SMEs with employees, higher transaction volumes, and bigger ambitions.",
-    features: [
-      "Monthly bookkeeping (up to 200 txn)",
-      "GST filing (quarterly)",
-      "Annual corporate tax + XBRL",
-      "Payroll (up to 10 staff)",
-      "Priority email & WhatsApp support",
-      "Monthly P&L report",
+    id: "steady", tier: "Growth", name: "Steady", popular: true,
+    desc: "Tax sorted, invoices managed, books on point. Built for growing SMEs with bigger ambitions.",
+    keyFeatures: ["Everything in Solid", "Quarterly GST filing & compliance", "Corporate tax + XBRL filing", "Vendor payment processing", "ACRA corporate secretarial", "Monthly P&L report"],
+    inheritNote: "Includes everything in Solid",
+    accordions: [
+      { icon: "🥂", label: "AR & customer management", items: [
+        { title: "Customer & supplier masterdata", detail: "Billing support, invoice management, monthly statements of account" },
+        { title: "AR collections & dunning", detail: "Monthly SOA, arrears follow-up, cash collection support" },
+        { title: "Vendor payment processing", detail: "Supplier payments coordinated and reconciled monthly" },
+      ]},
+      { icon: "🗓️", label: "Tax & compliance", items: [
+        { title: "Quarterly GST filing & compliance", detail: "Preparation, review, and quarterly IRAS submission" },
+        { title: "Annual corporate tax + XBRL", detail: "Full XBRL tagging and ACRA annual return submission" },
+        { title: "Tax planning & optimisation", detail: "Proactive strategies to reduce your tax liability legally" },
+      ]},
+      { icon: "🏢", label: "Corporate secretarial", items: [
+        { title: "Inventory management", detail: "Masterdata, standard & selling price setup, GST treatment mapping" },
+        { title: "ACRA corporate secretarial", detail: "Statutory registers, AGM documents, board resolutions, annual returns" },
+      ]},
+      { icon: "📋", label: "Reporting & support", items: [
+        { title: "Monthly P&L report", detail: "Delivered clean every month, ready for your review" },
+        { title: "Priority WhatsApp & email support", detail: "Response within 4 business hours" },
+      ]},
+      { icon: "➕", label: "Add-ons available", items: [
+        { title: "Payroll processing", addonPrice: "S$30 / employee / month", detail: "Salary processing, CPF, payslips. IR8A complimentary." },
+        { title: "Individual tax filing", addonPrice: "S$200 / consultation", detail: "Personal income tax for directors & individuals." },
+        { title: "Shares transfer", addonPrice: "S$100 / transfer", detail: "Stamp duty computation and IRAS filing." },
+        { title: "CFO advisory (ad-hoc)", addonPrice: "By arrangement", detail: "Budgeting, forecasting, scenario planning on request." },
+      ]},
     ],
   },
   {
-    name: "Premium",
-    price: 1280,
-    popular: false,
-    tagline: "For established businesses that need full-service financial management and strategic advice.",
-    features: [
-      "Unlimited bookkeeping",
-      "GST, tax & XBRL filing",
-      "Payroll (up to 30 staff)",
-      "Monthly CFO advisory call",
-      "Cash flow forecasting",
-      "Dedicated account manager",
+    id: "atas", tier: "Scale", name: "Atas",
+    desc: "Full CFO-level visibility. KPIs, dashboards, and strategic advice for established businesses.",
+    keyFeatures: ["Everything in Steady", "Monthly KPI & financial dashboards", "Month-on-month P&L commentaries", "Cash flow optimisation", "Monthly CFO advisory call"],
+    inheritNote: "Includes everything in Solid + Steady",
+    accordions: [
+      { icon: "📈", label: "Management advisory", items: [
+        { title: "Monthly KPI & financial dashboards", detail: "Custom dashboards tracking the metrics that matter most" },
+        { title: "Month-on-month P&L commentaries", detail: "Written analysis — not just numbers, but context" },
+        { title: "Financial key metrics analysis", detail: "Margins, burn rate, working capital ratios — flagged proactively" },
+        { title: "Unlimited bookkeeping", detail: "No transaction cap, handles high-volume operations" },
+      ]},
+      { icon: "💡", label: "CFO services", items: [
+        { title: "Monthly CFO advisory call", detail: "30-min strategy call with your dedicated finance advisor" },
+        { title: "Cash flow & working capital optimisation", detail: "Proactive cash flow forecasting and liquidity advisory (ad-hoc)" },
+        { title: "Budgeting, forecasting & scenario planning", detail: "Annual budgets, rolling forecasts, what-if modelling (ad-hoc)" },
+      ]},
+      { icon: "➕", label: "Add-ons available", items: [
+        { title: "Payroll (up to 30 staff)", addonPrice: "S$30 / employee / month", detail: "Full payroll, CPF, payslips, annual IR8A included." },
+        { title: "Company incorporation", addonPrice: "S$500 (new) · S$300 (renewal)", detail: "Full ACRA registration with all statutory documents." },
+      ]},
     ],
   },
 ];
@@ -506,6 +561,11 @@ export default function LandingPage() {
   const [testimonialIndex, setTestimonialIndex] = useState(0);
   const touchStartX = useRef<number | null>(null);
 
+  // ── Pricing state ────────────────────────────────────────────────────────────
+  const [activeBracket, setActiveBracket] = useState(1);
+  const [pricingModal, setPricingModal] = useState<PlanId | null>(null);
+  const [openAccordions, setOpenAccordions] = useState<Record<string, number[]>>({ solid: [0], steady: [0], atas: [0] });
+
   // ── Pain points scroll reveal ───────────────────────────────────────────────
   const painPointsRef = useRef<HTMLDivElement>(null);
   const [painVisible, setPainVisible] = useState(true);
@@ -575,14 +635,14 @@ export default function LandingPage() {
 
   // ESC key closes any modal
   useEffect(() => {
-    const handler = (e: KeyboardEvent) => { if (e.key === "Escape") setActiveModal(null); };
+    const handler = (e: KeyboardEvent) => { if (e.key === "Escape") { setActiveModal(null); setPricingModal(null); } };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
   }, []);
 
   // Body scroll lock while any modal is open
   useEffect(() => {
-    document.body.style.overflow = activeModal ? "hidden" : "";
+    document.body.style.overflow = (activeModal || pricingModal) ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
   }, [activeModal]);
 
@@ -1020,62 +1080,134 @@ export default function LandingPage() {
         <div className="absolute inset-0 gradient-animated-bg" />
         <div className="absolute inset-0 border-y border-white/[0.06]" />
       <section id="pricing" className="relative max-w-6xl mx-auto px-4 py-20">
-        <div className="text-center mb-12">
+
+        {/* Header */}
+        <div className="text-center mb-10">
           <SectionLabel>Simple pricing</SectionLabel>
           <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight mb-3">
             No surprises. No hidden fees.
           </h2>
-          <p className="text-white/40 text-base">
+          <p className="text-white/40 text-base max-w-md mx-auto mb-2">
             All plans include a dedicated account manager. Cancel anytime — no lock-in contracts.
+          </p>
+          <p className="text-orange-400/80 text-sm font-medium">
+            Your monthly fee scales with your revenue — you always pay a fair rate.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 items-start">
-          {PLANS.map((plan) => (
-            <div
-              key={plan.name}
-              className={`rounded-2xl p-7 relative flex flex-col ${
-                plan.popular
-                  ? "border border-orange-500/50 bg-orange-500/[0.09] shadow-[0_0_48px_rgba(249,90,24,0.20),0_0_80px_rgba(249,90,24,0.08)] md:scale-[1.06] z-10"
-                  : "glass"
-              }`}
-            >
-              {plan.popular && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                  <span className="gradient-primary text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full">
-                    Most Popular
-                  </span>
-                </div>
-              )}
+        {/* Revenue bracket stepper */}
+        <div className="flex flex-col items-center gap-3 mb-10">
+          <p className="text-[11px] font-semibold tracking-widest text-white/40 uppercase">Your annual revenue</p>
+          <div className="inline-flex items-center rounded-full overflow-hidden shadow-[0_4px_24px_rgba(249,90,24,0.35)]" style={{ background: "#f97316" }}>
+            <button
+              disabled={activeBracket === 0}
+              onClick={() => setActiveBracket(b => b - 1)}
+              className="w-11 h-11 flex items-center justify-center text-white text-lg font-light flex-shrink-0 transition-colors disabled:opacity-35 disabled:cursor-default"
+              style={{ background: "rgba(0,0,0,0.18)" }}
+              onMouseEnter={e => (e.currentTarget.style.background = "rgba(0,0,0,0.30)")}
+              onMouseLeave={e => (e.currentTarget.style.background = "rgba(0,0,0,0.18)")}
+            >−</button>
+            <span className="px-6 text-sm font-semibold text-white whitespace-nowrap min-w-[200px] text-center select-none">
+              {PRICE_BRACKETS[activeBracket].label}
+            </span>
+            <button
+              disabled={activeBracket === PRICE_BRACKETS.length - 1}
+              onClick={() => setActiveBracket(b => b + 1)}
+              className="w-11 h-11 flex items-center justify-center text-white text-lg font-light flex-shrink-0 transition-colors disabled:opacity-35 disabled:cursor-default"
+              style={{ background: "rgba(0,0,0,0.18)" }}
+              onMouseEnter={e => (e.currentTarget.style.background = "rgba(0,0,0,0.30)")}
+              onMouseLeave={e => (e.currentTarget.style.background = "rgba(0,0,0,0.18)")}
+            >+</button>
+          </div>
+          <div className="flex gap-1.5">
+            {PRICE_BRACKETS.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setActiveBracket(i)}
+                className={`rounded-full transition-all duration-200 ${i === activeBracket ? "w-4 h-1.5 bg-orange-500" : "w-1.5 h-1.5 bg-white/20 hover:bg-white/40"}`}
+              />
+            ))}
+          </div>
+        </div>
 
-              <div className="mb-6">
-                <h3 className="text-white font-bold text-base mb-1">{plan.name}</h3>
-                <p className="text-white/35 text-xs leading-relaxed mb-4">{plan.tagline}</p>
-                <div className="flex items-baseline gap-1">
-                  <span className="text-3xl font-bold text-white">S${plan.price.toLocaleString()}</span>
-                  <span className="text-white/35 text-sm font-medium">/ mo</span>
-                </div>
-              </div>
-
-              <div className="flex flex-col gap-3 flex-1 mb-7">
-                {plan.features.map((f) => (
-                  <CheckItem key={f}>{f}</CheckItem>
-                ))}
-              </div>
-
-              <a
-                href={CONSULTATION_URL}
-                className={`w-full text-center py-3 rounded-xl text-sm font-semibold transition-all duration-200 hover:opacity-90 active:scale-[0.98] ${
+        {/* Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 items-start mb-6">
+          {PLAN_DETAILS.map((plan) => {
+            const bracketPrice = PRICE_BRACKETS[activeBracket][plan.id];
+            const isCustom = bracketPrice === "Custom";
+            return (
+              <div
+                key={plan.id}
+                className={`rounded-2xl p-7 relative flex flex-col ${
                   plan.popular
-                    ? "gradient-primary glow-primary text-white"
-                    : "border border-white/[0.12] hover:border-white/25 text-white/70 hover:text-white hover:bg-white/[0.04]"
+                    ? "border border-orange-500/50 bg-orange-500/[0.09] shadow-[0_0_48px_rgba(249,90,24,0.20),0_0_80px_rgba(249,90,24,0.08)] md:scale-[1.06] z-10"
+                    : "glass"
                 }`}
               >
-                Get Started
-              </a>
-            </div>
-          ))}
+                {plan.popular && (
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                    <span className="gradient-primary text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full whitespace-nowrap">
+                      Most Popular
+                    </span>
+                  </div>
+                )}
+
+                <p className="text-orange-400/70 text-[11px] font-semibold uppercase tracking-widest mb-1">{plan.tier}</p>
+                <h3 className="text-white font-bold text-xl mb-1.5">{plan.name}</h3>
+                <p className="text-white/35 text-xs leading-relaxed mb-4">{plan.desc}</p>
+
+                <p className="text-[10px] text-white/25 uppercase tracking-wide mb-1">From</p>
+                {isCustom ? (
+                  <p className="text-xl font-semibold text-orange-400 mb-1">Let's talk</p>
+                ) : (
+                  <div className="flex items-baseline gap-1 mb-1">
+                    <span className="text-3xl font-bold text-white">{bracketPrice}</span>
+                    <span className="text-white/35 text-sm font-medium">/ month</span>
+                  </div>
+                )}
+                <p className="text-[11px] text-white/25 mb-5">{PRICE_BRACKETS[activeBracket].note}</p>
+
+                <div className="h-px bg-white/[0.07] mb-5" />
+
+                <div className="flex flex-col gap-2.5 flex-1 mb-6">
+                  {plan.keyFeatures.map((f) => (
+                    <CheckItem key={f}>{f}</CheckItem>
+                  ))}
+                </div>
+
+                <button
+                  onClick={() => { setPricingModal(plan.id); setOpenAccordions(prev => ({ ...prev, [plan.id]: [0] })); }}
+                  className={`w-full text-center py-3 rounded-xl text-sm font-semibold transition-all duration-200 hover:opacity-90 active:scale-[0.98] ${
+                    plan.popular
+                      ? "gradient-primary glow-primary text-white"
+                      : "border border-white/[0.12] hover:border-white/25 text-white/70 hover:text-white hover:bg-white/[0.04]"
+                  }`}
+                >
+                  See what's included →
+                </button>
+              </div>
+            );
+          })}
         </div>
+
+        {/* Add-ons strip */}
+        <div className="rounded-xl border border-white/[0.07] bg-white/[0.02] px-5 py-4 flex flex-wrap items-center gap-x-6 gap-y-2">
+          <p className="text-xs font-semibold text-white flex-shrink-0">Popular add-ons</p>
+          <div className="flex flex-wrap gap-x-1 gap-y-2 items-center text-xs text-white/35">
+            {[
+              { label: "Payroll", price: "S$30/employee/mo" },
+              { label: "Incorporation", price: "S$500" },
+              { label: "Personal tax", price: "S$200/consult" },
+              { label: "Shares transfer", price: "S$100" },
+            ].map(({ label, price }, i, arr) => (
+              <span key={label} className="flex items-center gap-1">
+                <span>{label} <span className="text-orange-400 font-medium">{price}</span></span>
+                {i < arr.length - 1 && <span className="text-white/15 mx-2">·</span>}
+              </span>
+            ))}
+          </div>
+        </div>
+
       </section>
       </div>
 
@@ -1442,6 +1574,118 @@ export default function LandingPage() {
           </div>
         </div>
       </Modal>
+
+      {/* ── Pricing plan modal ───────────────────────────────────────────────── */}
+      {pricingModal && (() => {
+        const plan = PLAN_DETAILS.find(p => p.id === pricingModal)!;
+        const bracketPrice = PRICE_BRACKETS[activeBracket][pricingModal];
+        const isCustom = bracketPrice === "Custom";
+        return (
+          <div
+            className="fixed inset-0 z-[200] flex items-end sm:items-center justify-center sm:p-5"
+            style={{ background: "rgba(0,0,0,0.75)", backdropFilter: "blur(4px)" }}
+            onClick={() => setPricingModal(null)}
+          >
+            <div
+              className="w-full max-w-lg max-h-[92vh] sm:max-h-[85vh] flex flex-col rounded-t-2xl sm:rounded-2xl overflow-hidden border border-white/[0.10]"
+              style={{ background: "#1c1c28" }}
+              onClick={e => e.stopPropagation()}
+            >
+              {/* Drag handle (mobile) */}
+              <div className="w-9 h-1 rounded-full bg-white/15 mx-auto mt-2.5 flex-shrink-0 sm:hidden" />
+
+              {/* Header */}
+              <div className="flex items-start justify-between px-6 py-5 border-b border-white/[0.07] flex-shrink-0">
+                <div>
+                  <span className="inline-block text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full bg-orange-500/15 border border-orange-500/25 text-orange-400 mb-2">
+                    {plan.popular ? "★ Most Popular · " : ""}{plan.tier}
+                  </span>
+                  <h3 className="text-xl font-semibold text-white mb-0.5">{plan.name}</h3>
+                  <p className="text-xs text-white/40">{plan.desc}</p>
+                </div>
+                <button
+                  onClick={() => setPricingModal(null)}
+                  className="w-8 h-8 flex items-center justify-center rounded-full border border-white/[0.12] text-white/40 hover:text-white hover:border-white/25 transition-colors flex-shrink-0 mt-0.5"
+                >✕</button>
+              </div>
+
+              {/* Scrollable body */}
+              <div className="flex-1 overflow-y-auto">
+                {/* Price block */}
+                <div className="mx-6 mt-4 rounded-xl border border-white/[0.07] bg-white/[0.03] px-4 py-3">
+                  <div className="flex items-baseline gap-2 mb-1">
+                    {isCustom
+                      ? <span className="text-xl font-semibold text-orange-400">Custom quote</span>
+                      : <span className="text-2xl font-semibold text-white">{bracketPrice} <span className="text-sm font-normal text-white/35">/ month</span></span>
+                    }
+                  </div>
+                  <p className="text-xs text-white/30">{PRICE_BRACKETS[activeBracket].note}</p>
+                </div>
+
+                {/* Accordions */}
+                <div className="px-6 pt-3 pb-4">
+                  {plan.inheritNote && (
+                    <div className="flex items-center gap-2.5 py-3 border-b border-white/[0.06] text-xs text-white/35 italic">
+                      <span className="text-white/20 text-[10px]">⬤</span>{plan.inheritNote}
+                    </div>
+                  )}
+                  {plan.accordions.map((acc, accIdx) => {
+                    const isOpen = (openAccordions[plan.id] ?? []).includes(accIdx);
+                    return (
+                      <div key={acc.label} className="border-b border-white/[0.06] last:border-none">
+                        <button
+                          onClick={() => setOpenAccordions(prev => {
+                            const cur = prev[plan.id] ?? [];
+                            return { ...prev, [plan.id]: isOpen ? cur.filter(i => i !== accIdx) : [...cur, accIdx] };
+                          })}
+                          className="w-full flex items-center justify-between py-3 text-left"
+                        >
+                          <div className="flex items-center gap-2.5">
+                            <span className="text-sm w-5 text-center">{acc.icon}</span>
+                            <span className="text-sm font-medium text-white">{acc.label}</span>
+                            <span className="text-[10px] text-white/30 bg-white/[0.06] px-1.5 py-0.5 rounded-full">{acc.items.length}</span>
+                          </div>
+                          <svg className={`w-3.5 h-3.5 text-white/30 transition-transform duration-200 flex-shrink-0 ${isOpen ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="m19 9-7 7-7-7" />
+                          </svg>
+                        </button>
+                        {isOpen && (
+                          <ul className="pb-3 flex flex-col">
+                            {acc.items.map(item => (
+                              <li key={item.title} className="flex items-start gap-2.5 py-2.5 border-b border-white/[0.04] last:border-none">
+                                {item.addonPrice
+                                  ? <span className="text-orange-400 text-xs mt-0.5 flex-shrink-0 font-bold">+</span>
+                                  : <svg className="w-3 h-3 text-green-400 flex-shrink-0 mt-1" fill="none" viewBox="0 0 12 10"><path d="M1 5l3.5 3.5L11 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                                }
+                                <div>
+                                  <p className="text-sm font-medium text-white">{item.title}</p>
+                                  {item.addonPrice && <p className="text-xs text-orange-400/80 font-medium mt-0.5">{item.addonPrice}</p>}
+                                  {item.detail && <p className="text-xs text-white/35 mt-0.5 leading-relaxed">{item.detail}</p>}
+                                </div>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Footer */}
+              <div className="px-6 py-4 border-t border-white/[0.07] flex-shrink-0" style={{ background: "#1c1c28" }}>
+                <a
+                  href={CONSULTATION_URL}
+                  className="w-full block text-center py-3.5 rounded-xl text-sm font-semibold gradient-primary glow-primary text-white transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
+                >
+                  Get started with {plan.name} →
+                </a>
+                <p className="text-center text-[11px] text-white/25 mt-2">No lock-in contracts · Cancel anytime</p>
+              </div>
+            </div>
+          </div>
+        );
+      })()}
 
     </div>
   );
